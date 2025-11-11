@@ -1,0 +1,8 @@
+# Python Package Requirements
+# This file lists all the external packages your project needs
+# Currently, this project uses only Python's built-in libraries
+# so this file is empty, but it's good practice to include it!
+
+# To install packages in the future, add them here like:
+# requests==2.31.0
+# numpy==1.24.0
