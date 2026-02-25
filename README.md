@@ -1,2 +1,5 @@
-# First-Repo-For-Practice
-I am beginner , SO it is my first repo or experiment on github.
+# First Repo For Practice
+
+Welcome! 👋
+
+I am a beginner, and this is my first repository and experiment on GitHub.
