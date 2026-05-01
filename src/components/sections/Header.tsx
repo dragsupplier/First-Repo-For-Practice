@@ -258,21 +258,34 @@ function MegaMenu({
   children: React.ReactNode
 }) {
   return (
-    <div
-      onMouseLeave={onClose}
-      className={cn(
-        'absolute inset-x-0 top-full origin-top transition-[opacity,transform] duration-200',
-        visible
-          ? 'pointer-events-auto translate-y-0 opacity-100'
-          : 'pointer-events-none -translate-y-1 opacity-0',
-      )}
-    >
-      <div className="mx-auto max-w-7xl px-5 pt-2 md:px-8">
-        <div className="overflow-hidden rounded-md border border-line bg-white shadow-xl">
-          {children}
+    <>
+      {/* Backdrop dim */}
+      <div
+        aria-hidden
+        className={cn(
+          'fixed inset-0 top-[68px] -z-10 transition-opacity duration-200 md:top-[105px]',
+          visible
+            ? 'pointer-events-auto bg-fg/15 backdrop-blur-[2px] opacity-100'
+            : 'pointer-events-none opacity-0',
+        )}
+        onClick={onClose}
+      />
+      <div
+        onMouseLeave={onClose}
+        className={cn(
+          'absolute inset-x-0 top-full origin-top transition-[opacity,transform] duration-200',
+          visible
+            ? 'pointer-events-auto translate-y-0 opacity-100'
+            : 'pointer-events-none -translate-y-1 opacity-0',
+        )}
+      >
+        <div className="mx-auto max-w-7xl px-5 pt-2 md:px-8">
+          <div className="overflow-hidden rounded-md border border-line bg-white shadow-2xl ring-1 ring-fg/[0.04]">
+            {children}
+          </div>
         </div>
       </div>
-    </div>
+    </>
   )
 }
 

@@ -1,11 +1,12 @@
 @import "tailwindcss";
 
 @theme {
-  /* Brand */
+  /* Single-hue brand system */
   --color-brand-50:  #eef4ff;
   --color-brand-100: #dbeafe;
   --color-brand-200: #b8d0fb;
   --color-brand-300: #84a9f6;
+  --color-brand-400: #5a83ee;
   --color-brand-500: #3a64dc;
   --color-brand-600: #2348c2;
   --color-brand-700: #1d3aa5;
@@ -27,18 +28,6 @@
   --color-fg-4:      #5b6473;
   --color-fg-5:      #8b92a1;
 
-  /* Segment accents (used as gradient stops, not floods) */
-  --seg-1-a: #2348c2;     /* Students  — brand blue */
-  --seg-1-b: #5b6cff;
-  --seg-2-a: #1c3284;     /* Colleges  — deep navy */
-  --seg-2-b: #2a55b8;
-  --seg-3-a: #0f766e;     /* Schools   — teal */
-  --seg-3-b: #2348c2;
-  --seg-4-a: #c2410c;     /* Businesses — warm coral */
-  --seg-4-b: #1d3aa5;
-  --seg-5-a: #166534;     /* Hiring    — green */
-  --seg-5-b: #1d3aa5;
-
   /* Inverted */
   --color-ink-950:   #0b1220;
 
@@ -52,11 +41,7 @@
 }
 
 @layer base {
-  html {
-    -webkit-font-smoothing: antialiased;
-    text-rendering: optimizeLegibility;
-    background: var(--color-bg);
-  }
+  html { -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; }
   body {
     margin: 0;
     background: var(--color-bg);
@@ -64,7 +49,6 @@
     font-family: var(--font-sans);
     font-size: 16px;
     line-height: 1.55;
-    font-feature-settings: "ss01", "cv11";
   }
   ::selection { background: var(--color-brand-700); color: white; }
   h1, h2, h3, h4 {
@@ -82,7 +66,6 @@
 }
 
 .eyebrow {
-  font-family: var(--font-sans);
   font-size: 11px;
   font-weight: 600;
   letter-spacing: 0.12em;
@@ -100,61 +83,33 @@
   from { transform: translateX(0); }
   to   { transform: translateX(-50%); }
 }
-.animate-marquee { animation: marquee 60s linear infinite; }
+.animate-marquee { animation: marquee 70s linear infinite; }
 
-/* ---- Color hero & segment gradients (CSS mesh, no drawn shapes) ---- */
-
-/* Premium hero mesh — brand blue depth + subtle warm pull */
-.hero-mesh {
-  background-color: #0f1f4d;
+/* Single-hue brand mesh — used only on dark sections */
+.brand-mesh {
+  background-color: #142048;
   background-image:
-    radial-gradient(at 18% 22%, hsla(225, 90%, 62%, 0.55) 0px, transparent 55%),
-    radial-gradient(at 82% 12%, hsla(260, 78%, 64%, 0.45) 0px, transparent 55%),
-    radial-gradient(at 78% 88%, hsla(20, 90%, 58%, 0.30) 0px, transparent 55%),
-    radial-gradient(at 12% 92%, hsla(200, 95%, 55%, 0.32) 0px, transparent 55%);
+    radial-gradient(at 18% 20%, hsla(225, 70%, 38%, 0.55) 0px, transparent 55%),
+    radial-gradient(at 82% 88%, hsla(220, 80%, 22%, 0.65) 0px, transparent 55%),
+    radial-gradient(at 78% 14%, hsla(220, 60%, 50%, 0.35) 0px, transparent 55%);
 }
 
-/* Per-segment mesh — keep brand blue, accent shift per segment */
-.seg-1-mesh {
-  background-color: var(--seg-1-a);
-  background-image:
-    radial-gradient(at 20% 18%, color-mix(in oklab, var(--seg-1-b) 70%, transparent) 0px, transparent 55%),
-    radial-gradient(at 82% 86%, color-mix(in oklab, #1d3aa5 80%, transparent) 0px, transparent 55%),
-    radial-gradient(at 80% 18%, color-mix(in oklab, #5b85ff 60%, transparent) 0px, transparent 55%);
-}
-.seg-2-mesh {
-  background-color: var(--seg-2-a);
-  background-image:
-    radial-gradient(at 18% 20%, color-mix(in oklab, var(--seg-2-b) 70%, transparent) 0px, transparent 55%),
-    radial-gradient(at 85% 82%, color-mix(in oklab, #0a1142 90%, transparent) 0px, transparent 55%),
-    radial-gradient(at 78% 14%, color-mix(in oklab, #6b8eff 55%, transparent) 0px, transparent 55%);
-}
-.seg-3-mesh {
-  background-color: var(--seg-3-a);
-  background-image:
-    radial-gradient(at 18% 22%, color-mix(in oklab, var(--seg-3-b) 60%, transparent) 0px, transparent 55%),
-    radial-gradient(at 85% 88%, color-mix(in oklab, #134e4a 85%, transparent) 0px, transparent 55%),
-    radial-gradient(at 80% 14%, color-mix(in oklab, #2dd4bf 35%, transparent) 0px, transparent 55%);
-}
-.seg-4-mesh {
-  background-color: var(--seg-4-a);
-  background-image:
-    radial-gradient(at 16% 22%, color-mix(in oklab, var(--seg-4-b) 65%, transparent) 0px, transparent 55%),
-    radial-gradient(at 86% 84%, color-mix(in oklab, #7c2d12 75%, transparent) 0px, transparent 55%),
-    radial-gradient(at 78% 16%, color-mix(in oklab, #fb923c 40%, transparent) 0px, transparent 55%);
-}
-.seg-5-mesh {
-  background-color: var(--seg-5-a);
-  background-image:
-    radial-gradient(at 18% 22%, color-mix(in oklab, var(--seg-5-b) 62%, transparent) 0px, transparent 55%),
-    radial-gradient(at 84% 86%, color-mix(in oklab, #064e3b 85%, transparent) 0px, transparent 55%),
-    radial-gradient(at 78% 14%, color-mix(in oklab, #34d399 35%, transparent) 0px, transparent 55%);
-}
+/* Per-segment subtle variation — all in brand blue family, only intensity changes */
+.seg-1 { background: linear-gradient(135deg, #1d3aa5 0%, #2348c2 50%, #142048 100%); }
+.seg-2 { background: linear-gradient(135deg, #142048 0%, #1d3aa5 50%, #1c3284 100%); }
+.seg-3 { background: linear-gradient(135deg, #2348c2 0%, #1d3aa5 50%, #0f1f4d 100%); }
+.seg-4 { background: linear-gradient(135deg, #1c3284 0%, #142048 50%, #0f1f4d 100%); }
+.seg-5 { background: linear-gradient(135deg, #1d3aa5 0%, #1c3284 50%, #142048 100%); }
 
-/* Soft inner highlight on color cards */
 .color-card-edge {
   box-shadow:
-    inset 0 1px 0 rgba(255,255,255,0.18),
+    inset 0 1px 0 rgba(255,255,255,0.12),
     inset 0 0 0 1px rgba(255,255,255,0.06),
-    0 30px 60px -30px rgba(15,31,77,0.55);
+    0 24px 60px -28px rgba(15,31,77,0.45);
 }
+
+/* Capability accordion — clean, dense */
+.cap-row {
+  border-top: 1px solid var(--color-line);
+}
+.cap-row:last-child { border-bottom: 1px solid var(--color-line); }
