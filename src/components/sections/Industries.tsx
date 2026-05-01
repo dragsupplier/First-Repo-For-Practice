@@ -17,8 +17,17 @@ const INDUSTRIES = [
 
 export function Industries() {
   return (
-    <section id="industries" className="relative bg-ink-950 text-white">
-      <div className="mx-auto max-w-7xl px-5 py-16 md:px-8 md:py-24">
+    <section id="industries" className="relative overflow-hidden bg-ink-950 text-white">
+      {/* Subtle brand mesh wash for color depth (no drawn shapes) */}
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-0 opacity-60"
+        style={{
+          background:
+            'radial-gradient(at 12% 8%, hsla(225, 95%, 55%, 0.35) 0px, transparent 55%), radial-gradient(at 90% 92%, hsla(265, 80%, 50%, 0.25) 0px, transparent 55%)',
+        }}
+      />
+      <div className="relative mx-auto max-w-7xl px-5 py-16 md:px-8 md:py-24">
         <div className="grid grid-cols-12 items-end gap-6">
           <div className="col-span-12 lg:col-span-7">
             <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-white/55">

@@ -7,7 +7,7 @@ const PILLARS: Pillar[] = [
     tag: 'Delivery',
     title: 'Everything in-house.',
     body:
-      'Trainers, engineers and recruiters work under one roof. No subcontractors. No agency-of-agencies maze. The team that scopes is the team that ships.',
+      'Trainers, engineers and recruiters work under one roof. No subcontractors, no agency-of-agencies maze. The team that scopes is the team that ships.',
   },
   {
     tag: 'Accountability',
@@ -38,7 +38,7 @@ export function SignatureMoment() {
           <div className="grid grid-cols-12 items-end gap-6">
             <div className="col-span-12 lg:col-span-7">
               <p className="eyebrow">06 / Why Alphinix</p>
-              <h2 className="mt-4 font-display text-[28px] font-semibold leading-[1.08] tracking-[-0.02em] text-fg md:text-[36px] lg:text-[40px]">
+              <h2 className="mt-4 font-display text-[28px] font-semibold leading-[1.08] tracking-[-0.02em] text-fg md:text-[36px] lg:text-[44px]">
                 Quiet, accountable engagements.
               </h2>
             </div>
@@ -51,7 +51,6 @@ export function SignatureMoment() {
         </div>
       </div>
 
-      {/* Prose 2x2 — no cards, no borders boxing content */}
       <div className="mx-auto max-w-7xl px-5 py-16 md:px-8 md:py-20">
         <div className="grid grid-cols-12 gap-x-10 gap-y-10 md:gap-x-16">
           {PILLARS.map((p, i) => (
@@ -73,6 +72,33 @@ export function SignatureMoment() {
             </motion.div>
           ))}
         </div>
+
+        {/* Color callout band — adds visual punch without drawn shapes */}
+        <motion.div
+          initial={{ opacity: 0, y: 10 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: '-10%' }}
+          transition={{ duration: 0.5 }}
+          className="hero-mesh color-card-edge mt-16 grid grid-cols-12 items-center gap-8 overflow-hidden rounded-2xl px-7 py-10 text-white md:px-12 md:py-14"
+        >
+          <div className="col-span-12 md:col-span-8">
+            <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-white/65">
+              Founding principle
+            </p>
+            <p className="mt-4 font-display text-[24px] font-semibold leading-[1.25] tracking-[-0.018em] text-white md:text-[34px] lg:text-[38px]">
+              We're not five businesses in a trench coat — we're five
+              segments of one platform, quietly feeding each other.
+            </p>
+          </div>
+          <div className="col-span-12 flex items-center justify-end md:col-span-4">
+            <a
+              href="#contact"
+              className="inline-flex items-center gap-2 rounded-md bg-white px-5 py-3 text-[14px] font-semibold text-brand-950 transition-colors hover:bg-brand-50"
+            >
+              See the engagement model
+            </a>
+          </div>
+        </motion.div>
       </div>
     </section>
   )

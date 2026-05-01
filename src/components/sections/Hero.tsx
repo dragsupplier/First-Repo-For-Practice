@@ -1,157 +1,118 @@
 import { motion } from 'motion/react'
 import { ArrowRight, Phone } from 'lucide-react'
 
-const META_LINKS = [
-  { label: 'For Students',     sub: 'Industrial training & placement', href: '#audiences' },
-  { label: 'For Colleges',     sub: 'Campus operations & accreditation', href: '#audiences' },
-  { label: 'For Businesses',   sub: 'Engineering, AI, automation', href: '#audiences' },
-  { label: 'For Hiring Teams', sub: 'Permanent · contract · bulk', href: '#audiences' },
-]
-
-const PANEL_ROWS = [
-  { k: 'Train', v: 'Students, faculty and school teachers — through structured programs.' },
-  { k: 'Build', v: 'Software, infrastructure and labs — engineered by senior in-house teams.' },
-  { k: 'Place', v: 'Permanent, contract and bulk hiring — with pre-trained candidate supply.' },
+const QUICK_LINKS = [
+  { label: 'For Students',    sub: 'Training & placement',     href: '#audiences' },
+  { label: 'For Colleges',    sub: 'Academic operations',      href: '#audiences' },
+  { label: 'For Schools',     sub: 'STEM · ATL · AI labs',     href: '#audiences' },
+  { label: 'For Businesses',  sub: 'Engineering & AI',         href: '#audiences' },
+  { label: 'For Hiring Teams',sub: 'Recruitment services',     href: '#audiences' },
 ]
 
 export function Hero() {
   return (
-    <section className="relative bg-white">
-      <div className="mx-auto max-w-7xl px-5 pt-12 pb-14 md:px-8 md:pt-16 md:pb-20">
-        {/* Eyebrow */}
-        <motion.p
-          initial={{ opacity: 0, y: 4 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.4 }}
-          className="eyebrow"
-        >
-          Pune · Training · Technology · Recruitment
-        </motion.p>
-
-        {/* Anchored 7/5 grid */}
-        <div className="mt-7 grid grid-cols-12 gap-8 md:mt-10 md:gap-12">
-          {/* Headline + deck + CTAs (left 7) */}
-          <div className="col-span-12 lg:col-span-7">
-            <motion.h1
-              initial={{ opacity: 0, y: 8 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5 }}
-              className="font-display text-[36px] font-semibold leading-[1.05] tracking-[-0.02em] text-fg sm:text-[44px] md:text-[52px] lg:text-[60px]"
-            >
-              One partner for student training,
-              <br className="hidden md:block" />{' '}
-              <span className="text-brand-700">technology delivery</span> and
-              <br className="hidden md:block" />{' '}
-              talent hiring.
-            </motion.h1>
-
-            <motion.p
-              initial={{ opacity: 0, y: 8 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.1 }}
-              className="mt-6 max-w-2xl text-[16.5px] leading-[1.65] text-fg-3 md:text-[17.5px]"
-            >
-              Alphinix is a Pune-based partner that combines campus training,
-              in-house engineering, and recruitment under one accountable
-              team — replacing the four or five vendors institutions and
-              businesses were juggling.
-            </motion.p>
-
-            <motion.div
-              initial={{ opacity: 0, y: 8 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.18 }}
-              className="mt-8 flex flex-wrap items-center gap-3"
-            >
-              <a
-                href="#contact"
-                className="group inline-flex items-center gap-2 rounded-md bg-brand-700 px-5 py-3 text-[14.5px] font-semibold text-white transition-colors hover:bg-brand-800"
-              >
-                Request a proposal
-                <ArrowRight
-                  className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-0.5"
-                  strokeWidth={2.5}
-                />
-              </a>
-              <a
-                href="#audiences"
-                className="inline-flex items-center gap-2 rounded-md px-5 py-3 text-[14.5px] font-semibold text-fg ring-1 ring-line-2 transition-colors hover:bg-canvas"
-              >
-                Explore solutions
-              </a>
-              <a
-                href="tel:+910000000000"
-                className="ml-1 inline-flex items-center gap-2 text-[13.5px] font-semibold text-fg-2 hover:text-fg"
-              >
-                <Phone className="h-3.5 w-3.5" strokeWidth={2.5} />
-                Speak to a consultant
-              </a>
-            </motion.div>
-          </div>
-
-          {/* Side info panel (right 5 — narrower, subordinate) */}
-          <motion.aside
-            initial={{ opacity: 0, y: 8 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.2 }}
-            className="col-span-12 lg:col-span-5"
-          >
-            <div className="border border-line bg-canvas">
-              <div className="flex items-center justify-between border-b border-line px-5 py-3">
-                <p className="eyebrow">What we do</p>
-                <span className="font-mono text-[10.5px] text-fg-4">Index 01 / 03</span>
-              </div>
-              <ul>
-                {PANEL_ROWS.map((r, i) => (
-                  <li
-                    key={r.k}
-                    className={`flex items-baseline gap-5 px-5 py-4 ${
-                      i !== 0 ? 'border-t border-line' : ''
-                    }`}
-                  >
-                    <span className="w-12 shrink-0 font-mono text-[12px] font-semibold uppercase tracking-[0.12em] text-brand-700">
-                      {r.k}
-                    </span>
-                    <span className="text-[14px] leading-[1.55] text-fg-2">{r.v}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </motion.aside>
+    <section className="relative bg-canvas px-4 pt-6 pb-10 md:px-6 md:pt-10 md:pb-14">
+      <motion.div
+        initial={{ opacity: 0, y: 8 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5 }}
+        className="hero-mesh color-card-edge relative mx-auto max-w-[1400px] overflow-hidden rounded-2xl px-7 pt-12 pb-0 text-white md:px-14 md:pt-20"
+      >
+        {/* Top eyebrow row */}
+        <div className="flex flex-wrap items-center justify-between gap-3">
+          <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-white/65">
+            <span className="mr-2 inline-block h-1.5 w-1.5 rounded-full bg-brand-200 align-middle" />
+            Pune · Talent · Technology · Hiring
+          </p>
+          <p className="hidden font-mono text-[11px] uppercase tracking-[0.16em] text-white/45 md:block">
+            Established 2025 — A Pune-based platform
+          </p>
         </div>
 
-        {/* In-hero meta strip — 4 audience entries */}
+        {/* Headline */}
+        <motion.h1
+          initial={{ opacity: 0, y: 8 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.05 }}
+          className="mt-12 max-w-[18ch] font-display text-[44px] font-semibold leading-[1.02] tracking-[-0.025em] text-white md:text-[68px] lg:text-[84px]"
+        >
+          One partner for training, technology and hiring.
+        </motion.h1>
+
+        {/* Sub-deck + CTAs row (asymmetric — NOT a 50/50 split) */}
+        <div className="mt-9 flex flex-col gap-7 md:flex-row md:items-end md:justify-between">
+          <motion.p
+            initial={{ opacity: 0, y: 8 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.15 }}
+            className="max-w-[44ch] text-[16px] leading-[1.6] text-white/80 md:text-[17.5px]"
+          >
+            Alphinix combines campus training, in-house engineering and
+            recruitment under one accountable team — replacing the four or
+            five vendors institutions and businesses were juggling.
+          </motion.p>
+
+          <motion.div
+            initial={{ opacity: 0, y: 8 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.22 }}
+            className="flex flex-wrap items-center gap-3"
+          >
+            <a
+              href="#contact"
+              className="group inline-flex items-center gap-2 rounded-md bg-white px-5 py-3 text-[14.5px] font-semibold text-brand-950 transition-colors hover:bg-brand-50"
+            >
+              Request a proposal
+              <ArrowRight
+                className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-0.5"
+                strokeWidth={2.5}
+              />
+            </a>
+            <a
+              href="#audiences"
+              className="inline-flex items-center gap-2 rounded-md px-5 py-3 text-[14.5px] font-semibold text-white ring-1 ring-white/25 transition-colors hover:bg-white/10"
+            >
+              Explore solutions
+            </a>
+            <a
+              href="tel:+910000000000"
+              className="ml-1 inline-flex items-center gap-2 text-[13.5px] font-semibold text-white/85 hover:text-white"
+            >
+              <Phone className="h-3.5 w-3.5" strokeWidth={2.5} />
+              Speak to a consultant
+            </a>
+          </motion.div>
+        </div>
+
+        {/* In-card audience strip — corporate sub-nav */}
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ duration: 0.5, delay: 0.35 }}
-          className="mt-14 border-t border-line"
+          transition={{ duration: 0.5, delay: 0.32 }}
+          className="mt-14 grid grid-cols-2 border-t border-white/15 lg:grid-cols-5"
         >
-          <ul className="grid grid-cols-2 lg:grid-cols-4">
-            {META_LINKS.map((m, i) => (
-              <li
-                key={m.label}
-                className={`px-1 py-5 ${i !== 0 ? 'border-t border-line lg:border-l lg:border-t-0' : ''} ${
-                  i !== 1 || 'sm:border-t-0'
-                }`}
-              >
-                <a href={m.href} className="group block lg:px-5">
-                  <div className="flex items-center justify-between">
-                    <span className="font-display text-[16px] font-semibold tracking-tight text-fg group-hover:text-brand-700">
-                      {m.label}
-                    </span>
-                    <ArrowRight
-                      className="h-3.5 w-3.5 text-fg-4 transition-all duration-200 group-hover:translate-x-0.5 group-hover:text-brand-700"
-                      strokeWidth={2.25}
-                    />
-                  </div>
-                  <p className="mt-1 text-[12.5px] text-fg-4">{m.sub}</p>
-                </a>
-              </li>
-            ))}
-          </ul>
+          {QUICK_LINKS.map((m, i) => (
+            <a
+              key={m.label}
+              href={m.href}
+              className={`group block px-4 py-5 transition-colors hover:bg-white/[0.05] md:px-5 ${
+                i !== 0 ? 'border-t border-white/15 lg:border-l lg:border-t-0' : ''
+              } ${i === 1 ? 'sm:border-t-0' : ''}`}
+            >
+              <div className="flex items-center justify-between gap-2">
+                <span className="font-display text-[14px] font-semibold tracking-tight text-white md:text-[15px]">
+                  {m.label}
+                </span>
+                <ArrowRight
+                  className="h-3.5 w-3.5 text-white/55 transition-all duration-200 group-hover:translate-x-0.5 group-hover:text-white"
+                  strokeWidth={2.25}
+                />
+              </div>
+              <p className="mt-1 text-[12px] text-white/60">{m.sub}</p>
+            </a>
+          ))}
         </motion.div>
-      </div>
+      </motion.div>
     </section>
   )
 }
