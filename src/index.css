@@ -1,34 +1,51 @@
 @import "tailwindcss";
 
 @theme {
-  /* Brand: deep electric blue (anchor) */
+  /* Brand: refined deep electric blue */
   --color-brand-50:  #eef4ff;
   --color-brand-100: #d9e6ff;
   --color-brand-200: #b8d0ff;
   --color-brand-300: #8aaeff;
   --color-brand-400: #5b85ff;
-  --color-brand-500: #355fff;
-  --color-brand-600: #1f3df0;
-  --color-brand-700: #182dc7;
-  --color-brand-800: #1729a0;
+  --color-brand-500: #3a64ff;
+  --color-brand-600: #2244e8;
+  --color-brand-700: #1b34c0;
+  --color-brand-800: #182d99;
   --color-brand-900: #131f6f;
   --color-brand-950: #0a1142;
 
-  /* Warm accent for CTA pop */
+  /* Warm accent (muted, less Halloween) */
+  --color-accent-400: #ff8e58;
   --color-accent-500: #ff7a3a;
   --color-accent-600: #ef5f1d;
 
-  /* Ink + paper */
-  --color-ink-950: #0b0d12;
-  --color-ink-900: #11141b;
-  --color-ink-800: #1b1f29;
-  --color-ink-600: #4a5161;
-  --color-ink-500: #6b7385;
-  --color-ink-400: #9aa1b1;
-  --color-ink-300: #c5cbd6;
-  --color-ink-200: #e3e6ee;
-  --color-ink-100: #f1f3f8;
-  --color-paper:    #fafaf7;
+  /* Dark surface system — primary for the site */
+  --color-bg:        #06080f;   /* page */
+  --color-surface-1: #0a0d18;   /* default surface */
+  --color-surface-2: #11141d;   /* raised card */
+  --color-surface-3: #181c27;   /* elevated card / chip */
+  --color-line:      rgba(255,255,255,0.08);
+  --color-line-2:    rgba(255,255,255,0.14);
+
+  /* Foreground on dark */
+  --color-fg:        #f5f6f8;
+  --color-fg-2:      #c8ccd6;
+  --color-fg-3:      #8a8fa1;
+  --color-fg-4:      #5b6072;
+
+  /* Light surface tokens (used for relief sections) */
+  --color-paper:     #f7f7f4;
+  --color-paper-2:   #ffffff;
+  --color-ink-950:   #0b0d12;
+  --color-ink-900:   #11141b;
+  --color-ink-800:   #1b1f29;
+  --color-ink-700:   #2a2f3d;
+  --color-ink-600:   #4a5161;
+  --color-ink-500:   #6b7385;
+  --color-ink-400:   #9aa1b1;
+  --color-ink-300:   #c5cbd6;
+  --color-ink-200:   #e3e6ee;
+  --color-ink-100:   #f1f3f8;
 
   /* Type */
   --font-display: "Cabinet Grotesk", "Author", ui-sans-serif, system-ui, sans-serif;
@@ -41,25 +58,53 @@
 }
 
 @layer base {
-  html { -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; }
+  html {
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    background: var(--color-bg);
+  }
   body {
     margin: 0;
-    background: var(--color-paper);
-    color: var(--color-ink-950);
+    background: var(--color-bg);
+    color: var(--color-fg);
     font-family: var(--font-sans);
     font-feature-settings: "ss01", "cv11";
   }
-  ::selection { background: var(--color-brand-950); color: var(--color-paper); }
-  h1, h2, h3, h4 { font-family: var(--font-display); letter-spacing: -0.02em; }
+  ::selection { background: var(--color-brand-500); color: white; }
+  h1, h2, h3, h4 {
+    font-family: var(--font-display);
+    letter-spacing: -0.025em;
+    font-weight: 700;
+  }
+  /* Default focus ring */
+  :focus-visible {
+    outline: 2px solid var(--color-brand-400);
+    outline-offset: 2px;
+    border-radius: 6px;
+  }
 }
 
-/* Subtle paper noise texture */
-.bg-noise {
+/* Hero spotlight — vertical light streak as in reference */
+.hero-spotlight {
+  background:
+    radial-gradient(
+      55% 70% at 50% 0%,
+      color-mix(in oklab, var(--color-brand-500) 28%, transparent),
+      transparent 60%
+    ),
+    radial-gradient(
+      30% 60% at 50% 0%,
+      color-mix(in oklab, var(--color-accent-500) 18%, transparent),
+      transparent 75%
+    );
+}
+
+/* Page-wide soft grid, used in dark sections */
+.bg-dark-grid {
   background-image:
-    radial-gradient(transparent 1px, rgba(11,13,18,0.014) 1px),
-    radial-gradient(transparent 1px, rgba(11,13,18,0.014) 1px);
-  background-size: 3px 3px, 7px 7px;
-  background-position: 0 0, 1px 2px;
+    linear-gradient(rgba(255,255,255,0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.04) 1px, transparent 1px);
+  background-size: 56px 56px;
 }
 
 /* Capability marquee */
@@ -67,16 +112,7 @@
   from { transform: translateX(0); }
   to   { transform: translateX(-50%); }
 }
-.animate-marquee { animation: marquee 38s linear infinite; }
-
-/* Signature gradient */
-.signature-glow {
-  background: radial-gradient(
-    65% 75% at 50% 30%,
-    color-mix(in oklab, var(--color-brand-500) 35%, transparent) 0%,
-    transparent 70%
-  );
-}
+.animate-marquee { animation: marquee 42s linear infinite; }
 
 /* Fancy underline for nav links */
 .nav-underline {
@@ -87,3 +123,12 @@
   transition: background-size 220ms ease;
 }
 .nav-underline:hover { background-size: 100% 1px; }
+
+/* Subtle inner border for cards on dark */
+.card-dark {
+  background: var(--color-surface-1);
+  border: 1px solid var(--color-line);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,0.04),
+    0 1px 0 rgba(0,0,0,0.4);
+}

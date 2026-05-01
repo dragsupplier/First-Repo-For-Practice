@@ -3,7 +3,6 @@ import { Hero } from '@/components/sections/Hero'
 import { Audiences } from '@/components/sections/Audiences'
 import { CapabilityMarquee } from '@/components/sections/CapabilityMarquee'
 import { Approach } from '@/components/sections/Approach'
-import { Metrics } from '@/components/sections/Metrics'
 import { SignatureMoment } from '@/components/sections/SignatureMoment'
 import { Trust } from '@/components/sections/Trust'
 import { CTA } from '@/components/sections/CTA'
@@ -12,7 +11,7 @@ import { ScrollProgress } from '@/components/ui/ScrollProgress'
 
 function App() {
   return (
-    <div className="min-h-screen bg-paper text-ink-950">
+    <div className="min-h-screen bg-bg text-fg">
       <ScrollProgress />
       <Header />
       <main>
@@ -20,7 +19,6 @@ function App() {
         <CapabilityMarquee />
         <Audiences />
         <Approach />
-        <Metrics />
         <SignatureMoment />
         <Trust />
         <CTA />

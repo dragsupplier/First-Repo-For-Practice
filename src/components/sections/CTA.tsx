@@ -1,30 +1,30 @@
 import { motion } from 'motion/react'
-import { ArrowRight } from 'lucide-react'
+import { ArrowRight, Mail, MapPin } from 'lucide-react'
 
 export function CTA() {
   return (
-    <section id="contact" className="relative isolate overflow-hidden bg-paper py-20 md:py-28">
+    <section id="contact" className="relative isolate overflow-hidden bg-bg py-20 md:py-28">
       <div className="mx-auto max-w-7xl px-5 md:px-8">
         <motion.div
           initial={{ opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: '-15%' }}
           transition={{ duration: 0.55 }}
-          className="relative overflow-hidden rounded-[28px] bg-brand-950 p-8 text-paper md:p-14"
+          className="relative overflow-hidden rounded-[28px] border border-white/10 bg-gradient-to-br from-brand-950 via-surface-2 to-bg p-8 text-fg md:p-14"
         >
           <BackdropArt />
 
           <div className="relative grid grid-cols-1 items-center gap-10 lg:grid-cols-12">
             <div className="lg:col-span-8">
-              <p className="text-[12px] font-semibold uppercase tracking-[0.18em] text-paper/60">
+              <p className="text-[12px] font-semibold uppercase tracking-[0.18em] text-fg-3">
                 Start the conversation
               </p>
-              <h2 className="mt-4 font-display text-[40px] font-bold leading-[1.02] tracking-[-0.025em] md:text-[64px] lg:text-[76px]">
+              <h2 className="mt-4 font-display text-[40px] font-bold leading-[1.02] tracking-[-0.03em] md:text-[64px] lg:text-[76px]">
                 Tell us where you are.
                 <br />
-                <span className="text-accent-500">We'll meet you there.</span>
+                <span className="text-accent-400">We'll meet you there.</span>
               </h2>
-              <p className="mt-5 max-w-xl text-[16px] leading-[1.6] text-paper/70 md:text-[17px]">
+              <p className="mt-5 max-w-xl text-[16px] leading-[1.6] text-fg-2 md:text-[17px]">
                 Twenty minutes is all it takes to figure out which Alphinix
                 door is yours. No deck. No script. Just a real conversation.
               </p>
@@ -33,19 +33,23 @@ export function CTA() {
             <div className="flex flex-col gap-3 lg:col-span-4 lg:items-end">
               <a
                 href="mailto:hello@alphinix.in"
-                className="group inline-flex w-full items-center justify-between gap-3 rounded-full bg-paper px-5 py-3.5 text-[15px] font-semibold text-ink-950 transition-transform duration-300 hover:translate-y-[-1px] lg:w-auto"
+                className="group inline-flex w-full items-center justify-between gap-3 rounded-full bg-fg px-5 py-3.5 text-[15px] font-semibold text-bg transition-transform duration-300 hover:translate-y-[-1px] lg:w-auto"
               >
                 Book a 20-min call
                 <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-0.5" strokeWidth={2.25} />
               </a>
               <a
                 href="mailto:hello@alphinix.in"
-                className="inline-flex w-full items-center justify-between gap-3 rounded-full px-5 py-3.5 text-[15px] font-medium text-paper ring-1 ring-paper/25 transition-colors hover:bg-paper/[0.06] lg:w-auto"
+                className="inline-flex w-full items-center justify-between gap-3 rounded-full px-5 py-3.5 text-[15px] font-medium text-fg ring-1 ring-white/15 transition-colors hover:bg-white/[0.05] lg:w-auto"
               >
-                hello@alphinix.in
+                <span className="inline-flex items-center gap-2">
+                  <Mail className="h-3.5 w-3.5" strokeWidth={2.25} />
+                  hello@alphinix.in
+                </span>
                 <ArrowRight className="h-4 w-4" strokeWidth={2.25} />
               </a>
-              <p className="mt-1 text-[12.5px] text-paper/55">
+              <p className="mt-1 inline-flex items-center gap-1.5 text-[12.5px] text-fg-3">
+                <MapPin className="h-3 w-3" strokeWidth={2.25} />
                 Pune · Mon–Sat · 10:00 to 18:30 IST
               </p>
             </div>
