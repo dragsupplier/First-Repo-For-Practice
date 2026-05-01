@@ -1,99 +1,79 @@
 import { motion } from 'motion/react'
-import { ArrowRight } from 'lucide-react'
 
-const FLOWS: { from: string; to: string; label: string }[] = [
-  { from: 'Schools',    to: 'Colleges',    label: 'AI / robotics learners feed into the engineering pipeline' },
-  { from: 'Colleges',   to: 'Students',    label: 'Campus training drives placement readiness' },
-  { from: 'Students',   to: 'Hiring',      label: 'Pre-trained interns and permanent hires for partner companies' },
-  { from: 'Businesses', to: 'Hiring',      label: 'Talent supplied at scale during product delivery' },
-]
+type Pillar = { tag: string; title: string; body: string }
 
-const PHASES = [
-  { k: 'Train', v: 'Students & faculty' },
-  { k: 'Build', v: 'Software & labs' },
-  { k: 'Hire',  v: 'Permanent · contract' },
+const PILLARS: Pillar[] = [
+  {
+    tag: 'Delivery',
+    title: 'Everything in-house.',
+    body:
+      'Trainers, engineers and recruiters work under one roof. No subcontractors. No agency-of-agencies maze. The team that scopes is the team that ships.',
+  },
+  {
+    tag: 'Accountability',
+    title: 'A single point of contact.',
+    body:
+      'One owner per engagement, one weekly status, one number to call — and a written record at every milestone, audit-ready when you need it.',
+  },
+  {
+    tag: 'Compounding',
+    title: 'Built to keep paying back.',
+    body:
+      'The students we train this year become the interns next year, the engineers after that, and the alumni base that fuels every future drive.',
+  },
+  {
+    tag: 'Local context',
+    title: 'India-ready by default.',
+    body:
+      'Programs are designed around NEP, NAAC, NBA and ATL guidelines — and the operating realities of Indian institutions, not Western blueprints.',
+  },
 ]
 
 export function SignatureMoment() {
   return (
-    <section id="about" className="relative bg-brand-950 text-white">
-      <div className="mx-auto max-w-7xl px-5 py-20 md:px-8 md:py-28">
-        <div className="grid grid-cols-12 gap-10">
-          {/* Editorial pull-quote — the memory hook */}
-          <div className="col-span-12 lg:col-span-7">
-            <p className="font-mono text-[11px] font-semibold uppercase tracking-[0.18em] text-brand-200">
-              § The unfair advantage
-            </p>
-            <h2 className="mt-5 font-display text-[40px] font-semibold leading-[1.02] tracking-[-0.025em] md:text-[68px] lg:text-[80px]">
-              We're not five
-              <br />
-              businesses in a
-              <br />
-              <em className="font-medium italic text-brand-200">trench coat.</em>
-            </h2>
-            <p className="mt-8 max-w-xl text-[17px] leading-[1.6] text-white/75 md:text-[18px]">
-              Every Alphinix segment quietly feeds the next. The student we
-              train today becomes the intern your startup hires next quarter,
-              builds the software your college runs, and goes back to teach
-              the school down the road.
-            </p>
-            <a
-              href="#contact"
-              className="mt-8 inline-flex items-center gap-2 rounded-md bg-white px-5 py-3 text-[14.5px] font-semibold text-brand-950 transition-colors hover:bg-brand-50"
-            >
-              See the full engagement model
-              <ArrowRight className="h-4 w-4" strokeWidth={2.25} />
-            </a>
-          </div>
-
-          {/* The loop */}
-          <div className="col-span-12 lg:col-span-5">
-            <div className="rounded-md border border-white/10 bg-white/[0.03] p-6 md:p-7">
-              <p className="font-mono text-[10.5px] font-semibold uppercase tracking-[0.18em] text-white/55">
-                The Alphinix loop
-              </p>
-              <ul className="mt-5 divide-y divide-white/10">
-                {FLOWS.map((f, idx) => (
-                  <motion.li
-                    key={f.label}
-                    initial={{ opacity: 0, x: 6 }}
-                    whileInView={{ opacity: 1, x: 0 }}
-                    viewport={{ once: true, margin: '-15%' }}
-                    transition={{ duration: 0.35, delay: idx * 0.06 }}
-                    className="flex items-center gap-3 py-3.5"
-                  >
-                    <Pill>{f.from}</Pill>
-                    <ArrowRight className="h-3.5 w-3.5 text-brand-200" strokeWidth={2.5} />
-                    <Pill>{f.to}</Pill>
-                    <span className="ml-auto text-right text-[12.5px] text-white/55">
-                      {f.label}
-                    </span>
-                  </motion.li>
-                ))}
-              </ul>
-
-              <div className="mt-6 grid grid-cols-3 divide-x divide-white/10 border-t border-white/10 pt-5 text-center">
-                {PHASES.map((s) => (
-                  <div key={s.k} className="px-2">
-                    <p className="font-display text-[18px] font-semibold tracking-tight text-white">
-                      {s.k}
-                    </p>
-                    <p className="mt-1 text-[11.5px] text-white/55">{s.v}</p>
-                  </div>
-                ))}
-              </div>
+    <section id="about" className="relative bg-canvas">
+      {/* Opener */}
+      <div className="border-y border-line bg-white">
+        <div className="mx-auto max-w-7xl px-5 py-12 md:px-8 md:py-14">
+          <div className="grid grid-cols-12 items-end gap-6">
+            <div className="col-span-12 lg:col-span-7">
+              <p className="eyebrow">06 / Why Alphinix</p>
+              <h2 className="mt-4 font-display text-[28px] font-semibold leading-[1.08] tracking-[-0.02em] text-fg md:text-[36px] lg:text-[40px]">
+                Quiet, accountable engagements.
+              </h2>
             </div>
+            <p className="col-span-12 text-[15px] leading-[1.6] text-fg-3 lg:col-span-5">
+              We don't lead with logo strips and inflated stat blocks. The
+              principles below are what most institutions and founders tell
+              us they actually wanted from a partner.
+            </p>
           </div>
         </div>
       </div>
-    </section>
-  )
-}
 
-function Pill({ children }: { children: React.ReactNode }) {
-  return (
-    <span className="rounded-sm bg-white px-2 py-0.5 text-[11px] font-semibold uppercase tracking-[0.04em] text-brand-950">
-      {children}
-    </span>
+      {/* Prose 2x2 — no cards, no borders boxing content */}
+      <div className="mx-auto max-w-7xl px-5 py-16 md:px-8 md:py-20">
+        <div className="grid grid-cols-12 gap-x-10 gap-y-10 md:gap-x-16">
+          {PILLARS.map((p, i) => (
+            <motion.div
+              key={p.title}
+              initial={{ opacity: 0, y: 8 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: '-10%' }}
+              transition={{ duration: 0.4, delay: i * 0.05 }}
+              className="col-span-12 border-t border-line pt-6 md:col-span-6"
+            >
+              <p className="eyebrow">{p.tag}</p>
+              <h3 className="mt-3 font-display text-[22px] font-semibold leading-[1.2] tracking-tight text-fg md:text-[26px]">
+                {p.title}
+              </h3>
+              <p className="mt-3 max-w-[44ch] text-[15px] leading-[1.6] text-fg-3">
+                {p.body}
+              </p>
+            </motion.div>
+          ))}
+        </div>
+      </div>
+    </section>
   )
 }

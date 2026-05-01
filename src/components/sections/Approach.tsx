@@ -1,6 +1,6 @@
 import { motion } from 'motion/react'
 
-type Step = { num: string; tag: string; title: string; body: string; aside: string }
+type Step = { num: string; tag: string; title: string; body: string }
 
 const STEPS: Step[] = [
   {
@@ -8,95 +8,109 @@ const STEPS: Step[] = [
     tag: 'Discovery',
     title: 'Listen first.',
     body:
-      'A short consultation, no decks. We map your real constraint — placement targets, hiring TAT, accreditation gaps, product timeline — before suggesting anything.',
-    aside: 'Stakeholder call · goal mapping · constraint audit',
+      'A short consultation, no decks. We map your real constraint before suggesting anything.',
   },
   {
     num: '02',
-    tag: 'Solution Design',
-    title: 'Design the smallest viable scope.',
+    tag: 'Design',
+    title: 'Smallest viable scope.',
     body:
-      'A written plan with sequencing and clear ownership. No vendor jargon, no sprawling line items — just what moves the needle next, and what is deliberately out of scope.',
-    aside: 'Phased roadmap · owner per workstream · success metrics',
+      'A written plan with sequencing and clear ownership. No vendor jargon, no sprawling line items.',
   },
   {
     num: '03',
     tag: 'Delivery',
-    title: 'Execute in-house.',
+    title: 'In-house, end-to-end.',
     body:
-      'Trainers, engineers and recruiters — same brand, same standard, end to end. You get one weekly status, one number to call, no agency-of-agencies maze.',
-    aside: 'In-house teams · weekly status · single point of contact',
+      'Trainers, engineers and recruiters under one team. One weekly status, one number to call.',
   },
   {
     num: '04',
-    tag: 'Continuous Engagement',
-    title: 'Compound, year over year.',
+    tag: 'Compounding',
+    title: 'Year-on-year ROI.',
     body:
-      'The students we train this year become the interns next year and the alumni base that fuels every future drive. Your investment quietly compounds.',
-    aside: 'Alumni network · year-on-year ROI · closed-loop pipeline',
+      'Programs and platforms designed to compound — alumni, content and tooling that stays.',
   },
 ]
 
 export function Approach() {
   return (
     <section id="approach" className="relative bg-white">
-      {/* Section header */}
-      <div className="border-y border-line bg-canvas">
-        <div className="mx-auto grid max-w-7xl grid-cols-12 items-end gap-6 px-5 py-12 md:px-8 md:py-16">
-          <div className="col-span-12 md:col-span-7">
-            <p className="font-mono text-[11px] font-semibold uppercase tracking-[0.18em] text-brand-700">
-              § Approach
+      {/* Section opener */}
+      <div className="border-y border-line">
+        <div className="mx-auto max-w-7xl px-5 py-12 md:px-8 md:py-14">
+          <div className="grid grid-cols-12 items-end gap-6">
+            <div className="col-span-12 lg:col-span-7">
+              <p className="eyebrow">05 / Approach</p>
+              <h2 className="mt-4 font-display text-[28px] font-semibold leading-[1.08] tracking-[-0.02em] text-fg md:text-[36px] lg:text-[40px]">
+                A predictable engagement model.
+              </h2>
+            </div>
+            <p className="col-span-12 text-[15px] leading-[1.6] text-fg-3 lg:col-span-5">
+              Most education and technology vendors lose institutions in the
+              sales-to-delivery handoff. We don't have one — the team that
+              scopes is the team that ships.
             </p>
-            <h2 className="mt-4 font-display text-[36px] font-semibold leading-[1.04] tracking-[-0.02em] text-fg md:text-[56px] lg:text-[64px]">
-              No theatre. <em className="font-medium italic text-brand-700">Just the work.</em>
-            </h2>
           </div>
-          <p className="col-span-12 text-[15.5px] leading-[1.6] text-fg-3 md:col-span-5">
-            Most education and technology vendors lose institutions in the
-            sales-to-delivery handoff. We don't have one — the team that
-            scopes the engagement is the team that ships it.
-          </p>
         </div>
       </div>
 
-      {/* Manifesto steps */}
-      <div className="mx-auto max-w-7xl px-5 md:px-8">
-        {STEPS.map((s, i) => (
-          <motion.article
-            key={s.num}
-            initial={{ opacity: 0, y: 16 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: '-10%' }}
-            transition={{ duration: 0.45, delay: i * 0.04 }}
-            className="grid grid-cols-12 gap-6 border-b border-line py-12 last:border-b-0 md:gap-12 md:py-20"
-          >
-            <div className="col-span-12 md:col-span-3">
-              <span className="font-display text-[60px] font-semibold leading-none text-canvas-2 md:text-[88px]">
-                {s.num}
-              </span>
-              <p className="mt-3 font-mono text-[10.5px] font-semibold uppercase tracking-[0.18em] text-brand-700">
-                {s.tag}
-              </p>
-            </div>
-            <div className="col-span-12 md:col-span-6">
-              <h3 className="font-display text-[28px] font-semibold leading-[1.1] tracking-[-0.02em] text-fg md:text-[40px] lg:text-[44px]">
-                {s.title}
-              </h3>
-              <p className="mt-5 max-w-2xl text-[16px] leading-[1.65] text-fg-3 md:text-[17px]">
-                {s.body}
-              </p>
-            </div>
-            <div className="col-span-12 md:col-span-3 md:border-l md:border-line md:pl-6">
-              <p className="font-mono text-[10.5px] font-semibold uppercase tracking-[0.18em] text-fg-4">
-                What it includes
-              </p>
-              <p className="mt-3 text-[14px] leading-[1.6] text-fg-2">
-                {s.aside}
-              </p>
-            </div>
-          </motion.article>
-        ))}
+      {/* Zigzag timeline rail */}
+      <div className="mx-auto max-w-7xl px-5 py-16 md:px-8 md:py-24">
+        <div className="relative">
+          {/* The hairline rail */}
+          <div className="absolute left-0 right-0 top-1/2 hidden h-px -translate-y-1/2 bg-line lg:block" />
+
+          <ol className="relative grid grid-cols-1 gap-y-10 lg:grid-cols-4 lg:gap-x-6">
+            {STEPS.map((s, i) => (
+              <StepCell key={s.num} step={s} index={i} />
+            ))}
+          </ol>
+        </div>
       </div>
     </section>
+  )
+}
+
+function StepCell({ step, index }: { step: Step; index: number }) {
+  const isAbove = index % 2 === 0
+  return (
+    <motion.li
+      initial={{ opacity: 0, y: 8 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: '-10%' }}
+      transition={{ duration: 0.35, delay: index * 0.06 }}
+      className="relative flex flex-col"
+    >
+      {/* Mobile: simple stacked */}
+      <div className="lg:hidden">
+        <span className="font-display text-[18px] font-semibold text-brand-700">{step.num}</span>
+        <p className="mt-1 eyebrow">{step.tag}</p>
+        <h3 className="mt-3 font-display text-[20px] font-semibold tracking-tight text-fg">
+          {step.title}
+        </h3>
+        <p className="mt-2 text-[14.5px] leading-[1.6] text-fg-3">{step.body}</p>
+      </div>
+
+      {/* Desktop: zigzag above/below the rail */}
+      <div className="hidden lg:block">
+        <div className={`flex flex-col ${isAbove ? 'pb-12' : 'pt-12 order-2'}`}>
+          <p className="eyebrow">{step.tag}</p>
+          <h3 className="mt-2 font-display text-[20px] font-semibold leading-tight tracking-tight text-fg">
+            {step.title}
+          </h3>
+          <p className="mt-2 max-w-[26ch] text-[14px] leading-[1.6] text-fg-3">
+            {step.body}
+          </p>
+        </div>
+
+        {/* The node on the rail */}
+        <div className={`relative flex items-center ${isAbove ? '' : 'order-1'}`}>
+          <div className="grid h-7 w-7 place-items-center rounded-full border border-line bg-white">
+            <span className="font-mono text-[10.5px] font-semibold text-brand-700">{step.num}</span>
+          </div>
+        </div>
+      </div>
+    </motion.li>
   )
 }

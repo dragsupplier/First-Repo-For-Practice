@@ -1,54 +1,46 @@
 @import "tailwindcss";
 
 @theme {
-  /* Corporate brand blue — keep */
+  /* Brand */
   --color-brand-50:  #eef4ff;
   --color-brand-100: #dbeafe;
   --color-brand-200: #b8d0fb;
   --color-brand-300: #84a9f6;
-  --color-brand-400: #5a83ee;
   --color-brand-500: #3a64dc;
   --color-brand-600: #2348c2;
   --color-brand-700: #1d3aa5;
   --color-brand-800: #1c3284;
-  --color-brand-900: #1c2c6a;
-  --color-brand-950: #142048;
+  --color-brand-900: #142048;
+  --color-brand-950: #0f1f4d;
 
-  /* Subdued warm accent (used sparingly) */
-  --color-accent-500: #f15a24;
-  --color-accent-600: #d34416;
-
-  /* Surfaces */
+  /* Neutrals — corporate */
   --color-bg:        #ffffff;
-  --color-canvas:    #f4f6fb;
-  --color-canvas-2: #e9eef7;
-  --color-line:      #dde2ec;
-  --color-line-2:    #c8cfdc;
+  --color-canvas:    #f6f7f9;
+  --color-canvas-2:  #eceef3;
+  --color-line:      #e5e7eb;
+  --color-line-2:    #d3d6df;
 
   /* Text */
-  --color-fg:        #0d1530;
-  --color-fg-2:      #2b3450;
-  --color-fg-3:      #4d566f;
-  --color-fg-4:      #6b7390;
-  --color-fg-5:      #9099ad;
+  --color-fg:        #0b1220;
+  --color-fg-2:      #1f2533;
+  --color-fg-3:      #3b4252;
+  --color-fg-4:      #5b6473;
+  --color-fg-5:      #8b92a1;
 
-  /* Inverted dark tokens */
-  --color-ink-50:  #f5f7fb;
-  --color-ink-200: #e2e6ee;
-  --color-ink-700: #2b3450;
-  --color-ink-900: #0d1530;
-  --color-ink-950: #050a1a;
+  /* Single warm accent — used only for active links/arrows */
+  --color-accent-600: #c2410c;
 
-  /* Type — corporate body, characterful display */
-  --font-display: "Fraunces", "Inter Tight", "Inter", "Segoe UI", system-ui, serif;
+  /* Inverted surface for the one dark band */
+  --color-ink-950:   #0b1220;
+
+  /* Type — corporate sans */
+  --font-display: "Inter Tight", "Inter", "Segoe UI", system-ui, sans-serif;
   --font-sans:    "Inter", "Segoe UI", "Helvetica Neue", system-ui, sans-serif;
   --font-mono:    "JetBrains Mono", ui-monospace, monospace;
 
   --radius-sm: 4px;
   --radius-md: 6px;
   --radius-lg: 8px;
-  --radius-xl: 12px;
-  --radius-2xl: 16px;
 }
 
 @layer base {
@@ -62,7 +54,7 @@
     background: var(--color-bg);
     color: var(--color-fg);
     font-family: var(--font-sans);
-    font-size: 15px;
+    font-size: 16px;
     line-height: 1.55;
     font-feature-settings: "ss01", "cv11";
   }
@@ -72,21 +64,36 @@
     color: var(--color-fg);
     letter-spacing: -0.018em;
     font-weight: 600;
-    line-height: 1.04;
-    font-variation-settings: "opsz" 144, "SOFT" 0;
+    line-height: 1.1;
   }
   :focus-visible {
     outline: 2px solid var(--color-brand-500);
     outline-offset: 2px;
-    border-radius: 4px;
+    border-radius: 3px;
   }
 }
 
-/* Top utility bar */
+/* The corporate signature — eyebrow label */
+.eyebrow {
+  font-family: var(--font-sans);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-fg-4);
+}
+
+/* Utility bar */
 .utility-bar {
-  background: var(--color-brand-950);
+  background: var(--color-fg);
   color: #c9d3ff;
   font-size: 12.5px;
+}
+
+/* Hairline rule */
+.rule {
+  background: var(--color-line);
+  height: 1px;
 }
 
 /* Marquee */
@@ -94,4 +101,4 @@
   from { transform: translateX(0); }
   to   { transform: translateX(-50%); }
 }
-.animate-marquee { animation: marquee 50s linear infinite; }
+.animate-marquee { animation: marquee 60s linear infinite; }

@@ -10,26 +10,26 @@ const PARTNERS = [
 ]
 
 export function ClientsBar() {
-  const repeated = [...PARTNERS, ...PARTNERS]
   return (
-    <section className="relative overflow-hidden border-b border-line bg-canvas py-7">
-      <div className="mx-auto mb-4 max-w-7xl px-5 md:px-8">
-        <p className="text-center text-[12px] font-semibold uppercase tracking-[0.18em] text-fg-4">
-          Trusted by institutions and growing companies across India
+    <section className="relative border-b border-line bg-canvas">
+      <div className="mx-auto flex max-w-7xl flex-col gap-5 px-5 py-7 md:flex-row md:items-center md:gap-10 md:px-8">
+        <p className="shrink-0 text-[12px] font-semibold uppercase tracking-[0.12em] text-fg-4">
+          Working with teams across
         </p>
-      </div>
-      <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-24 bg-gradient-to-r from-canvas to-transparent" />
-      <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-24 bg-gradient-to-l from-canvas to-transparent" />
-      <div className="overflow-hidden">
-        <div className="animate-marquee flex w-max items-center gap-12 whitespace-nowrap will-change-transform">
-          {repeated.map((p, idx) => (
-            <span
-              key={`${p}-${idx}`}
-              className="font-display text-[15px] font-semibold tracking-tight text-fg-4 transition-colors hover:text-fg"
-            >
-              {p}
-            </span>
-          ))}
+        <div className="relative flex-1 overflow-hidden">
+          <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-12 bg-gradient-to-r from-canvas to-transparent" />
+          <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-12 bg-gradient-to-l from-canvas to-transparent" />
+          <div className="animate-marquee flex w-max items-center gap-x-12 whitespace-nowrap will-change-transform">
+            {[...PARTNERS, ...PARTNERS].map((p, i) => (
+              <span
+                key={`${p}-${i}`}
+                className="inline-flex items-center gap-x-12 font-display text-[15px] font-medium tracking-tight text-fg-3"
+              >
+                {p}
+                <span aria-hidden className="h-1 w-1 rounded-full bg-line-2" />
+              </span>
+            ))}
+          </div>
         </div>
       </div>
     </section>
