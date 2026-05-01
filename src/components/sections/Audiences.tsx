@@ -5,7 +5,7 @@ import {
   School,
   Rocket,
   Users,
-  ArrowUpRight,
+  ArrowRight,
 } from 'lucide-react'
 import type { LucideIcon } from 'lucide-react'
 
@@ -17,128 +17,81 @@ type Segment = {
   promise: string
   body: string
   services: string[]
-  outcome: string
   icon: LucideIcon
   href: string
-  variant: 'dark' | 'paper' | 'brand'
 }
 
 const SEGMENTS: Segment[] = [
   {
     key: 'students',
     num: '01',
-    title: 'Students',
+    title: 'For Students',
     who: 'Engineering · BCA · MCA · BSc · Diploma',
-    promise: 'From classroom to offer letter.',
+    promise: 'Industry-readiness, sequenced over your degree.',
     body:
-      'A guided runway across your degree — industrial training, internships, certifications, coding programs and placement prep, sequenced by year and stream.',
-    services: [
-      'Industrial training',
-      'Internships',
-      'Coding bootcamps',
-      'Certifications',
-      'Career guidance',
-      'Skill development',
-    ],
-    outcome: 'Industry-ready before you graduate.',
+      'Industrial training, internships, certifications, coding programs and structured placement preparation — mapped to your stream and year of study.',
+    services: ['Industrial training', 'Internships', 'Coding bootcamps', 'Placement prep', 'Certifications', 'Career guidance'],
     icon: GraduationCap,
     href: '#',
-    variant: 'dark',
   },
   {
     key: 'colleges',
     num: '02',
-    title: 'Colleges',
+    title: 'For Colleges',
     who: 'Engineering & polytechnic institutes',
-    promise: 'Better placements. Stronger accreditation.',
+    promise: 'A single partner for academic and placement operations.',
     body:
-      'A single partner for the full academic stack — pre-placement training, drives, FDPs, NAAC/NBA support and on-campus AI/IoT/Cloud labs.',
-    services: [
-      'Campus training',
-      'Placement drives',
-      'NAAC / NBA support',
-      'AI · IoT · Cloud labs',
-      'Faculty development',
-      'LMS / ERP systems',
-    ],
-    outcome: 'A measurable lift in placement and ranking outcomes.',
+      'Pre-placement training, drives, FDPs, NAAC/NBA support, and on-campus AI/IoT/Cloud labs — supported by ERP and LMS systems built for Indian institutions.',
+    services: ['Campus training', 'Placement drives', 'NAAC / NBA support', 'AI · IoT labs', 'Faculty Dev. (FDP)', 'LMS / ERP'],
     icon: Building2,
     href: '#',
-    variant: 'paper',
   },
   {
     key: 'schools',
     num: '03',
-    title: 'Schools (K-12)',
-    who: 'Principals & school management',
-    promise: 'Future-ready labs. NEP 2020 aligned.',
+    title: 'For Schools',
+    who: 'K-12 · Principals & management',
+    promise: 'NEP 2020-aligned future-tech infrastructure.',
     body:
-      'AI, robotics, IoT and STEM/ATL labs designed for Indian classrooms — with curriculum, hardware kits, and teacher training that survive the school year.',
-    services: [
-      'AI & robotics',
-      'STEM / ATL labs',
-      'Coding curriculum',
-      'IoT lab setup',
-      'Hardware kits',
-      'Teacher training',
-    ],
-    outcome: 'Future-tech literacy that parents notice.',
+      'AI, robotics, IoT and STEM/ATL labs designed for Indian classrooms — with curriculum, hardware kits and teacher training that survive the school year.',
+    services: ['AI & robotics', 'STEM / ATL labs', 'Coding curriculum', 'IoT lab setup', 'Hardware kits', 'Teacher training'],
     icon: School,
     href: '#',
-    variant: 'dark',
   },
   {
     key: 'businesses',
     num: '04',
-    title: 'Businesses & Startups',
-    who: 'Founders, product & ops teams',
-    promise: 'Ship faster. Scale leaner.',
+    title: 'For Businesses & Startups',
+    who: 'Founders, product & operations leaders',
+    promise: 'Ship product without standing up a full engineering org.',
     body:
-      'Web, mobile, AI and automation work delivered by a team that also trains the engineers — so you get product velocity without the full-time payroll.',
-    services: [
-      'Web development',
-      'Mobile apps',
-      'AI solutions',
-      'Automation',
-      'Cloud infrastructure',
-      'Tech consulting',
-    ],
-    outcome: 'Production-grade software, on real timelines.',
+      'Web, mobile, AI and automation work delivered by the same team that trains the engineers — so you can scale capability before you scale headcount.',
+    services: ['Web development', 'Mobile apps', 'AI solutions', 'Automation', 'Cloud infrastructure', 'Tech consulting'],
     icon: Rocket,
     href: '#',
-    variant: 'brand',
   },
   {
     key: 'hiring',
     num: '05',
-    title: 'Hiring Managers',
-    who: 'Companies hiring tech & non-tech talent',
-    promise: 'Pre-trained talent, on demand.',
+    title: 'For Hiring Teams',
+    who: 'Talent acquisition & people operations',
+    promise: 'Pre-trained candidates supplied on demand.',
     body:
       'Permanent recruitment, contract staffing, RPO and bulk drives — backed by the same students we train, so candidates arrive interview-ready.',
-    services: [
-      'Permanent recruitment',
-      'Contract staffing',
-      'Pre-trained interns',
-      'Technical assessments',
-      'Bulk hiring drives',
-      'RPO',
-    ],
-    outcome: 'Faster time-to-hire with less drop-off.',
+    services: ['Permanent recruitment', 'Contract staffing', 'Pre-trained interns', 'Technical assessments', 'Bulk drives', 'RPO'],
     icon: Users,
     href: '#',
-    variant: 'paper',
   },
 ]
 
 export function Audiences() {
   return (
-    <section id="audiences" className="relative overflow-hidden bg-bg py-24 md:py-32">
+    <section id="audiences" className="relative bg-white py-16 md:py-20">
       <div className="mx-auto max-w-7xl px-5 md:px-8">
         <SectionHeader />
-        <div className="mt-14 space-y-3 md:mt-20 md:space-y-4">
+        <div className="mt-10 grid grid-cols-1 gap-4 md:mt-12 md:grid-cols-2 lg:grid-cols-3">
           {SEGMENTS.map((s, i) => (
-            <SegmentRow key={s.key} seg={s} reversed={i % 2 === 1} index={i} />
+            <SegmentCard key={s.key} seg={s} index={i} />
           ))}
         </div>
       </div>
@@ -148,158 +101,70 @@ export function Audiences() {
 
 function SectionHeader() {
   return (
-    <div className="grid grid-cols-1 items-end gap-6 md:grid-cols-12">
+    <div className="grid grid-cols-1 items-end gap-5 md:grid-cols-12">
       <div className="md:col-span-7">
-        <p className="text-[12px] font-semibold uppercase tracking-[0.18em] text-fg-3">
-          <span className="mr-2 inline-block h-px w-6 align-middle bg-fg-4" />
-          Five doors. One platform.
+        <p className="text-[12px] font-semibold uppercase tracking-[0.18em] text-brand-700">
+          Solutions
         </p>
-        <h2 className="mt-4 font-display text-[40px] font-bold leading-[1.02] tracking-[-0.025em] text-fg md:text-[60px] lg:text-[76px]">
-          Pick your <span className="text-brand-300">starting line</span>.
+        <h2 className="mt-3 font-display text-[28px] font-bold leading-[1.15] tracking-[-0.02em] text-fg md:text-[40px] lg:text-[44px]">
+          Five audience segments. One integrated platform.
         </h2>
       </div>
-      <p className="text-[16px] leading-[1.6] text-fg-2 md:col-span-5 md:text-[17px]">
-        We don't shoehorn everyone into one funnel. Each audience gets its own
-        room — built around the outcome that actually matters to them, then
-        wired into the rest of the platform.
+      <p className="text-[15px] leading-[1.6] text-fg-3 md:col-span-5 md:text-[15.5px]">
+        Each segment has its own programs and outcomes — but they share a
+        common stack, a common team and a common standard of delivery. Pick
+        the door closest to where you stand today.
       </p>
     </div>
   )
 }
 
-function SegmentRow({
-  seg,
-  reversed,
-  index,
-}: {
-  seg: Segment
-  reversed: boolean
-  index: number
-}) {
-  const variants = {
-    dark: {
-      card: 'bg-surface-1 text-fg ring-1 ring-white/[0.08]',
-      muted: 'text-fg-3',
-      bigNum: 'text-white/[0.04]',
-      chip: 'bg-white/[0.05] text-fg-2 ring-white/10',
-      arrow: 'bg-fg text-bg',
-      sideCard: 'bg-white/[0.03] ring-1 ring-white/[0.08]',
-      sideTitle: 'text-fg',
-      iconBg: 'bg-brand-500/15 text-brand-200 ring-1 ring-brand-500/30',
-    },
-    paper: {
-      card: 'bg-paper text-ink-950 ring-1 ring-black/[0.06]',
-      muted: 'text-ink-500',
-      bigNum: 'text-ink-100',
-      chip: 'bg-ink-100 text-ink-800 ring-ink-200',
-      arrow: 'bg-ink-950 text-paper',
-      sideCard: 'bg-paper-2 ring-1 ring-ink-200',
-      sideTitle: 'text-ink-950',
-      iconBg: 'bg-ink-950 text-paper',
-    },
-    brand: {
-      card: 'bg-brand-950 text-fg ring-1 ring-white/[0.08]',
-      muted: 'text-white/65',
-      bigNum: 'text-white/[0.04]',
-      chip: 'bg-white/[0.07] text-white/85 ring-white/10',
-      arrow: 'bg-accent-500 text-bg',
-      sideCard: 'bg-white/[0.04] ring-1 ring-white/[0.08]',
-      sideTitle: 'text-fg',
-      iconBg: 'bg-accent-500 text-bg',
-    },
-  }[seg.variant]
-
+function SegmentCard({ seg, index }: { seg: Segment; index: number }) {
   const Icon = seg.icon
-
   return (
     <motion.a
       href={seg.href}
-      initial={{ opacity: 0, y: 22 }}
+      initial={{ opacity: 0, y: 14 }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: '-12%' }}
-      transition={{ duration: 0.55, delay: index * 0.04, ease: [0.2, 0.7, 0.2, 1] }}
-      className={`group relative block overflow-hidden rounded-3xl p-7 transition-shadow duration-500 hover:shadow-[0_30px_70px_-30px_rgba(0,0,0,0.5)] md:p-10 ${variants.card}`}
+      viewport={{ once: true, margin: '-10%' }}
+      transition={{ duration: 0.45, delay: index * 0.05 }}
+      className="group flex flex-col rounded-lg border border-line bg-white p-6 transition-shadow duration-200 hover:border-line-2 hover:shadow-[0_18px_40px_-24px_rgba(13,21,48,0.18)]"
     >
-      <span
-        aria-hidden
-        className={`pointer-events-none absolute -right-2 -top-12 select-none font-display text-[200px] font-black leading-none tracking-tighter md:-right-4 md:-top-20 md:text-[320px] ${variants.bigNum}`}
-      >
-        {seg.num}
-      </span>
-
-      <div
-        className={`relative grid grid-cols-1 items-start gap-8 md:grid-cols-12 md:gap-10 ${
-          reversed ? 'md:[&>:first-child]:md:order-2' : ''
-        }`}
-      >
-        <div className="md:col-span-7">
-          <div className="flex flex-wrap items-center gap-3">
-            <span className={`grid h-11 w-11 place-items-center rounded-xl ${variants.iconBg}`}>
-              <Icon className="h-5 w-5" strokeWidth={2.1} />
-            </span>
-            <span className={`font-mono text-[11.5px] uppercase tracking-[0.18em] ${variants.muted}`}>
-              {seg.num} · {seg.title}
-            </span>
-            <span
-              className={`hidden h-px flex-1 md:block ${
-                seg.variant === 'paper' ? 'bg-ink-200' : 'bg-white/15'
-              }`}
-            />
-            <span className={`hidden font-mono text-[11.5px] uppercase tracking-[0.18em] md:inline ${variants.muted}`}>
-              {seg.who}
-            </span>
-          </div>
-
-          <h3 className="mt-7 font-display text-[34px] font-bold leading-[1.05] tracking-[-0.025em] md:text-[52px] lg:text-[60px]">
-            {seg.promise}
-          </h3>
-
-          <p className={`mt-5 max-w-xl text-[15.5px] leading-[1.6] md:text-[16.5px] ${variants.muted}`}>
-            {seg.body}
-          </p>
-
-          <div className="mt-7 flex flex-wrap gap-2">
-            {seg.services.map((s) => (
-              <span
-                key={s}
-                className={`rounded-full px-3.5 py-1.5 text-[12.5px] font-medium ring-1 ${variants.chip}`}
-              >
-                {s}
-              </span>
-            ))}
-          </div>
-        </div>
-
-        <div className="md:col-span-5">
-          <div className={`relative h-full overflow-hidden rounded-2xl p-6 ${variants.sideCard}`}>
-            <p className={`text-[11.5px] font-semibold uppercase tracking-[0.2em] ${variants.muted}`}>
-              The Outcome
-            </p>
-            <p
-              className={`mt-3 font-display text-[24px] font-bold leading-[1.2] tracking-tight md:text-[28px] ${variants.sideTitle}`}
-            >
-              {seg.outcome}
-            </p>
-
-            <div className={`mt-7 flex items-center justify-between border-t pt-5 ${
-              seg.variant === 'paper' ? 'border-ink-200' : 'border-white/10'
-            }`}>
-              <span
-                className={`text-[13px] font-medium ${
-                  seg.variant === 'paper' ? 'text-ink-700' : 'text-fg-2'
-                }`}
-              >
-                Explore {seg.title.toLowerCase()} →
-              </span>
-              <span
-                className={`grid h-10 w-10 place-items-center rounded-full transition-transform duration-300 group-hover:rotate-[20deg] group-hover:translate-x-0.5 ${variants.arrow}`}
-              >
-                <ArrowUpRight className="h-4 w-4" strokeWidth={2.25} />
-              </span>
-            </div>
-          </div>
-        </div>
+      <div className="flex items-start justify-between">
+        <span className="grid h-11 w-11 place-items-center rounded-md bg-brand-700 text-white">
+          <Icon className="h-5 w-5" strokeWidth={2.1} />
+        </span>
+        <span className="font-mono text-[11px] font-semibold uppercase tracking-[0.16em] text-fg-4">
+          {seg.num}
+        </span>
       </div>
+
+      <p className="mt-5 text-[11.5px] font-semibold uppercase tracking-[0.14em] text-fg-4">
+        {seg.title}
+      </p>
+      <h3 className="mt-1.5 font-display text-[20px] font-bold leading-[1.25] tracking-tight text-fg md:text-[22px]">
+        {seg.promise}
+      </h3>
+      <p className="mt-3 text-[14px] leading-[1.55] text-fg-3">{seg.body}</p>
+
+      <div className="mt-5 flex-1 border-t border-line pt-4">
+        <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-fg-4">
+          Programs
+        </p>
+        <ul className="mt-2 grid grid-cols-2 gap-x-4 gap-y-1.5">
+          {seg.services.map((s) => (
+            <li key={s} className="flex items-center gap-1.5 text-[13px] text-fg-2">
+              <span className="h-1 w-1 rounded-full bg-brand-700" />
+              {s}
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      <span className="mt-6 inline-flex items-center gap-1.5 text-[13px] font-semibold text-brand-700">
+        Learn more
+        <ArrowRight className="h-3.5 w-3.5 transition-transform duration-200 group-hover:translate-x-0.5" strokeWidth={2.5} />
+      </span>
     </motion.a>
   )
 }

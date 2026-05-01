@@ -1,60 +1,55 @@
 @import "tailwindcss";
 
 @theme {
-  /* Brand: refined deep electric blue */
+  /* Corporate brand blue */
   --color-brand-50:  #eef4ff;
-  --color-brand-100: #d9e6ff;
-  --color-brand-200: #b8d0ff;
-  --color-brand-300: #8aaeff;
-  --color-brand-400: #5b85ff;
-  --color-brand-500: #3a64ff;
-  --color-brand-600: #2244e8;
-  --color-brand-700: #1b34c0;
-  --color-brand-800: #182d99;
-  --color-brand-900: #131f6f;
-  --color-brand-950: #0a1142;
+  --color-brand-100: #dbeafe;
+  --color-brand-200: #b8d0fb;
+  --color-brand-300: #84a9f6;
+  --color-brand-400: #5a83ee;
+  --color-brand-500: #3a64dc;
+  --color-brand-600: #2348c2;
+  --color-brand-700: #1d3aa5;
+  --color-brand-800: #1c3284;
+  --color-brand-900: #1c2c6a;
+  --color-brand-950: #142048;
 
-  /* Warm accent (muted, less Halloween) */
-  --color-accent-400: #ff8e58;
-  --color-accent-500: #ff7a3a;
-  --color-accent-600: #ef5f1d;
+  /* Subdued warm accent (used sparingly) */
+  --color-accent-500: #f15a24;
+  --color-accent-600: #d34416;
 
-  /* Dark surface system — primary for the site */
-  --color-bg:        #06080f;   /* page */
-  --color-surface-1: #0a0d18;   /* default surface */
-  --color-surface-2: #11141d;   /* raised card */
-  --color-surface-3: #181c27;   /* elevated card / chip */
-  --color-line:      rgba(255,255,255,0.08);
-  --color-line-2:    rgba(255,255,255,0.14);
+  /* Light surface system — primary */
+  --color-bg:        #ffffff;          /* page */
+  --color-canvas:    #f5f7fb;          /* alt section background */
+  --color-canvas-2: #eef1f7;           /* deeper alt */
+  --color-line:      #e2e6ee;
+  --color-line-2:    #cdd3dd;
 
-  /* Foreground on dark */
-  --color-fg:        #f5f6f8;
-  --color-fg-2:      #c8ccd6;
-  --color-fg-3:      #8a8fa1;
-  --color-fg-4:      #5b6072;
+  /* Foreground (text) on light */
+  --color-fg:        #0d1530;          /* near-black, slight blue */
+  --color-fg-2:      #2b3450;
+  --color-fg-3:      #4d566f;
+  --color-fg-4:      #6b7390;
+  --color-fg-5:      #9099ad;
 
-  /* Light surface tokens (used for relief sections) */
-  --color-paper:     #f7f7f4;
-  --color-paper-2:   #ffffff;
-  --color-ink-950:   #0b0d12;
-  --color-ink-900:   #11141b;
-  --color-ink-800:   #1b1f29;
-  --color-ink-700:   #2a2f3d;
-  --color-ink-600:   #4a5161;
-  --color-ink-500:   #6b7385;
-  --color-ink-400:   #9aa1b1;
-  --color-ink-300:   #c5cbd6;
-  --color-ink-200:   #e3e6ee;
-  --color-ink-100:   #f1f3f8;
+  /* Inverted (dark) tokens — used in CTA band only */
+  --color-ink-50:  #f5f7fb;
+  --color-ink-200: #e2e6ee;
+  --color-ink-700: #2b3450;
+  --color-ink-900: #0d1530;
+  --color-ink-950: #050a1a;
 
-  /* Type */
-  --font-display: "Cabinet Grotesk", "Author", ui-sans-serif, system-ui, sans-serif;
-  --font-sans:    "Satoshi", "General Sans", ui-sans-serif, system-ui, sans-serif;
-  --font-mono:    ui-monospace, "JetBrains Mono", monospace;
+  /* Type — corporate body, classic display */
+  --font-display: "Inter Tight", "Inter", "Segoe UI", system-ui, sans-serif;
+  --font-sans:    "Inter", "Segoe UI", "Helvetica Neue", system-ui, sans-serif;
+  --font-mono:    "IBM Plex Mono", ui-monospace, "JetBrains Mono", monospace;
 
-  /* Radii */
-  --radius-xl: 16px;
-  --radius-2xl: 24px;
+  /* Radii — restrained */
+  --radius-sm: 4px;
+  --radius-md: 6px;
+  --radius-lg: 8px;
+  --radius-xl: 12px;
+  --radius-2xl: 16px;
 }
 
 @layer base {
@@ -68,67 +63,68 @@
     background: var(--color-bg);
     color: var(--color-fg);
     font-family: var(--font-sans);
-    font-feature-settings: "ss01", "cv11";
+    font-size: 15px;
+    line-height: 1.55;
   }
-  ::selection { background: var(--color-brand-500); color: white; }
+  ::selection { background: var(--color-brand-100); color: var(--color-brand-900); }
   h1, h2, h3, h4 {
     font-family: var(--font-display);
-    letter-spacing: -0.025em;
+    color: var(--color-fg);
+    letter-spacing: -0.018em;
     font-weight: 700;
+    line-height: 1.15;
   }
-  /* Default focus ring */
   :focus-visible {
-    outline: 2px solid var(--color-brand-400);
+    outline: 2px solid var(--color-brand-500);
     outline-offset: 2px;
-    border-radius: 6px;
+    border-radius: 4px;
   }
 }
 
-/* Hero spotlight — vertical light streak as in reference */
-.hero-spotlight {
-  background:
-    radial-gradient(
-      55% 70% at 50% 0%,
-      color-mix(in oklab, var(--color-brand-500) 28%, transparent),
-      transparent 60%
-    ),
-    radial-gradient(
-      30% 60% at 50% 0%,
-      color-mix(in oklab, var(--color-accent-500) 18%, transparent),
-      transparent 75%
-    );
+/* Top utility bar */
+.utility-bar {
+  background: var(--color-brand-950);
+  color: #c9d3ff;
+  font-size: 12.5px;
 }
 
-/* Page-wide soft grid, used in dark sections */
-.bg-dark-grid {
-  background-image:
-    linear-gradient(rgba(255,255,255,0.04) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255,255,255,0.04) 1px, transparent 1px);
-  background-size: 56px 56px;
+/* Clean section dividers */
+.section-divider {
+  border-top: 1px solid var(--color-line);
 }
 
-/* Capability marquee */
+/* Underline link affordance */
+.link-underline {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  color: var(--color-brand-700);
+  font-weight: 600;
+}
+.link-underline::after {
+  content: "";
+  position: absolute;
+  left: 0; right: 0; bottom: -2px;
+  height: 1px;
+  background: currentColor;
+  transform-origin: left;
+  transform: scaleX(1);
+  transition: transform 220ms ease;
+}
+.link-underline:hover::after { transform: scaleX(0.6); }
+
+/* Marquee (clients) */
 @keyframes marquee {
   from { transform: translateX(0); }
   to   { transform: translateX(-50%); }
 }
-.animate-marquee { animation: marquee 42s linear infinite; }
+.animate-marquee { animation: marquee 50s linear infinite; }
 
-/* Fancy underline for nav links */
-.nav-underline {
-  background-image: linear-gradient(currentColor, currentColor);
-  background-size: 0% 1px;
-  background-repeat: no-repeat;
-  background-position: 0 100%;
-  transition: background-size 220ms ease;
-}
-.nav-underline:hover { background-size: 100% 1px; }
-
-/* Subtle inner border for cards on dark */
-.card-dark {
-  background: var(--color-surface-1);
-  border: 1px solid var(--color-line);
-  box-shadow:
-    inset 0 1px 0 rgba(255,255,255,0.04),
-    0 1px 0 rgba(0,0,0,0.4);
+/* Subtle hero pattern */
+.hero-pattern {
+  background-image:
+    radial-gradient(rgba(29, 58, 165, 0.08) 1px, transparent 1px),
+    radial-gradient(rgba(29, 58, 165, 0.05) 1px, transparent 1px);
+  background-size: 24px 24px, 48px 48px;
+  background-position: 0 0, 12px 12px;
 }

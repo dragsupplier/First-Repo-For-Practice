@@ -1,57 +1,101 @@
 import { motion } from 'motion/react'
-import { ArrowRight, Mail, MapPin } from 'lucide-react'
+import { ArrowRight, Mail, Phone, MapPin } from 'lucide-react'
 
 export function CTA() {
   return (
-    <section id="contact" className="relative isolate overflow-hidden bg-bg py-20 md:py-28">
+    <section id="contact" className="relative bg-white py-14 md:py-16">
       <div className="mx-auto max-w-7xl px-5 md:px-8">
         <motion.div
-          initial={{ opacity: 0, y: 24 }}
+          initial={{ opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: '-15%' }}
-          transition={{ duration: 0.55 }}
-          className="relative overflow-hidden rounded-[28px] border border-white/10 bg-gradient-to-br from-brand-950 via-surface-2 to-bg p-8 text-fg md:p-14"
+          transition={{ duration: 0.5 }}
+          className="relative overflow-hidden rounded-lg bg-brand-950 p-8 text-white md:p-12"
         >
-          <BackdropArt />
-
-          <div className="relative grid grid-cols-1 items-center gap-10 lg:grid-cols-12">
-            <div className="lg:col-span-8">
-              <p className="text-[12px] font-semibold uppercase tracking-[0.18em] text-fg-3">
-                Start the conversation
+          <Bg />
+          <div className="relative grid grid-cols-1 items-center gap-8 lg:grid-cols-12 lg:gap-12">
+            <div className="lg:col-span-7">
+              <p className="text-[12px] font-semibold uppercase tracking-[0.18em] text-brand-200">
+                Get in touch
               </p>
-              <h2 className="mt-4 font-display text-[40px] font-bold leading-[1.02] tracking-[-0.03em] md:text-[64px] lg:text-[76px]">
-                Tell us where you are.
-                <br />
-                <span className="text-accent-400">We'll meet you there.</span>
+              <h2 className="mt-3 font-display text-[28px] font-bold leading-[1.15] tracking-[-0.02em] md:text-[40px] lg:text-[44px]">
+                Tell us about your institution or business.
               </h2>
-              <p className="mt-5 max-w-xl text-[16px] leading-[1.6] text-fg-2 md:text-[17px]">
+              <p className="mt-4 max-w-xl text-[15px] leading-[1.6] text-white/80 md:text-[16px]">
                 Twenty minutes is all it takes to figure out which Alphinix
                 door is yours. No deck. No script. Just a real conversation.
               </p>
+
+              <div className="mt-6 grid grid-cols-1 gap-3 sm:grid-cols-3">
+                {[
+                  { icon: Phone, label: 'Phone', value: '+91 00000 00000' },
+                  { icon: Mail,  label: 'Email', value: 'hello@alphinix.in' },
+                  { icon: MapPin, label: 'Office', value: 'Pune, India' },
+                ].map((c) => (
+                  <div key={c.label} className="rounded-md border border-white/10 bg-white/[0.04] p-3">
+                    <div className="flex items-center gap-2">
+                      <c.icon className="h-3.5 w-3.5 text-brand-200" strokeWidth={2.25} />
+                      <span className="font-mono text-[10.5px] uppercase tracking-[0.16em] text-white/60">
+                        {c.label}
+                      </span>
+                    </div>
+                    <p className="mt-1.5 text-[13.5px] font-semibold">{c.value}</p>
+                  </div>
+                ))}
+              </div>
             </div>
 
-            <div className="flex flex-col gap-3 lg:col-span-4 lg:items-end">
-              <a
-                href="mailto:hello@alphinix.in"
-                className="group inline-flex w-full items-center justify-between gap-3 rounded-full bg-fg px-5 py-3.5 text-[15px] font-semibold text-bg transition-transform duration-300 hover:translate-y-[-1px] lg:w-auto"
-              >
-                Book a 20-min call
-                <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-0.5" strokeWidth={2.25} />
-              </a>
-              <a
-                href="mailto:hello@alphinix.in"
-                className="inline-flex w-full items-center justify-between gap-3 rounded-full px-5 py-3.5 text-[15px] font-medium text-fg ring-1 ring-white/15 transition-colors hover:bg-white/[0.05] lg:w-auto"
-              >
-                <span className="inline-flex items-center gap-2">
-                  <Mail className="h-3.5 w-3.5" strokeWidth={2.25} />
-                  hello@alphinix.in
-                </span>
-                <ArrowRight className="h-4 w-4" strokeWidth={2.25} />
-              </a>
-              <p className="mt-1 inline-flex items-center gap-1.5 text-[12.5px] text-fg-3">
-                <MapPin className="h-3 w-3" strokeWidth={2.25} />
-                Pune · Mon–Sat · 10:00 to 18:30 IST
-              </p>
+            <div className="lg:col-span-5">
+              <div className="rounded-md border border-white/10 bg-white/[0.04] p-5">
+                <p className="text-[11.5px] font-semibold uppercase tracking-[0.16em] text-white/65">
+                  Quick enquiry
+                </p>
+                <form
+                  className="mt-4 space-y-3"
+                  onSubmit={(e) => {
+                    e.preventDefault()
+                    window.location.href = 'mailto:hello@alphinix.in'
+                  }}
+                >
+                  <Field label="Name">
+                    <input
+                      type="text"
+                      required
+                      placeholder="Full name"
+                      className="w-full rounded-md border border-white/15 bg-white/[0.04] px-3.5 py-2.5 text-[14px] text-white placeholder:text-white/40 focus:border-white/30 focus:outline-none"
+                    />
+                  </Field>
+                  <Field label="Work email">
+                    <input
+                      type="email"
+                      required
+                      placeholder="name@organization.com"
+                      className="w-full rounded-md border border-white/15 bg-white/[0.04] px-3.5 py-2.5 text-[14px] text-white placeholder:text-white/40 focus:border-white/30 focus:outline-none"
+                    />
+                  </Field>
+                  <Field label="I represent">
+                    <select
+                      defaultValue=""
+                      required
+                      className="w-full rounded-md border border-white/15 bg-white/[0.04] px-3.5 py-2.5 text-[14px] text-white focus:border-white/30 focus:outline-none"
+                    >
+                      <option value="" disabled className="text-fg">Select segment</option>
+                      <option className="text-fg">A college / institute</option>
+                      <option className="text-fg">A school</option>
+                      <option className="text-fg">A business / startup</option>
+                      <option className="text-fg">A hiring team</option>
+                      <option className="text-fg">A student / individual</option>
+                    </select>
+                  </Field>
+                  <button
+                    type="submit"
+                    className="group inline-flex w-full items-center justify-center gap-1.5 rounded-md bg-white px-5 py-3 text-[14px] font-semibold text-brand-950 transition-colors hover:bg-brand-50"
+                  >
+                    Submit enquiry
+                    <ArrowRight className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-0.5" strokeWidth={2.5} />
+                  </button>
+                </form>
+              </div>
             </div>
           </div>
         </motion.div>
@@ -60,24 +104,26 @@ export function CTA() {
   )
 }
 
-function BackdropArt() {
+function Field({ label, children }: { label: string; children: React.ReactNode }) {
+  return (
+    <label className="block">
+      <span className="mb-1.5 block text-[12px] font-medium text-white/70">{label}</span>
+      {children}
+    </label>
+  )
+}
+
+function Bg() {
   return (
     <svg
       aria-hidden
-      className="pointer-events-none absolute inset-0 h-full w-full"
+      className="pointer-events-none absolute inset-0 h-full w-full opacity-[0.18]"
       viewBox="0 0 1200 500"
       preserveAspectRatio="xMidYMid slice"
     >
-      <defs>
-        <radialGradient id="cta-glow" cx="80%" cy="0%" r="60%">
-          <stop offset="0%" stopColor="#5b85ff" stopOpacity="0.45" />
-          <stop offset="100%" stopColor="#0a1142" stopOpacity="0" />
-        </radialGradient>
-      </defs>
-      <rect width="1200" height="500" fill="url(#cta-glow)" />
-      <g stroke="rgba(255,255,255,0.06)" strokeWidth="1">
-        {Array.from({ length: 18 }).map((_, i) => (
-          <line key={i} x1={i * 70} y1="0" x2={i * 70 - 200} y2="500" />
+      <g stroke="rgba(255,255,255,0.4)" strokeWidth="0.6">
+        {Array.from({ length: 28 }).map((_, i) => (
+          <line key={i} x1={i * 50} y1="0" x2={i * 50 - 200} y2="500" />
         ))}
       </g>
     </svg>

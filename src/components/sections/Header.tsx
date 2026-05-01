@@ -5,64 +5,65 @@ import {
   X,
   GraduationCap,
   Building2,
-  ShieldCheck,
-  Mail,
-  ArrowRight,
-  UserCircle2,
   School,
   Rocket,
   Users,
-  BookOpen,
+  Phone,
+  Mail,
+  MapPin,
+  ShieldCheck,
   Newspaper,
+  BookOpen,
   Calendar,
   Download,
+  ArrowRight,
 } from 'lucide-react'
 import { Logo } from '@/components/ui/Logo'
 import { cn } from '@/lib/cn'
 import type { LucideIcon } from 'lucide-react'
 
-type MenuItem = { label: string; desc: string; href: string; icon: LucideIcon }
+type Item = { label: string; desc?: string; href: string; icon?: LucideIcon }
 
-const SOLUTIONS: MenuItem[] = [
-  { label: 'For Students', desc: 'Industrial training, internships & certifications.', href: '#audiences', icon: GraduationCap },
-  { label: 'For Colleges', desc: 'Placements, NAAC/NBA, AI/IoT labs.', href: '#audiences', icon: Building2 },
+const SOLUTIONS: Item[] = [
+  { label: 'For Students', desc: 'Industrial training, internships, certifications.', href: '#audiences', icon: GraduationCap },
+  { label: 'For Colleges', desc: 'Placements, NAAC/NBA support, AI/IoT labs.', href: '#audiences', icon: Building2 },
   { label: 'For Schools', desc: 'AI · robotics · STEM/ATL labs.', href: '#audiences', icon: School },
-  { label: 'For Businesses', desc: 'Web, mobile, AI & automation.', href: '#audiences', icon: Rocket },
-  { label: 'For Hiring', desc: 'Permanent · contract · bulk drives.', href: '#audiences', icon: Users },
+  { label: 'For Businesses', desc: 'Web, mobile, AI, automation, cloud.', href: '#audiences', icon: Rocket },
+  { label: 'For Hiring Teams', desc: 'Permanent · contract · bulk drives.', href: '#audiences', icon: Users },
 ]
 
-const RESOURCES: MenuItem[] = [
+const RESOURCES: Item[] = [
   { label: 'Blog', desc: 'Notes from the field.', href: '#', icon: Newspaper },
   { label: 'Webinars', desc: 'Upcoming live sessions.', href: '#', icon: Calendar },
   { label: 'Guides & Roadmaps', desc: 'Free downloads by segment.', href: '#', icon: Download },
-  { label: 'Case Studies', desc: 'How we partner end-to-end.', href: '#trust', icon: BookOpen },
+  { label: 'Case Studies', desc: 'Selected engagements.', href: '#trust', icon: BookOpen },
 ]
 
-const PORTAL: MenuItem[] = [
+const PORTAL: Item[] = [
   { label: 'Student LMS', desc: 'Courses, assessments, certificates.', href: '#', icon: GraduationCap },
   { label: 'College ERP', desc: 'Academic + placement operations.', href: '#', icon: Building2 },
-  { label: 'Admin Panel', desc: 'Lead pipeline & analytics.', href: '#', icon: ShieldCheck },
+  { label: 'Admin Console', desc: 'Internal pipeline & analytics.', href: '#', icon: ShieldCheck },
 ]
 
-const SIMPLE_LINKS: { label: string; href: string }[] = [
-  { label: 'Programs', href: '#approach' },
+const SIMPLE_LINKS = [
+  { label: 'Industries', href: '#industries' },
+  { label: 'Approach', href: '#approach' },
   { label: 'About', href: '#about' },
   { label: 'Careers', href: '#footer' },
 ]
 
 export function Header() {
-  const [scrolled, setScrolled] = useState(false)
-  const [mobile, setMobile] = useState(false)
   const [open, setOpen] = useState<string | null>(null)
+  const [mobile, setMobile] = useState(false)
+  const [scrolled, setScrolled] = useState(false)
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 8)
+    const onScroll = () => setScrolled(window.scrollY > 4)
     onScroll()
     window.addEventListener('scroll', onScroll, { passive: true })
     return () => window.removeEventListener('scroll', onScroll)
   }, [])
 
-  // Close menus on Escape
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => e.key === 'Escape' && setOpen(null)
     window.addEventListener('keydown', onKey)
@@ -70,126 +71,150 @@ export function Header() {
   }, [])
 
   return (
-    <header
-      className={cn(
-        'sticky top-0 z-50 w-full transition-[background,backdrop-filter,border-color] duration-300',
-        scrolled
-          ? 'border-b border-white/[0.06] bg-bg/75 backdrop-blur-xl'
-          : 'border-b border-transparent bg-transparent',
-      )}
-    >
-      <div className="mx-auto flex h-[72px] max-w-7xl items-center justify-between px-5 md:px-8">
-        <Logo />
-
-        {/* Desktop nav */}
-        <nav className="hidden items-center gap-1 lg:flex" onMouseLeave={() => setOpen(null)}>
-          <DropdownTrigger
-            label="Solutions"
-            isOpen={open === 'solutions'}
-            onEnter={() => setOpen('solutions')}
-          />
-          <DropdownTrigger
-            label="Resources"
-            isOpen={open === 'resources'}
-            onEnter={() => setOpen('resources')}
-          />
-          {SIMPLE_LINKS.map((l) => (
-            <a
-              key={l.href}
-              href={l.href}
-              onMouseEnter={() => setOpen(null)}
-              className="px-3.5 py-2 text-[14.5px] font-medium text-fg-2 transition-colors hover:text-fg"
-            >
-              {l.label}
+    <header className="sticky top-0 z-50 w-full">
+      {/* Utility bar */}
+      <div className="utility-bar hidden md:block">
+        <div className="mx-auto flex h-9 max-w-7xl items-center justify-between px-5 md:px-8">
+          <div className="flex items-center gap-5">
+            <span className="inline-flex items-center gap-1.5 text-white/80">
+              <MapPin className="h-3 w-3" strokeWidth={2.25} />
+              Pune, Maharashtra · India
+            </span>
+            <a href="tel:+910000000000" className="inline-flex items-center gap-1.5 text-white/80 hover:text-white">
+              <Phone className="h-3 w-3" strokeWidth={2.25} />
+              +91 00000 00000
             </a>
-          ))}
-        </nav>
-
-        {/* Right cluster */}
-        <div className="hidden items-center gap-2 lg:flex">
-          <PortalDropdown items={PORTAL} />
-          <a
-            href="#contact"
-            className="inline-flex items-center gap-2 rounded-full px-4 py-2 text-[14px] font-medium text-fg-2 ring-1 ring-white/10 transition-colors hover:text-fg hover:ring-white/30"
-          >
-            <Mail className="h-3.5 w-3.5" strokeWidth={2.25} />
-            Contact us
-          </a>
-          <a
-            href="#contact"
-            className="group inline-flex items-center gap-1.5 rounded-full bg-brand-500 px-4 py-2 text-[14px] font-semibold text-white transition-transform duration-200 hover:translate-y-[-1px] hover:bg-brand-400"
-          >
-            <ArrowRight className="h-3.5 w-3.5 transition-transform duration-300 group-hover:translate-x-0.5" strokeWidth={2.5} />
-            Get started
-          </a>
+            <a href="mailto:hello@alphinix.in" className="inline-flex items-center gap-1.5 text-white/80 hover:text-white">
+              <Mail className="h-3 w-3" strokeWidth={2.25} />
+              hello@alphinix.in
+            </a>
+          </div>
+          <div className="flex items-center gap-5 text-white/80">
+            <a href="#" className="hover:text-white">Investors</a>
+            <a href="#" className="hover:text-white">Partners</a>
+            <a href="#" className="hover:text-white">Newsroom</a>
+            <a href="#contact" className="hover:text-white">Support</a>
+          </div>
         </div>
-
-        <button
-          className="grid h-10 w-10 place-items-center rounded-lg text-fg ring-1 ring-white/10 lg:hidden"
-          onClick={() => setMobile((v) => !v)}
-          aria-label="Toggle menu"
-        >
-          {mobile ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
-        </button>
       </div>
 
-      {/* Mega menu — Solutions */}
-      <MegaMenu visible={open === 'solutions'} onClose={() => setOpen(null)}>
-        <MegaPanel
-          title="Solutions"
-          subtitle="Five doors. One platform."
-          items={SOLUTIONS}
-        />
-      </MegaMenu>
+      {/* Main bar */}
+      <div
+        className={cn(
+          'border-b bg-white transition-shadow',
+          scrolled ? 'border-line shadow-sm' : 'border-transparent',
+        )}
+      >
+        <div className="mx-auto flex h-[68px] max-w-7xl items-center justify-between px-5 md:px-8">
+          <Logo />
 
-      {/* Mega menu — Resources */}
-      <MegaMenu visible={open === 'resources'} onClose={() => setOpen(null)}>
-        <MegaPanel
-          title="Resources"
-          subtitle="Notes, sessions and free tools."
-          items={RESOURCES}
-        />
-      </MegaMenu>
+          {/* Desktop nav */}
+          <nav className="hidden items-center gap-1 lg:flex" onMouseLeave={() => setOpen(null)}>
+            <DropdownTrigger
+              label="Solutions"
+              isOpen={open === 'solutions'}
+              onEnter={() => setOpen('solutions')}
+            />
+            <DropdownTrigger
+              label="Resources"
+              isOpen={open === 'resources'}
+              onEnter={() => setOpen('resources')}
+            />
+            {SIMPLE_LINKS.map((l) => (
+              <a
+                key={l.href}
+                href={l.href}
+                onMouseEnter={() => setOpen(null)}
+                className="px-3.5 py-2 text-[14px] font-medium text-fg-2 transition-colors hover:text-fg"
+              >
+                {l.label}
+              </a>
+            ))}
+          </nav>
+
+          {/* Right cluster */}
+          <div className="hidden items-center gap-2 lg:flex">
+            <PortalDropdown items={PORTAL} />
+            <a
+              href="#contact"
+              className="group inline-flex items-center gap-1.5 rounded-md bg-brand-700 px-4 py-2 text-[13.5px] font-semibold text-white transition-colors hover:bg-brand-800"
+            >
+              Request a proposal
+              <ArrowRight className="h-3.5 w-3.5 transition-transform duration-200 group-hover:translate-x-0.5" strokeWidth={2.5} />
+            </a>
+          </div>
+
+          <button
+            className="grid h-10 w-10 place-items-center rounded-md text-fg ring-1 ring-line lg:hidden"
+            onClick={() => setMobile((v) => !v)}
+            aria-label="Toggle menu"
+          >
+            {mobile ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+          </button>
+        </div>
+
+        {/* Mega menus */}
+        <MegaMenu visible={open === 'solutions'} onClose={() => setOpen(null)}>
+          <MegaPanel
+            title="Solutions"
+            tagline="Five doors. One platform."
+            items={SOLUTIONS}
+            footer={{
+              title: 'Not sure where to start?',
+              body: 'Tell us about your institution or company — we will recommend the right entry point.',
+              cta: 'Talk to a consultant',
+              href: '#contact',
+            }}
+          />
+        </MegaMenu>
+
+        <MegaMenu visible={open === 'resources'} onClose={() => setOpen(null)}>
+          <MegaPanel
+            title="Resources"
+            tagline="Insights, sessions and free tools."
+            items={RESOURCES}
+            footer={{
+              title: 'Subscribe to insights',
+              body: 'Quarterly notes on hiring trends, academic operations and applied AI.',
+              cta: 'Visit the blog',
+              href: '#',
+            }}
+          />
+        </MegaMenu>
+      </div>
 
       {/* Mobile sheet */}
       <div
         className={cn(
-          'lg:hidden',
-          mobile ? 'max-h-[100vh] border-t border-white/10' : 'max-h-0 overflow-hidden',
+          'border-b border-line bg-white lg:hidden',
+          mobile ? 'max-h-[calc(100vh-60px)] overflow-y-auto' : 'max-h-0 overflow-hidden',
           'transition-[max-height] duration-300',
         )}
       >
-        <div className="space-y-4 bg-bg px-5 py-5">
+        <div className="space-y-5 px-5 py-5">
           <MobileGroup title="Solutions" items={SOLUTIONS} />
           <MobileGroup title="Resources" items={RESOURCES} />
+          <MobileGroup title="Portal" items={PORTAL} />
           <div className="space-y-1">
-            <p className="px-2 pb-1 pt-2 text-[11px] font-semibold uppercase tracking-[0.16em] text-fg-3">More</p>
+            <p className="px-1 pb-1 pt-1 text-[11px] font-semibold uppercase tracking-[0.14em] text-fg-4">More</p>
             {SIMPLE_LINKS.map((l) => (
               <a
                 key={l.href}
                 href={l.href}
                 onClick={() => setMobile(false)}
-                className="block rounded-lg px-2 py-2.5 text-[15px] font-medium text-fg-2 hover:bg-white/[0.05]"
+                className="block rounded-md px-2 py-2.5 text-[14.5px] font-medium text-fg-2 hover:bg-canvas"
               >
                 {l.label}
               </a>
             ))}
           </div>
-          <MobileGroup title="Portal" items={PORTAL} />
-          <div className="flex flex-col gap-2 pt-2">
-            <a
-              href="#contact"
-              className="inline-flex items-center justify-center gap-2 rounded-full px-4 py-3 text-[14.5px] font-medium text-fg ring-1 ring-white/15"
-            >
-              <Mail className="h-3.5 w-3.5" /> Contact us
-            </a>
-            <a
-              href="#contact"
-              className="inline-flex items-center justify-center gap-2 rounded-full bg-brand-500 px-4 py-3 text-[14.5px] font-semibold text-white"
-            >
-              <ArrowRight className="h-3.5 w-3.5" /> Get started
-            </a>
-          </div>
+          <a
+            href="#contact"
+            className="inline-flex w-full items-center justify-center gap-1.5 rounded-md bg-brand-700 px-4 py-3 text-[14px] font-semibold text-white"
+          >
+            Request a proposal
+            <ArrowRight className="h-3.5 w-3.5" strokeWidth={2.5} />
+          </a>
         </div>
       </div>
     </header>
@@ -209,7 +234,7 @@ function DropdownTrigger({
     <button
       onMouseEnter={onEnter}
       className={cn(
-        'inline-flex items-center gap-1 rounded-full px-3.5 py-2 text-[14.5px] font-medium transition-colors',
+        'inline-flex items-center gap-1 px-3.5 py-2 text-[14px] font-medium transition-colors',
         isOpen ? 'text-fg' : 'text-fg-2 hover:text-fg',
       )}
       aria-expanded={isOpen}
@@ -243,7 +268,7 @@ function MegaMenu({
       )}
     >
       <div className="mx-auto max-w-7xl px-5 pt-2 md:px-8">
-        <div className="overflow-hidden rounded-2xl border border-white/10 bg-surface-1/95 shadow-2xl backdrop-blur-xl">
+        <div className="overflow-hidden rounded-md border border-line bg-white shadow-xl">
           {children}
         </div>
       </div>
@@ -253,35 +278,54 @@ function MegaMenu({
 
 function MegaPanel({
   title,
-  subtitle,
+  tagline,
   items,
+  footer,
 }: {
   title: string
-  subtitle: string
-  items: MenuItem[]
+  tagline: string
+  items: Item[]
+  footer: { title: string; body: string; cta: string; href: string }
 }) {
   return (
-    <div className="grid gap-0 md:grid-cols-12">
-      <div className="border-white/[0.06] bg-white/[0.02] p-7 md:col-span-3 md:border-r">
-        <p className="font-mono text-[11px] uppercase tracking-[0.18em] text-fg-3">{title}</p>
-        <p className="mt-3 font-display text-[22px] font-bold leading-tight tracking-tight text-fg">
-          {subtitle}
+    <div className="grid grid-cols-12">
+      <div className="col-span-3 border-r border-line bg-canvas p-7">
+        <p className="font-mono text-[10.5px] uppercase tracking-[0.18em] text-fg-4">{title}</p>
+        <p className="mt-3 font-display text-[20px] font-bold leading-tight tracking-tight text-fg">
+          {tagline}
         </p>
+        <div className="mt-6 rounded-md border border-line bg-white p-4">
+          <p className="text-[12.5px] font-semibold text-fg">{footer.title}</p>
+          <p className="mt-1.5 text-[12.5px] leading-snug text-fg-3">{footer.body}</p>
+          <a
+            href={footer.href}
+            className="mt-3 inline-flex items-center gap-1 text-[12.5px] font-semibold text-brand-700 hover:text-brand-800"
+          >
+            {footer.cta}
+            <ArrowRight className="h-3 w-3" strokeWidth={2.5} />
+          </a>
+        </div>
       </div>
-      <ul className="grid gap-0 p-3 md:col-span-9 md:grid-cols-2">
+      <ul className="col-span-9 grid grid-cols-2 gap-0 p-3">
         {items.map((it) => (
           <li key={it.label}>
             <a
               href={it.href}
-              className="group flex items-start gap-3 rounded-xl p-4 transition-colors hover:bg-white/[0.05]"
+              className="group flex items-start gap-3 rounded-md p-3.5 transition-colors hover:bg-canvas"
             >
-              <span className="grid h-9 w-9 shrink-0 place-items-center rounded-lg bg-white/[0.06] text-fg ring-1 ring-white/10 transition-colors group-hover:bg-brand-500/20 group-hover:ring-brand-500/40">
-                <it.icon className="h-[16px] w-[16px]" strokeWidth={2} />
-              </span>
+              {it.icon ? (
+                <span className="grid h-9 w-9 shrink-0 place-items-center rounded-md bg-brand-50 text-brand-700 ring-1 ring-brand-100">
+                  <it.icon className="h-[16px] w-[16px]" strokeWidth={2} />
+                </span>
+              ) : null}
               <span className="flex flex-col">
-                <span className="text-[14px] font-semibold text-fg">{it.label}</span>
+                <span className="text-[13.5px] font-semibold text-fg">{it.label}</span>
                 <span className="mt-0.5 text-[12.5px] text-fg-3">{it.desc}</span>
               </span>
+              <ArrowRight
+                className="ml-auto h-3.5 w-3.5 translate-x-[-4px] text-fg-4 opacity-0 transition-all duration-200 group-hover:translate-x-0 group-hover:opacity-100"
+                strokeWidth={2.25}
+              />
             </a>
           </li>
         ))}
@@ -290,16 +334,19 @@ function MegaPanel({
   )
 }
 
-function PortalDropdown({ items }: { items: MenuItem[] }) {
+function PortalDropdown({ items }: { items: Item[] }) {
   const [open, setOpen] = useState(false)
   return (
-    <div className="relative" onMouseEnter={() => setOpen(true)} onMouseLeave={() => setOpen(false)}>
+    <div
+      className="relative"
+      onMouseEnter={() => setOpen(true)}
+      onMouseLeave={() => setOpen(false)}
+    >
       <button
-        className="inline-flex items-center gap-1.5 rounded-full px-3.5 py-2 text-[14px] font-medium text-fg-2 ring-1 ring-white/10 transition-colors hover:text-fg hover:ring-white/30"
+        className="inline-flex items-center gap-1.5 rounded-md px-3.5 py-2 text-[13.5px] font-medium text-fg-2 ring-1 ring-line transition-colors hover:text-fg hover:ring-line-2"
         aria-expanded={open}
       >
-        <UserCircle2 className="h-3.5 w-3.5" strokeWidth={2} />
-        Portal
+        Portal Login
         <ChevronDown
           className={cn('h-3.5 w-3.5 transition-transform duration-200', open && 'rotate-180')}
           strokeWidth={2.25}
@@ -307,24 +354,26 @@ function PortalDropdown({ items }: { items: MenuItem[] }) {
       </button>
       <div
         className={cn(
-          'absolute right-0 top-full w-[320px] origin-top-right pt-3 transition-[opacity,transform] duration-200',
+          'absolute right-0 top-full w-[300px] origin-top-right pt-2 transition-[opacity,transform] duration-200',
           open
             ? 'pointer-events-auto translate-y-0 opacity-100'
             : 'pointer-events-none -translate-y-1 opacity-0',
         )}
       >
-        <div className="overflow-hidden rounded-2xl border border-white/10 bg-surface-1/95 p-2 shadow-2xl backdrop-blur-xl">
+        <div className="overflow-hidden rounded-md border border-line bg-white p-1.5 shadow-xl">
           {items.map((p) => (
             <a
               key={p.label}
               href={p.href}
-              className="group flex gap-3 rounded-xl p-3 transition-colors hover:bg-white/[0.05]"
+              className="flex gap-3 rounded-sm p-3 transition-colors hover:bg-canvas"
             >
-              <span className="grid h-9 w-9 shrink-0 place-items-center rounded-lg bg-white/[0.06] text-fg ring-1 ring-white/10">
-                <p.icon className="h-[16px] w-[16px]" strokeWidth={2} />
-              </span>
+              {p.icon ? (
+                <span className="grid h-8 w-8 shrink-0 place-items-center rounded-md bg-brand-50 text-brand-700 ring-1 ring-brand-100">
+                  <p.icon className="h-4 w-4" strokeWidth={2} />
+                </span>
+              ) : null}
               <span className="flex flex-col">
-                <span className="text-[13.5px] font-semibold text-fg">{p.label}</span>
+                <span className="text-[13px] font-semibold text-fg">{p.label}</span>
                 <span className="mt-0.5 text-[12px] text-fg-3">{p.desc}</span>
               </span>
             </a>
@@ -335,24 +384,26 @@ function PortalDropdown({ items }: { items: MenuItem[] }) {
   )
 }
 
-function MobileGroup({ title, items }: { title: string; items: MenuItem[] }) {
+function MobileGroup({ title, items }: { title: string; items: Item[] }) {
   return (
     <div className="space-y-1">
-      <p className="px-2 pb-1 pt-2 text-[11px] font-semibold uppercase tracking-[0.16em] text-fg-3">
+      <p className="px-1 pb-1 pt-1 text-[11px] font-semibold uppercase tracking-[0.14em] text-fg-4">
         {title}
       </p>
       {items.map((it) => (
         <a
           key={it.label}
           href={it.href}
-          className="flex items-start gap-3 rounded-lg px-2 py-2.5 hover:bg-white/[0.05]"
+          className="flex items-start gap-3 rounded-md px-2 py-2.5 hover:bg-canvas"
         >
-          <span className="grid h-8 w-8 shrink-0 place-items-center rounded-lg bg-white/[0.06] text-fg ring-1 ring-white/10">
-            <it.icon className="h-4 w-4" strokeWidth={2} />
-          </span>
+          {it.icon ? (
+            <span className="grid h-8 w-8 shrink-0 place-items-center rounded-md bg-brand-50 text-brand-700 ring-1 ring-brand-100">
+              <it.icon className="h-4 w-4" strokeWidth={2} />
+            </span>
+          ) : null}
           <span className="flex flex-col">
             <span className="text-[14px] font-medium text-fg">{it.label}</span>
-            <span className="text-[12px] text-fg-3">{it.desc}</span>
+            {it.desc ? <span className="text-[12px] text-fg-3">{it.desc}</span> : null}
           </span>
         </a>
       ))}
