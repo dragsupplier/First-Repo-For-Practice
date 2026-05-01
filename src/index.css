@@ -1,7 +1,7 @@
 @import "tailwindcss";
 
 @theme {
-  /* Corporate brand blue */
+  /* Corporate brand blue — keep */
   --color-brand-50:  #eef4ff;
   --color-brand-100: #dbeafe;
   --color-brand-200: #b8d0fb;
@@ -18,33 +18,32 @@
   --color-accent-500: #f15a24;
   --color-accent-600: #d34416;
 
-  /* Light surface system — primary */
-  --color-bg:        #ffffff;          /* page */
-  --color-canvas:    #f5f7fb;          /* alt section background */
-  --color-canvas-2: #eef1f7;           /* deeper alt */
-  --color-line:      #e2e6ee;
-  --color-line-2:    #cdd3dd;
+  /* Surfaces */
+  --color-bg:        #ffffff;
+  --color-canvas:    #f4f6fb;
+  --color-canvas-2: #e9eef7;
+  --color-line:      #dde2ec;
+  --color-line-2:    #c8cfdc;
 
-  /* Foreground (text) on light */
-  --color-fg:        #0d1530;          /* near-black, slight blue */
+  /* Text */
+  --color-fg:        #0d1530;
   --color-fg-2:      #2b3450;
   --color-fg-3:      #4d566f;
   --color-fg-4:      #6b7390;
   --color-fg-5:      #9099ad;
 
-  /* Inverted (dark) tokens — used in CTA band only */
+  /* Inverted dark tokens */
   --color-ink-50:  #f5f7fb;
   --color-ink-200: #e2e6ee;
   --color-ink-700: #2b3450;
   --color-ink-900: #0d1530;
   --color-ink-950: #050a1a;
 
-  /* Type — corporate body, classic display */
-  --font-display: "Inter Tight", "Inter", "Segoe UI", system-ui, sans-serif;
+  /* Type — corporate body, characterful display */
+  --font-display: "Fraunces", "Inter Tight", "Inter", "Segoe UI", system-ui, serif;
   --font-sans:    "Inter", "Segoe UI", "Helvetica Neue", system-ui, sans-serif;
-  --font-mono:    "IBM Plex Mono", ui-monospace, "JetBrains Mono", monospace;
+  --font-mono:    "JetBrains Mono", ui-monospace, monospace;
 
-  /* Radii — restrained */
   --radius-sm: 4px;
   --radius-md: 6px;
   --radius-lg: 8px;
@@ -65,14 +64,16 @@
     font-family: var(--font-sans);
     font-size: 15px;
     line-height: 1.55;
+    font-feature-settings: "ss01", "cv11";
   }
-  ::selection { background: var(--color-brand-100); color: var(--color-brand-900); }
+  ::selection { background: var(--color-brand-700); color: white; }
   h1, h2, h3, h4 {
     font-family: var(--font-display);
     color: var(--color-fg);
     letter-spacing: -0.018em;
-    font-weight: 700;
-    line-height: 1.15;
+    font-weight: 600;
+    line-height: 1.04;
+    font-variation-settings: "opsz" 144, "SOFT" 0;
   }
   :focus-visible {
     outline: 2px solid var(--color-brand-500);
@@ -88,43 +89,9 @@
   font-size: 12.5px;
 }
 
-/* Clean section dividers */
-.section-divider {
-  border-top: 1px solid var(--color-line);
-}
-
-/* Underline link affordance */
-.link-underline {
-  position: relative;
-  display: inline-flex;
-  align-items: center;
-  color: var(--color-brand-700);
-  font-weight: 600;
-}
-.link-underline::after {
-  content: "";
-  position: absolute;
-  left: 0; right: 0; bottom: -2px;
-  height: 1px;
-  background: currentColor;
-  transform-origin: left;
-  transform: scaleX(1);
-  transition: transform 220ms ease;
-}
-.link-underline:hover::after { transform: scaleX(0.6); }
-
-/* Marquee (clients) */
+/* Marquee */
 @keyframes marquee {
   from { transform: translateX(0); }
   to   { transform: translateX(-50%); }
 }
 .animate-marquee { animation: marquee 50s linear infinite; }
-
-/* Subtle hero pattern */
-.hero-pattern {
-  background-image:
-    radial-gradient(rgba(29, 58, 165, 0.08) 1px, transparent 1px),
-    radial-gradient(rgba(29, 58, 165, 0.05) 1px, transparent 1px);
-  background-size: 24px 24px, 48px 48px;
-  background-position: 0 0, 12px 12px;
-}
