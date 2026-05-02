@@ -56,25 +56,17 @@ export function Header() {
   const [open, setOpen] = useState<string | null>(null)
   const [mobile, setMobile] = useState(false)
   const [scrolled, setScrolled] = useState(false)
-  const [hidden, setHidden] = useState(false)
+  const [utilityHidden, setUtilityHidden] = useState(false)
 
-  // Auto-hide on scroll down, show on scroll up
+  // Hide only the utility bar (address/mail) on scroll past 80px; main nav stays
   useEffect(() => {
-    let lastY = window.scrollY
     let raf = 0
     const onScroll = () => {
       cancelAnimationFrame(raf)
       raf = requestAnimationFrame(() => {
         const y = window.scrollY
-        const dy = y - lastY
         setScrolled(y > 4)
-        // Hide only when scrolling down past a small threshold
-        if (Math.abs(dy) > 6) {
-          if (y > 120 && dy > 0) setHidden(true)
-          else if (dy < 0) setHidden(false)
-        }
-        if (mobile || open) setHidden(false)
-        lastY = y
+        setUtilityHidden(y > 80)
       })
     }
     onScroll()
@@ -83,7 +75,7 @@ export function Header() {
       window.removeEventListener('scroll', onScroll)
       cancelAnimationFrame(raf)
     }
-  }, [mobile, open])
+  }, [])
 
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => e.key === 'Escape' && setOpen(null)
@@ -92,14 +84,14 @@ export function Header() {
   }, [])
 
   return (
-    <header
-      className={cn(
-        'sticky top-0 z-50 w-full transition-transform duration-300 ease-out will-change-transform',
-        hidden ? '-translate-y-full' : 'translate-y-0',
-      )}
-    >
-      {/* Utility bar */}
-      <div className="utility-bar hidden md:block">
+    <header className="sticky top-0 z-50 w-full">
+      {/* Utility bar — collapses height on scroll */}
+      <div
+        className={cn(
+          'utility-bar hidden overflow-hidden transition-[max-height,opacity] duration-300 ease-out md:block',
+          utilityHidden ? 'max-h-0 opacity-0' : 'max-h-9 opacity-100',
+        )}
+      >
         <div className="mx-auto flex h-9 max-w-7xl items-center justify-between px-5 md:px-8">
           <div className="flex items-center gap-5">
             <span className="inline-flex items-center gap-1.5 text-white/80">

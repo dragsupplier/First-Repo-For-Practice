@@ -206,32 +206,32 @@ export function Audiences() {
               opacity: 0.6,
             }}
             transition={{ duration: 0.55, ease: [0.2, 0.7, 0.2, 1] }}
-            className="overflow-hidden rounded-lg border border-line bg-white shadow-[0_24px_60px_-30px_rgba(11,18,32,0.18)]"
+            className="overflow-hidden rounded-lg border border-line bg-canvas shadow-[0_24px_60px_-30px_rgba(11,18,32,0.18)]"
           >
-            {/* Card header — icon block + meta */}
-            <div className="grid grid-cols-12 gap-0 border-b border-line">
-              <div className="col-span-12 grid place-items-center bg-brand-700 p-7 text-white sm:col-span-3 md:p-8">
-                <div className="text-center">
-                  <ActiveIcon className="mx-auto h-10 w-10" strokeWidth={1.6} />
-                  <p className="mt-3 font-mono text-[10.5px] uppercase tracking-[0.18em] text-brand-200">
-                    {active.num} · {active.tab}
-                  </p>
-                </div>
-              </div>
-              <div className="col-span-12 flex flex-col justify-between gap-4 p-7 sm:col-span-9 md:flex-row md:items-end md:p-10">
+            {/* Top accent stripe — brand colour band, no heavy corner block */}
+            <div className="h-1.5 w-full bg-brand-700" aria-hidden />
+
+            {/* Card header — clean horizontal layout */}
+            <div className="flex flex-col gap-5 border-b border-line bg-white p-7 md:flex-row md:items-end md:justify-between md:p-10">
+              <div className="flex flex-col gap-4 md:flex-row md:items-center">
+                <span className="grid h-12 w-12 shrink-0 place-items-center rounded-md bg-brand-50 text-brand-700 ring-1 ring-brand-100">
+                  <ActiveIcon className="h-5 w-5" strokeWidth={2} />
+                </span>
                 <div>
-                  <p className="kicker">{active.title}</p>
-                  <h3 className="mt-3 font-display text-[28px] font-semibold leading-[1.05] tracking-[-0.025em] text-fg md:text-[40px] lg:text-[44px]">
+                  <p className="kicker">
+                    {active.num} · {active.title}
+                  </p>
+                  <h3 className="mt-2 font-display text-[26px] font-semibold leading-[1.06] tracking-[-0.025em] text-fg md:text-[36px] lg:text-[42px]">
                     {active.promise}
                   </h3>
                 </div>
-                <p className="font-mono text-[11px] uppercase tracking-[0.14em] text-fg-4 md:text-right">
-                  {active.who}
-                </p>
               </div>
+              <p className="font-mono text-[11px] uppercase tracking-[0.14em] text-fg-4 md:text-right">
+                {active.who}
+              </p>
             </div>
 
-            {/* Card body */}
+            {/* Card body — sits on canvas tint, not pure white */}
             <div className="grid grid-cols-12 gap-x-10 gap-y-10 p-7 md:p-10">
               {/* Body + outcome */}
               <div className="col-span-12 lg:col-span-7">
@@ -270,20 +270,20 @@ export function Audiences() {
                 </div>
               </div>
 
-              {/* Programs list */}
+              {/* Programs list — proper white card on the canvas tint */}
               <aside className="col-span-12 lg:col-span-5">
-                <div className="border-t border-line">
-                  <div className="flex items-center justify-between border-b border-line py-3">
+                <div className="overflow-hidden rounded-md border border-line bg-white">
+                  <div className="flex items-center justify-between border-b border-line bg-canvas-2 px-5 py-3">
                     <p className="kicker">Programmes included</p>
                     <span className="font-mono text-[10.5px] uppercase tracking-[0.14em] text-fg-4">
-                      {active.programs.length}
+                      {active.programs.length} items
                     </span>
                   </div>
                   <ul>
                     {active.programs.map((p, i) => (
                       <li
                         key={p}
-                        className={`flex items-center gap-3 py-3 text-[14px] text-fg-2 ${
+                        className={`flex items-center gap-3 px-5 py-3 text-[14px] text-fg-2 ${
                           i !== active.programs.length - 1 ? 'border-b border-line' : ''
                         }`}
                       >
@@ -300,7 +300,7 @@ export function Audiences() {
             </div>
 
             {/* Visual progression footer */}
-            <div className="flex items-center justify-between border-t border-line bg-canvas px-7 py-4 md:px-10">
+            <div className="flex items-center justify-between border-t border-line bg-white px-7 py-4 md:px-10">
               <p className="font-mono text-[10.5px] uppercase tracking-[0.14em] text-fg-4">
                 Audience {active.num} of {String(SEGMENTS.length).padStart(2, '0')}
               </p>

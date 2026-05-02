@@ -25,21 +25,9 @@ const AUDIENCE_STRIP: { label: string; sub: string; icon: LucideIcon }[] = [
 export function Hero() {
   return (
     <section id="hero" className="relative bg-white">
-      <div className="mx-auto max-w-5xl px-5 pt-16 pb-12 text-center md:px-8 md:pt-24 md:pb-16">
-        {/* Centered opener */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.4 }}
-          className="flex items-center justify-center gap-2"
-        >
-          <span className="h-px w-10 bg-line-2" />
-          <span className="kicker">01 — Introduction</span>
-          <span className="h-px w-10 bg-line-2" />
-        </motion.div>
-
+      <div className="mx-auto max-w-5xl px-5 pt-20 pb-12 text-center md:px-8 md:pt-28 md:pb-16">
         {/* Centered headline with word-by-word reveal */}
-        <h1 className="mx-auto mt-10 max-w-[20ch] font-display text-[44px] font-semibold leading-[1.04] tracking-[-0.025em] text-fg sm:text-[56px] md:mt-12 md:text-[68px] lg:text-[76px]">
+        <h1 className="mx-auto max-w-[20ch] font-display text-[44px] font-semibold leading-[1.04] tracking-[-0.025em] text-fg sm:text-[56px] md:text-[68px] lg:text-[76px]">
           <TextReveal text="One partner." stagger={70} delay={0.05} />{' '}
           <span className="text-brand-700">
             <TextReveal text="One platform." stagger={70} delay={0.35} />
