@@ -1,6 +1,15 @@
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'motion/react'
-import { ArrowRight, ArrowUpRight } from 'lucide-react'
+import {
+  ArrowRight,
+  ArrowUpRight,
+  Compass,
+  Rocket,
+  Calendar,
+  Settings,
+  CheckCircle2,
+} from 'lucide-react'
+import type { LucideIcon } from 'lucide-react'
 
 type Format = {
   key: string
@@ -12,6 +21,7 @@ type Format = {
   body2: string
   includes: string[]
   flag: 'standard' | 'popular' | 'enterprise'
+  icon: LucideIcon
 }
 
 const FORMATS: Format[] = [
@@ -27,6 +37,7 @@ const FORMATS: Format[] = [
       'Refundable against any subsequent engagement. Best for institutions and businesses that have an open question and need a written, owner-mapped plan before committing to a longer programme.',
     includes: ['Stakeholder workshops', 'Constraint audit', 'Written 90-day plan', 'Refundable fee'],
     flag: 'standard',
+    icon: Compass,
   },
   {
     key: 'pilot',
@@ -37,9 +48,10 @@ const FORMATS: Format[] = [
     body:
       'A focused pilot — one cohort, one drive, one product, or one lab. Designed to ship a measurable outcome within a single quarter so you can decide on scale-up.',
     body2:
-      'Pilots run with the full Alphinix team and the same engagement model as larger contracts — they are not "trial" engagements. Output is real production work, not a sales demo.',
+      'Pilots run with the full Alphinix team and the same engagement model as larger contracts — they are not "trial" engagements. Output is real production work.',
     includes: ['Single workstream', 'Owner per stream', 'Weekly status reviews', 'Real production output'],
     flag: 'popular',
+    icon: Rocket,
   },
   {
     key: 'annual',
@@ -53,6 +65,7 @@ const FORMATS: Format[] = [
       'Designed for colleges and growing companies that want a single-vendor relationship instead of stitching together three. Includes carry-forward of unused capacity within the year.',
     includes: ['Multi-track scope', 'Quarterly business reviews', 'Cohort year-on-year carry', 'One master agreement'],
     flag: 'standard',
+    icon: Calendar,
   },
   {
     key: 'bespoke',
@@ -66,24 +79,26 @@ const FORMATS: Format[] = [
       'Used for skill-mission projects, large-bid responses, and enterprise GCC engagements. We will scope, contract and staff a dedicated pod that operates as an extension of your team.',
     includes: ['Dedicated delivery pod', 'Custom SOW', 'On-premise placement', 'Joint-IP optional'],
     flag: 'enterprise',
+    icon: Settings,
   },
 ]
 
 export function Industries() {
   const [activeKey, setActiveKey] = useState(FORMATS[0].key)
   const active = FORMATS.find((f) => f.key === activeKey) ?? FORMATS[0]
+  const ActiveIcon = active.icon
+  const activeIndex = FORMATS.findIndex((f) => f.key === activeKey)
 
   return (
-    <section id="industries" className="relative bg-canvas">
-      {/* Section opener */}
-      <div className="bg-canvas">
+    <section id="industries" className="relative bg-white">
+      <div className="bg-white">
         <div className="mx-auto max-w-7xl px-5 pt-16 md:px-8 md:pt-20">
           <div className="flex items-center gap-3">
             <span className="kicker">04 — Engagement formats</span>
             <span className="h-px flex-1 bg-line-2" />
           </div>
           <div className="mt-8 grid grid-cols-12 gap-x-10 gap-y-6">
-            <h2 className="col-span-12 font-display text-[36px] font-semibold leading-[1.04] tracking-[-0.02em] text-fg lg:col-span-7 lg:text-[60px]">
+            <h2 className="col-span-12 font-display text-[36px] font-semibold leading-[1.04] tracking-[-0.02em] text-fg lg:col-span-7 lg:text-[52px]">
               Four ways to start <span className="text-brand-700">working with us.</span>
             </h2>
             <p className="col-span-12 text-[15.5px] leading-[1.6] text-fg-3 lg:col-span-5 lg:text-[16.5px]">
@@ -95,120 +110,148 @@ export function Industries() {
         </div>
       </div>
 
-      {/* Tabbed editorial: format list + active long-form panel */}
-      <div className="mx-auto mt-12 max-w-7xl px-5 pb-20 md:mt-16 md:px-8 md:pb-24">
-        <div className="grid grid-cols-12 gap-x-10 gap-y-10">
-          {/* Format list */}
-          <nav className="col-span-12 lg:col-span-4">
-            <p className="kicker">Formats</p>
-            <ol className="mt-5 border-t border-line">
-              {FORMATS.map((f) => {
-                const isActive = f.key === activeKey
-                return (
-                  <li key={f.key} className="border-b border-line">
-                    <button
-                      onClick={() => setActiveKey(f.key)}
-                      className={`relative grid w-full grid-cols-[auto_1fr_auto] items-center gap-3 py-5 pr-1 text-left transition-colors ${
-                        isActive ? 'bg-white text-fg' : 'text-fg-3 hover:text-fg'
+      {/* Visual timeline of formats — bigger than a tab strip */}
+      <div className="mx-auto mt-12 max-w-7xl px-5 md:px-8">
+        <div className="relative">
+          {/* Background rail */}
+          <div className="absolute left-0 right-0 top-7 hidden h-px bg-line md:block" aria-hidden />
+          {/* Active progress rail */}
+          <div
+            className="absolute left-0 top-7 hidden h-px bg-brand-700 transition-all duration-500 md:block"
+            style={{ width: `${(activeIndex / (FORMATS.length - 1)) * 100}%` }}
+            aria-hidden
+          />
+
+          <ol className="relative grid grid-cols-2 gap-y-6 md:grid-cols-4">
+            {FORMATS.map((f, i) => {
+              const isActive = i === activeIndex
+              const isPast = i < activeIndex
+              const Icon = f.icon
+              return (
+                <li key={f.key} className="flex flex-col items-center text-center">
+                  <button
+                    onClick={() => setActiveKey(f.key)}
+                    className="group relative flex flex-col items-center"
+                    aria-pressed={isActive}
+                  >
+                    <span
+                      className={`grid h-14 w-14 place-items-center rounded-full border-2 transition-all duration-200 ${
+                        isActive
+                          ? 'border-brand-700 bg-brand-700 text-white shadow-[0_0_0_6px_rgba(29,58,165,0.12)]'
+                          : isPast
+                            ? 'border-brand-700 bg-white text-brand-700'
+                            : 'border-line bg-white text-fg-4 group-hover:border-line-2 group-hover:text-fg-3'
                       }`}
                     >
-                      <span
-                        className={`grid h-9 w-9 place-items-center font-mono text-[11px] font-semibold tracking-[0.12em] ${
-                          isActive
-                            ? 'bg-brand-700 text-white'
-                            : 'bg-white text-fg-3 ring-1 ring-line'
-                        }`}
-                      >
-                        {f.num}
-                      </span>
-                      <span className="flex flex-col">
-                        <span className="font-display text-[18px] font-semibold tracking-tight">
-                          {f.name}
-                        </span>
-                        <span className="text-[12px] text-fg-4">
-                          {f.duration} · {f.audience}
-                        </span>
-                      </span>
-                      <ArrowRight
-                        className={`h-3.5 w-3.5 transition-all duration-200 ${
-                          isActive ? 'translate-x-0 text-brand-700' : '-translate-x-1 text-fg-5'
-                        }`}
-                        strokeWidth={2.5}
-                      />
-                      {isActive && (
-                        <span aria-hidden className="absolute -left-1 top-3 h-9 w-0.5 bg-brand-700" />
-                      )}
-                    </button>
-                  </li>
-                )
-              })}
-            </ol>
-          </nav>
+                      <Icon className="h-5 w-5" strokeWidth={2} />
+                    </span>
+                    <span
+                      className={`mt-3 font-mono text-[10.5px] font-semibold uppercase tracking-[0.14em] ${
+                        isActive ? 'text-brand-700' : 'text-fg-4'
+                      }`}
+                    >
+                      {f.num} · {f.duration}
+                    </span>
+                    <span
+                      className={`mt-1 font-display text-[14px] font-semibold tracking-tight ${
+                        isActive ? 'text-fg' : 'text-fg-3 group-hover:text-fg'
+                      }`}
+                    >
+                      {f.name}
+                    </span>
+                  </button>
+                </li>
+              )
+            })}
+          </ol>
+        </div>
+      </div>
 
-          {/* Active panel */}
-          <div className="col-span-12 lg:col-span-8">
-            <AnimatePresence mode="wait">
-              <motion.div
-                key={active.key}
-                initial={{ opacity: 0, y: 8 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -4 }}
-                transition={{ duration: 0.35 }}
-                className="grid grid-cols-12 gap-x-6"
-              >
-                <div className="col-span-12 md:col-span-3">
-                  <span className="font-display text-[80px] font-semibold leading-none tracking-tighter text-canvas-2 md:text-[112px]">
-                    {active.num}
-                  </span>
-                  <p className="mt-4 inline-block rounded-sm bg-brand-50 px-2 py-0.5 font-mono text-[10.5px] font-semibold uppercase tracking-[0.14em] text-brand-700 ring-1 ring-brand-100">
-                    {active.flag === 'popular'
-                      ? 'Most chosen'
-                      : active.flag === 'enterprise'
-                        ? 'Enterprise'
-                        : 'Standard'}
-                  </p>
-                  <p className="mt-3 font-mono text-[11px] uppercase tracking-[0.14em] text-fg-4">
-                    Duration · {active.duration}
-                  </p>
-                  <p className="mt-1 font-mono text-[11px] uppercase tracking-[0.14em] text-fg-4">
-                    For · {active.audience}
-                  </p>
-                </div>
+      {/* Active format detail */}
+      <div className="mx-auto mt-14 max-w-7xl px-5 pb-20 md:mt-16 md:px-8 md:pb-24">
+        <AnimatePresence mode="wait">
+          <motion.article
+            key={active.key}
+            initial={{ opacity: 0, y: 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -8 }}
+            transition={{ duration: 0.35 }}
+            className="overflow-hidden rounded-lg border border-line bg-canvas"
+          >
+            <div className="grid grid-cols-12 gap-0">
+              {/* Left visual block */}
+              <div className="col-span-12 border-b border-line bg-white p-7 md:col-span-4 md:border-b-0 md:border-r md:p-10">
+                <span className="grid h-12 w-12 place-items-center rounded-md bg-brand-700 text-white">
+                  <ActiveIcon className="h-5 w-5" strokeWidth={2} />
+                </span>
+                <p className="mt-6 inline-block rounded-sm bg-brand-50 px-2 py-0.5 font-mono text-[10.5px] font-semibold uppercase tracking-[0.14em] text-brand-700 ring-1 ring-brand-100">
+                  {active.flag === 'popular'
+                    ? 'Most chosen'
+                    : active.flag === 'enterprise'
+                      ? 'Enterprise'
+                      : 'Standard'}
+                </p>
+                <h3 className="mt-4 font-display text-[26px] font-semibold leading-tight tracking-[-0.02em] text-fg md:text-[32px]">
+                  {active.name}
+                </h3>
 
-                <div className="col-span-12 md:col-span-9">
-                  <h3 className="font-display text-[28px] font-semibold leading-[1.1] tracking-[-0.02em] text-fg md:text-[36px]">
-                    {active.name}
-                  </h3>
-                  <p className="mt-4 max-w-2xl text-[15.5px] leading-[1.65] text-fg-3 md:text-[16.5px]">
-                    {active.body}
-                  </p>
-                  <p className="mt-4 max-w-2xl text-[14.5px] leading-[1.65] text-fg-4">
-                    {active.body2}
-                  </p>
-
-                  <div className="mt-7 border-t border-line pt-5">
-                    <p className="kicker">What it includes</p>
-                    <ul className="mt-3 grid grid-cols-1 gap-x-6 gap-y-2 sm:grid-cols-2">
-                      {active.includes.map((inc) => (
-                        <li key={inc} className="inline-flex items-center gap-2 text-[13.5px] text-fg-2">
-                          <span className="h-1 w-1 rounded-full bg-brand-700" />
-                          {inc}
-                        </li>
-                      ))}
-                    </ul>
+                <dl className="mt-6 grid grid-cols-2 gap-4 border-t border-line pt-5">
+                  <div>
+                    <dt className="kicker">Duration</dt>
+                    <dd className="mt-1 text-[14px] font-semibold text-fg">{active.duration}</dd>
                   </div>
+                  <div>
+                    <dt className="kicker">For</dt>
+                    <dd className="mt-1 text-[14px] font-semibold text-fg">{active.audience}</dd>
+                  </div>
+                </dl>
 
-                  <a
-                    href="#contact"
-                    className="link-rule mt-7 text-[13.5px]"
-                  >
-                    Start with this format
-                    <ArrowUpRight className="h-3.5 w-3.5" strokeWidth={2.5} />
-                  </a>
+                <a href="#contact" className="link-rule mt-7 text-[13.5px]">
+                  Start with this format
+                  <ArrowUpRight className="h-3.5 w-3.5" strokeWidth={2.5} />
+                </a>
+              </div>
+
+              {/* Right body */}
+              <div className="col-span-12 p-7 md:col-span-8 md:p-10">
+                <p className="max-w-2xl text-[15.5px] leading-[1.65] text-fg-3 md:text-[16.5px]">
+                  {active.body}
+                </p>
+                <p className="mt-4 max-w-2xl text-[14.5px] leading-[1.65] text-fg-4">
+                  {active.body2}
+                </p>
+
+                <div className="mt-7 border-t border-line pt-5">
+                  <p className="kicker">What it includes</p>
+                  <ul className="mt-4 grid grid-cols-1 gap-2 sm:grid-cols-2">
+                    {active.includes.map((inc) => (
+                      <li
+                        key={inc}
+                        className="flex items-center gap-2.5 rounded-sm bg-white px-3 py-2.5 text-[13.5px] text-fg-2 ring-1 ring-line"
+                      >
+                        <CheckCircle2 className="h-4 w-4 text-brand-700" strokeWidth={2.25} />
+                        {inc}
+                      </li>
+                    ))}
+                  </ul>
                 </div>
-              </motion.div>
-            </AnimatePresence>
-          </div>
+              </div>
+            </div>
+          </motion.article>
+        </AnimatePresence>
+
+        {/* Footer note */}
+        <div className="mt-8 flex flex-wrap items-center justify-between gap-4">
+          <p className="font-mono text-[11px] uppercase tracking-[0.14em] text-fg-4">
+            Format {active.num} of {String(FORMATS.length).padStart(2, '0')}
+          </p>
+          <a
+            href="#contact"
+            className="inline-flex items-center gap-1.5 text-[13.5px] font-semibold text-brand-700 hover:text-brand-800"
+          >
+            Recommend a format for me
+            <ArrowRight className="h-3.5 w-3.5" strokeWidth={2.5} />
+          </a>
         </div>
       </div>
     </section>

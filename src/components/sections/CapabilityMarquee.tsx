@@ -1,9 +1,18 @@
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'motion/react'
-import { Plus, Minus, ArrowRight } from 'lucide-react'
+import {
+  Plus,
+  Minus,
+  ArrowRight,
+  GraduationCap,
+  Code2,
+  Beaker,
+  Briefcase,
+} from 'lucide-react'
+import type { LucideIcon } from 'lucide-react'
 
 type Item = { label: string; desc: string }
-type Group = { key: string; tag: string; title: string; intro: string; items: Item[] }
+type Group = { key: string; tag: string; title: string; intro: string; items: Item[]; icon: LucideIcon }
 
 const GROUPS: Group[] = [
   {
@@ -12,6 +21,7 @@ const GROUPS: Group[] = [
     title: 'Training & academic operations',
     intro:
       'Programmes that turn into placements — industrial training, internships, certifications, faculty development, and accreditation support.',
+    icon: GraduationCap,
     items: [
       { label: 'Industrial training',     desc: 'Year-3 / 4 cohorts on campus' },
       { label: 'Internship placement',    desc: 'Curated with hiring partners' },
@@ -30,6 +40,7 @@ const GROUPS: Group[] = [
     title: 'Software, AI and infrastructure',
     intro:
       'Production-grade engineering by senior in-house leads — for founders shipping their first product and enterprises modernising the next workflow.',
+    icon: Code2,
     items: [
       { label: 'Web development',     desc: 'Marketing · product · internal tools' },
       { label: 'Mobile applications', desc: 'iOS · Android · React Native' },
@@ -48,6 +59,7 @@ const GROUPS: Group[] = [
     title: 'Future-ready labs for schools',
     intro:
       'STEM, ATL, AI, IoT and robotics labs designed for Indian classrooms — with curriculum, hardware and teacher training that survive the year.',
+    icon: Beaker,
     items: [
       { label: 'STEM / ATL labs',       desc: 'AIM-aligned setups' },
       { label: 'AI · IoT labs',         desc: 'Microcontroller + cloud' },
@@ -64,6 +76,7 @@ const GROUPS: Group[] = [
     title: 'Recruitment & talent supply',
     intro:
       'Permanent recruitment, contract staffing, RPO and bulk drives — backed by candidates we trained ourselves.',
+    icon: Briefcase,
     items: [
       { label: 'Permanent recruitment',   desc: 'Engineering & non-tech roles' },
       { label: 'Contract staffing',       desc: '3 to 18-month engagements' },
@@ -88,7 +101,7 @@ export function CapabilityMarquee() {
             <span className="h-px flex-1 bg-line-2" />
           </div>
           <div className="mt-8 grid grid-cols-12 gap-x-10 gap-y-6">
-            <h2 className="col-span-12 font-display text-[36px] font-semibold leading-[1.04] tracking-[-0.02em] text-fg lg:col-span-7 lg:text-[60px]">
+            <h2 className="col-span-12 font-display text-[36px] font-semibold leading-[1.04] tracking-[-0.02em] text-fg lg:col-span-7 lg:text-[52px]">
               Forty-plus services. <span className="text-brand-700">Four delivery groups.</span>
             </h2>
             <p className="col-span-12 text-[15.5px] leading-[1.6] text-fg-3 lg:col-span-5 lg:text-[16.5px]">
@@ -100,37 +113,51 @@ export function CapabilityMarquee() {
         </div>
       </div>
 
-      {/* Body — left rail (sticky on desktop) + accordion list */}
       <div className="mx-auto mt-12 max-w-7xl px-5 pb-20 md:mt-16 md:px-8 md:pb-24">
         <div className="grid grid-cols-12 gap-x-10">
-          {/* Persistent left rail — appears as a category index */}
+          {/* Persistent left rail with icon cards */}
           <aside className="col-span-12 lg:col-span-3">
             <div className="sticky top-[170px] hidden lg:block">
               <p className="kicker">Index</p>
-              <ol className="mt-5 space-y-1 border-t border-line">
+              <ol className="mt-5 space-y-2">
                 {GROUPS.map((g) => {
                   const isActive = g.key === openKey
+                  const Icon = g.icon
                   return (
-                    <li key={g.key} className="border-b border-line">
+                    <li key={g.key}>
                       <button
                         onClick={() => setOpenKey(g.key)}
-                        className={`relative grid w-full grid-cols-[auto_1fr] items-baseline gap-3 py-3 pr-1 text-left transition-colors ${
-                          isActive ? 'text-fg' : 'text-fg-3 hover:text-fg'
+                        className={`relative grid w-full grid-cols-[auto_1fr_auto] items-center gap-3 rounded-md border p-3 text-left transition-colors ${
+                          isActive
+                            ? 'border-brand-700 bg-white'
+                            : 'border-line bg-white/60 hover:border-line-2 hover:bg-white'
                         }`}
                       >
                         <span
-                          className={`font-mono text-[11px] font-semibold tracking-[0.14em] ${
-                            isActive ? 'text-brand-700' : 'text-fg-5'
+                          className={`grid h-9 w-9 place-items-center rounded-md transition-colors ${
+                            isActive ? 'bg-brand-700 text-white' : 'bg-canvas-2 text-fg-3'
                           }`}
                         >
-                          {g.tag}
+                          <Icon className="h-4 w-4" strokeWidth={2} />
                         </span>
-                        <span className="font-display text-[14px] font-semibold tracking-tight">
-                          {g.title}
+                        <span className="flex flex-col">
+                          <span
+                            className={`font-mono text-[10.5px] tracking-[0.14em] ${
+                              isActive ? 'text-brand-700' : 'text-fg-5'
+                            }`}
+                          >
+                            {g.tag} · {g.items.length} svc
+                          </span>
+                          <span className="font-display text-[13.5px] font-semibold leading-tight tracking-tight text-fg">
+                            {g.title}
+                          </span>
                         </span>
-                        {isActive && (
-                          <span aria-hidden className="absolute -left-1 top-3 h-5 w-0.5 bg-brand-700" />
-                        )}
+                        <ArrowRight
+                          className={`h-3.5 w-3.5 transition-all duration-200 ${
+                            isActive ? 'translate-x-0 text-brand-700' : '-translate-x-1 text-fg-5'
+                          }`}
+                          strokeWidth={2.5}
+                        />
                       </button>
                     </li>
                   )
@@ -141,18 +168,19 @@ export function CapabilityMarquee() {
             <ol className="-mx-1 flex items-stretch overflow-x-auto border-y border-line lg:hidden">
               {GROUPS.map((g) => {
                 const isActive = g.key === openKey
+                const Icon = g.icon
                 return (
                   <li key={g.key} className="shrink-0">
                     <button
                       onClick={() => setOpenKey(g.key)}
-                      className={`relative flex items-baseline gap-2 px-4 py-3 text-[13px] font-medium ${
+                      className={`relative flex items-center gap-2 px-4 py-3 ${
                         isActive ? 'text-fg' : 'text-fg-3'
                       }`}
                     >
-                      <span className={`font-mono text-[10.5px] tracking-[0.14em] ${isActive ? 'text-brand-700' : 'text-fg-5'}`}>
-                        {g.tag}
+                      <Icon className={`h-3.5 w-3.5 ${isActive ? 'text-brand-700' : 'text-fg-4'}`} strokeWidth={2} />
+                      <span className="font-display text-[13px] font-semibold tracking-tight">
+                        {g.title.split(' ').slice(0, 2).join(' ')}
                       </span>
-                      {g.title.split(' ').slice(0, 2).join(' ')}
                       {isActive && <span aria-hidden className="absolute inset-x-3 -bottom-px h-0.5 bg-brand-700" />}
                     </button>
                   </li>
@@ -161,26 +189,40 @@ export function CapabilityMarquee() {
             </ol>
           </aside>
 
-          {/* Right — accordion */}
+          {/* Accordion */}
           <ul className="col-span-12 lg:col-span-9">
             {GROUPS.map((g, i) => {
               const isOpen = openKey === g.key
+              const Icon = g.icon
               return (
                 <li
                   key={g.key}
-                  className={`border-b border-line ${i === 0 ? 'border-t border-line lg:border-t-0' : ''}`}
+                  className={`border-b border-line ${i === 0 ? 'border-t border-line lg:border-t-0' : ''} ${
+                    isOpen ? 'bg-white' : ''
+                  }`}
                 >
                   <button
                     onClick={() => setOpenKey(isOpen ? '' : g.key)}
-                    className="grid w-full grid-cols-12 items-center gap-4 py-7 text-left transition-colors hover:bg-white/40 md:py-9"
+                    className="grid w-full grid-cols-12 items-center gap-4 py-7 text-left transition-colors hover:bg-white/60 md:py-8"
                     aria-expanded={isOpen}
                   >
-                    <span className="col-span-2 font-mono text-[12px] font-semibold uppercase tracking-[0.14em] text-brand-700 md:col-span-1">
-                      {g.tag}
+                    <span className="col-span-2 flex items-center gap-3 md:col-span-1">
+                      <span
+                        className={`grid h-10 w-10 place-items-center rounded-md transition-colors ${
+                          isOpen ? 'bg-brand-700 text-white' : 'bg-canvas-2 text-fg-3'
+                        }`}
+                      >
+                        <Icon className="h-4 w-4" strokeWidth={2} />
+                      </span>
                     </span>
-                    <h3 className="col-span-9 font-display text-[22px] font-semibold leading-tight tracking-tight text-fg md:text-[30px]">
-                      {g.title}
-                    </h3>
+                    <span className="col-span-9 flex flex-col gap-1">
+                      <span className="font-mono text-[11px] font-semibold uppercase tracking-[0.14em] text-brand-700">
+                        Group {g.tag}
+                      </span>
+                      <h3 className="font-display text-[20px] font-semibold leading-tight tracking-tight text-fg md:text-[26px]">
+                        {g.title}
+                      </h3>
+                    </span>
                     <span className="col-span-1 flex items-center justify-end md:col-span-2">
                       <span
                         className={`hidden font-mono text-[11px] font-medium uppercase tracking-[0.14em] md:inline ${
@@ -217,23 +259,28 @@ export function CapabilityMarquee() {
                             <p className="max-w-[40ch] text-[14.5px] leading-[1.6] text-fg-3">
                               {g.intro}
                             </p>
-                            <a
-                              href="#contact"
-                              className="link-rule mt-5 text-[13px]"
-                            >
+                            <a href="#contact" className="link-rule mt-5 text-[13px]">
                               Discuss this team
                               <ArrowRight className="h-3.5 w-3.5" strokeWidth={2.5} />
                             </a>
                           </div>
-                          <ul className="col-span-12 grid grid-cols-1 gap-x-6 gap-y-0 sm:grid-cols-2 md:col-span-8">
-                            {g.items.map((it) => (
-                              <li key={it.label} className="border-t border-line py-3.5">
-                                <p className="font-display text-[15px] font-medium tracking-tight text-fg">
-                                  {it.label}
-                                </p>
-                                <p className="mt-0.5 text-[12.5px] leading-snug text-fg-4">
-                                  {it.desc}
-                                </p>
+                          <ul className="col-span-12 grid grid-cols-1 gap-3 sm:grid-cols-2 md:col-span-8">
+                            {g.items.map((it, idx) => (
+                              <li
+                                key={it.label}
+                                className="group flex items-start gap-3 rounded-md border border-line bg-white p-3 transition-colors hover:border-brand-300 hover:bg-brand-50/40"
+                              >
+                                <span className="grid h-7 w-7 shrink-0 place-items-center rounded-sm bg-canvas font-mono text-[10.5px] font-semibold tracking-wider text-brand-700 transition-colors group-hover:bg-brand-700 group-hover:text-white">
+                                  {String(idx + 1).padStart(2, '0')}
+                                </span>
+                                <div>
+                                  <p className="font-display text-[14.5px] font-medium tracking-tight text-fg">
+                                    {it.label}
+                                  </p>
+                                  <p className="mt-0.5 text-[12.5px] leading-snug text-fg-4">
+                                    {it.desc}
+                                  </p>
+                                </div>
                               </li>
                             ))}
                           </ul>

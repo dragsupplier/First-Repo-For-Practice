@@ -1,5 +1,5 @@
 import { Logo } from '@/components/ui/Logo'
-import { ArrowUpRight, MapPin, Phone, Mail } from 'lucide-react'
+import { ArrowUpRight, MapPin, Phone, Mail, Compass } from 'lucide-react'
 
 function LinkedInIcon(props: React.SVGProps<SVGSVGElement>) {
   return (
@@ -40,7 +40,7 @@ const COL_COMPANY: [string, string][] = [
   ['About', '#about'],
   ['Approach', '#approach'],
   ['Engagement formats', '#industries'],
-  ['Customer voices', '#trust'],
+  ['Insights', '#insights'],
   ['Newsroom', '#'],
   ['Careers', '#'],
 ]
@@ -62,36 +62,54 @@ const LEGAL: [string, string][] = [
 
 export function Footer() {
   return (
-    <footer
-      id="footer"
-      className="relative overflow-hidden bg-ink-950 text-white"
-    >
-      {/* Big brand statement */}
-      <div className="border-b border-white/10">
+    <footer id="footer" className="relative overflow-hidden bg-ink-950 text-white">
+      {/* Top featured band — brand statement with visual chrome */}
+      <div className="relative border-b border-white/10">
+        <div className="brand-mesh-light absolute inset-y-0 right-0 -z-10 hidden w-1/3 opacity-40 md:block" aria-hidden />
         <div className="mx-auto max-w-7xl px-5 py-16 md:px-8 md:py-20">
-          <div className="grid grid-cols-12 items-end gap-8">
+          <div className="grid grid-cols-12 items-end gap-10">
             <div className="col-span-12 lg:col-span-8">
-              <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-white/55">
-                Alphinix · Pune
-              </p>
-              <h2 className="mt-5 max-w-[20ch] font-display text-[36px] font-semibold leading-[1.05] tracking-[-0.02em] text-white md:text-[56px] lg:text-[68px]">
+              <div className="flex items-center gap-3">
+                <span className="font-mono text-[11px] font-semibold uppercase tracking-[0.14em] text-brand-200">
+                  Alphinix
+                </span>
+                <span className="h-px w-10 bg-white/15" />
+                <span className="font-mono text-[11px] uppercase tracking-[0.14em] text-white/55">
+                  Pune · Est. 2024
+                </span>
+              </div>
+              <h2 className="mt-6 max-w-[20ch] font-display text-[36px] font-semibold leading-[1.04] tracking-[-0.02em] md:text-[52px] lg:text-[64px]">
                 One partner. Five audiences. Quiet, accountable engagements.
               </h2>
             </div>
             <div className="col-span-12 lg:col-span-4">
               <a
                 href="#contact"
-                className="group inline-flex items-center justify-between gap-2 rounded-md bg-white px-5 py-3.5 text-[14.5px] font-semibold text-ink-950 transition-colors hover:bg-brand-50"
+                className="group flex w-full items-center justify-between gap-3 rounded-md bg-white px-5 py-4 text-[14.5px] font-semibold text-ink-950 transition-colors hover:bg-brand-50"
               >
-                Start a conversation
+                <span className="inline-flex items-center gap-2">
+                  <Compass className="h-4 w-4 text-brand-700" strokeWidth={2.25} />
+                  Start a conversation
+                </span>
                 <ArrowUpRight
                   className="h-4 w-4 transition-transform duration-200 group-hover:rotate-12"
                   strokeWidth={2.5}
                 />
               </a>
-              <p className="mt-3 text-[12.5px] text-white/55">
-                Twenty minutes is enough to know if it's a fit.
-              </p>
+              <ul className="mt-4 space-y-2 text-[12.5px] text-white/65">
+                <li className="flex items-center gap-2">
+                  <Phone className="h-3 w-3 text-brand-200" strokeWidth={2.25} />
+                  +91 00000 00000
+                </li>
+                <li className="flex items-center gap-2">
+                  <Mail className="h-3 w-3 text-brand-200" strokeWidth={2.25} />
+                  hello@alphinix.in
+                </li>
+                <li className="flex items-center gap-2">
+                  <MapPin className="h-3 w-3 text-brand-200" strokeWidth={2.25} />
+                  Pune, Maharashtra · India
+                </li>
+              </ul>
             </div>
           </div>
         </div>
@@ -102,29 +120,14 @@ export function Footer() {
         <div className="mx-auto max-w-7xl px-5 py-12 md:px-8 md:py-16">
           <div className="grid grid-cols-2 gap-x-8 gap-y-10 lg:grid-cols-12">
             {/* Brand block */}
-            <div className="col-span-2 lg:col-span-4">
+            <div className="col-span-2 lg:col-span-3">
               <Logo variant="inverted" />
-              <p className="mt-5 max-w-sm text-[13.5px] leading-[1.65] text-white/65">
+              <p className="mt-5 max-w-sm text-[13px] leading-[1.65] text-white/65">
                 A Pune-based partner combining campus training, in-house
                 engineering and recruitment under one accountable team.
               </p>
 
-              <ul className="mt-6 space-y-2.5 text-[13px] text-white/75">
-                <li className="flex items-center gap-2">
-                  <MapPin className="h-3.5 w-3.5 text-white/55" strokeWidth={2.25} />
-                  Pune, Maharashtra · India
-                </li>
-                <li className="flex items-center gap-2">
-                  <Phone className="h-3.5 w-3.5 text-white/55" strokeWidth={2.25} />
-                  +91 00000 00000
-                </li>
-                <li className="flex items-center gap-2">
-                  <Mail className="h-3.5 w-3.5 text-white/55" strokeWidth={2.25} />
-                  hello@alphinix.in
-                </li>
-              </ul>
-
-              <div className="mt-7 flex items-center gap-2">
+              <div className="mt-6 flex items-center gap-2">
                 {[
                   { I: LinkedInIcon, label: 'LinkedIn' },
                   { I: XIcon, label: 'X' },
@@ -134,7 +137,7 @@ export function Footer() {
                     key={label}
                     href="#"
                     aria-label={label}
-                    className="grid h-8 w-8 place-items-center rounded-md border border-white/15 text-white/65 transition-colors hover:border-white/35 hover:text-white"
+                    className="group grid h-9 w-9 place-items-center rounded-md border border-white/15 text-white/70 transition-colors hover:border-brand-200 hover:bg-white/[0.04] hover:text-brand-200"
                   >
                     <I className="h-3.5 w-3.5" />
                   </a>
@@ -153,9 +156,14 @@ export function Footer() {
       {/* Bottom strip */}
       <div className="mx-auto max-w-7xl px-5 py-6 md:px-8">
         <div className="flex flex-col items-start justify-between gap-4 md:flex-row md:items-center">
-          <p className="text-[12px] text-white/55">
-            © {new Date().getFullYear()} Alphinix Technologies. All rights reserved.
-          </p>
+          <div className="flex items-center gap-3">
+            <span className="grid h-7 w-7 place-items-center rounded-sm bg-brand-700 text-white">
+              <span className="font-display text-[10px] font-bold">α</span>
+            </span>
+            <p className="text-[12px] text-white/55">
+              © {new Date().getFullYear()} Alphinix Technologies. All rights reserved.
+            </p>
+          </div>
           <ul className="flex flex-wrap gap-x-5 gap-y-1.5 text-[12px]">
             {LEGAL.map(([label, href]) => (
               <li key={label}>
@@ -177,7 +185,7 @@ export function Footer() {
 function FooterCol({ title, links }: { title: string; links: [string, string][] }) {
   return (
     <div className="lg:col-span-2">
-      <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-white/45">
+      <p className="text-[10.5px] font-semibold uppercase tracking-[0.16em] text-brand-200">
         {title}
       </p>
       <ul className="mt-5 space-y-2.5">
