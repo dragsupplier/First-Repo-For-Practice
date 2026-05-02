@@ -1,12 +1,16 @@
 import { Header } from '@/components/sections/Header'
 import { Hero } from '@/components/sections/Hero'
-import { ClientsBar } from '@/components/sections/ClientsBar'
+import { SectionNav } from '@/components/sections/SectionNav'
+import { DisplayMoment } from '@/components/sections/DisplayMoment'
 import { Audiences } from '@/components/sections/Audiences'
+import { ManifestoBand } from '@/components/sections/ManifestoBand'
 import { CapabilityMarquee } from '@/components/sections/CapabilityMarquee'
 import { Industries } from '@/components/sections/Industries'
 import { Approach } from '@/components/sections/Approach'
 import { SignatureMoment } from '@/components/sections/SignatureMoment'
-import { Trust } from '@/components/sections/Trust'
+import { Insights } from '@/components/sections/Insights'
+import { Standards } from '@/components/sections/Standards'
+import { Locations } from '@/components/sections/Locations'
 import { CTA } from '@/components/sections/CTA'
 import { Footer } from '@/components/sections/Footer'
 
@@ -14,15 +18,19 @@ function App() {
   return (
     <div className="min-h-screen bg-bg text-fg">
       <Header />
+      <SectionNav />
       <main>
         <Hero />
-        <ClientsBar />
+        <DisplayMoment />
         <Audiences />
+        <ManifestoBand />
         <CapabilityMarquee />
         <Industries />
         <Approach />
         <SignatureMoment />
-        <Trust />
+        <Insights />
+        <Standards />
+        <Locations />
         <CTA />
       </main>
       <Footer />
