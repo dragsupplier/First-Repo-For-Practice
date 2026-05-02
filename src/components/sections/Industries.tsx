@@ -203,37 +203,37 @@ export function Industries() {
               opacity: 0.6,
             }}
             transition={{ duration: 0.5, ease: [0.2, 0.7, 0.2, 1] }}
-            className="overflow-hidden rounded-lg border border-line bg-canvas"
+            className="overflow-hidden rounded-lg border border-line-2 bg-white shadow-[0_24px_60px_-30px_rgba(11,18,32,0.18)]"
           >
             <div className="grid grid-cols-12 gap-0">
-              {/* Left visual block */}
-              <div className="col-span-12 border-b border-line bg-white p-7 md:col-span-4 md:border-b-0 md:border-r md:p-10">
-                <span className="grid h-12 w-12 place-items-center rounded-md bg-brand-700 text-white">
+              {/* Left visual block — bold brand color slab */}
+              <div className="col-span-12 border-b border-brand-800 bg-brand-700 p-7 text-white md:col-span-4 md:border-b-0 md:border-r md:p-10">
+                <span className="grid h-12 w-12 place-items-center rounded-md bg-white/15 text-white ring-1 ring-white/15">
                   <ActiveIcon className="h-5 w-5" strokeWidth={2} />
                 </span>
-                <p className="mt-6 inline-block rounded-sm bg-brand-50 px-2 py-0.5 font-mono text-[10.5px] font-semibold uppercase tracking-[0.14em] text-brand-700 ring-1 ring-brand-100">
+                <p className="mt-6 inline-block rounded-sm bg-white/15 px-2 py-0.5 font-mono text-[10.5px] font-semibold uppercase tracking-[0.14em] text-white ring-1 ring-white/20">
                   {active.flag === 'popular'
                     ? 'Most chosen'
                     : active.flag === 'enterprise'
                       ? 'Enterprise'
                       : 'Standard'}
                 </p>
-                <h3 className="mt-4 font-display text-[26px] font-semibold leading-tight tracking-[-0.02em] text-fg md:text-[32px]">
+                <h3 className="mt-4 font-display text-[26px] font-semibold leading-tight tracking-[-0.02em] text-white md:text-[32px]">
                   {active.name}
                 </h3>
 
-                <dl className="mt-6 grid grid-cols-2 gap-4 border-t border-line pt-5">
+                <dl className="mt-6 grid grid-cols-2 gap-4 border-t border-white/15 pt-5">
                   <div>
-                    <dt className="kicker">Duration</dt>
-                    <dd className="mt-1 text-[14px] font-semibold text-fg">{active.duration}</dd>
+                    <dt className="text-[11px] font-semibold uppercase tracking-[0.14em] text-brand-200">Duration</dt>
+                    <dd className="mt-1 text-[14px] font-semibold text-white">{active.duration}</dd>
                   </div>
                   <div>
-                    <dt className="kicker">For</dt>
-                    <dd className="mt-1 text-[14px] font-semibold text-fg">{active.audience}</dd>
+                    <dt className="text-[11px] font-semibold uppercase tracking-[0.14em] text-brand-200">For</dt>
+                    <dd className="mt-1 text-[14px] font-semibold text-white">{active.audience}</dd>
                   </div>
                 </dl>
 
-                <a href="#contact" className="link-rule mt-7 text-[13.5px]">
+                <a href="#contact" className="mt-7 inline-flex items-center gap-1.5 border-b border-white pb-1 text-[13.5px] font-semibold text-white hover:opacity-80">
                   Start with this format
                   <ArrowUpRight className="h-3.5 w-3.5" strokeWidth={2.5} />
                 </a>

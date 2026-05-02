@@ -46,7 +46,7 @@ const PILLARS: Pillar[] = [
 
 export function SignatureMoment() {
   return (
-    <section id="about" className="relative overflow-hidden bg-canvas">
+    <section id="about" className="relative overflow-hidden bg-canvas-2">
       <div className="mx-auto max-w-7xl px-5 py-16 md:px-8 md:py-24">
         <div className="flex items-center gap-3">
           <span className="kicker">06 — Why Alphinix</span>

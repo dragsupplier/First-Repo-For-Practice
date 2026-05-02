@@ -180,27 +180,29 @@ export function Approach() {
               opacity: 0.6,
             }}
             transition={{ duration: 0.5, ease: [0.2, 0.7, 0.2, 1] }}
-            className="overflow-hidden rounded-lg border border-line bg-canvas"
+            className="overflow-hidden rounded-lg border border-line-2 bg-white shadow-[0_24px_60px_-30px_rgba(11,18,32,0.18)]"
           >
             <div className="grid grid-cols-12 gap-0">
-              {/* Left visual block */}
-              <div className="col-span-12 border-b border-line bg-white p-7 md:col-span-4 md:border-b-0 md:border-r md:p-10">
-                <span className="grid h-12 w-12 place-items-center rounded-md bg-brand-700 text-white">
+              {/* Left visual block — bold brand color slab */}
+              <div className="col-span-12 border-b border-brand-800 bg-brand-700 p-7 text-white md:col-span-4 md:border-b-0 md:border-r md:p-10">
+                <span className="grid h-12 w-12 place-items-center rounded-md bg-white/15 text-white ring-1 ring-white/15">
                   <ActiveIcon className="h-5 w-5" strokeWidth={2} />
                 </span>
-                <p className="mt-6 kicker">Step {active.num}</p>
-                <h3 className="mt-3 font-display text-[28px] font-semibold leading-tight tracking-[-0.02em] text-fg md:text-[34px]">
+                <p className="mt-6 text-[11px] font-semibold uppercase tracking-[0.14em] text-brand-200">
+                  Step {active.num}
+                </p>
+                <h3 className="mt-3 font-display text-[28px] font-semibold leading-tight tracking-[-0.02em] text-white md:text-[34px]">
                   {active.title}
                 </h3>
 
-                <dl className="mt-6 grid grid-cols-2 gap-4 border-t border-line pt-5">
+                <dl className="mt-6 grid grid-cols-2 gap-4 border-t border-white/15 pt-5">
                   <div>
-                    <dt className="kicker">Stage</dt>
-                    <dd className="mt-1 text-[14px] font-semibold text-fg">{active.tag}</dd>
+                    <dt className="text-[11px] font-semibold uppercase tracking-[0.14em] text-brand-200">Stage</dt>
+                    <dd className="mt-1 text-[14px] font-semibold text-white">{active.tag}</dd>
                   </div>
                   <div>
-                    <dt className="kicker">Duration</dt>
-                    <dd className="mt-1 text-[14px] font-semibold text-fg">{active.duration}</dd>
+                    <dt className="text-[11px] font-semibold uppercase tracking-[0.14em] text-brand-200">Duration</dt>
+                    <dd className="mt-1 text-[14px] font-semibold text-white">{active.duration}</dd>
                   </div>
                 </dl>
               </div>

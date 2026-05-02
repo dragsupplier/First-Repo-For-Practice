@@ -7,16 +7,16 @@ const STATES = ['Maharashtra', 'Karnataka', 'Telangana', 'Gujarat', 'Tamil Nadu'
 
 export function Locations() {
   return (
-    <section id="locations" className="relative bg-white">
-      <div className="mx-auto max-w-7xl px-5 py-14 md:px-8 md:py-16">
+    <section id="locations" className="relative bg-canvas">
+      <div className="mx-auto max-w-7xl px-5 py-16 md:px-8 md:py-20">
         <motion.div
-          initial={{ scaleY: 0 }}
-          whileInView={{ scaleY: 1 }}
+          initial={{ opacity: 0, y: 12 }}
+          whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: '-15%' }}
-          transition={{ duration: 0.6, ease: [0.2, 0.7, 0.2, 1] }}
-          className="origin-top"
+          transition={{ duration: 0.55, ease: [0.2, 0.7, 0.2, 1] }}
+          className="overflow-hidden rounded-lg border border-line-2 bg-white shadow-[0_24px_60px_-30px_rgba(11,18,32,0.18)]"
         >
-        <div className="grid grid-cols-12 gap-x-10 gap-y-8 border-l-4 border-brand-700 pl-6 md:pl-8">
+        <div className="grid grid-cols-12 gap-x-10 gap-y-8 border-l-[6px] border-brand-700 p-7 md:p-10">
           <div className="col-span-12 md:col-span-6">
             <p className="kicker">Operating geography</p>
             <p className="mt-4 font-display text-[26px] font-semibold leading-[1.18] tracking-[-0.02em] text-fg md:text-[34px] lg:text-[40px]">
