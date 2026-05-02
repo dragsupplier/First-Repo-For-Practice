@@ -14,10 +14,10 @@
   --color-brand-950: #0f1f4d;
 
   --color-bg:        #ffffff;
-  --color-canvas:    #f6f7f9;
-  --color-canvas-2:  #eceef3;
-  --color-line:      #e5e7eb;
-  --color-line-2:    #d3d6df;
+  --color-canvas:    #f1f3f7;          /* deeper canvas — more visible */
+  --color-canvas-2:  #e6e9f0;          /* deeper alt — more visible */
+  --color-line:      #d8dbe2;          /* darker hairline */
+  --color-line-2:    #b9bdc7;          /* darker emphasis line */
 
   --color-fg:        #0b1220;
   --color-fg-2:      #1f2533;

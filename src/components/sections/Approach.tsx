@@ -226,10 +226,7 @@ export function Approach() {
                   </ul>
                 </div>
 
-                <div className="mt-7 flex items-center justify-between border-t border-line pt-5">
-                  <p className="font-mono text-[11px] uppercase tracking-[0.14em] text-fg-4">
-                    Step {active.num} of {String(STEPS.length).padStart(2, '0')}
-                  </p>
+                <div className="mt-7 flex items-center justify-end border-t border-line pt-5">
                   {activeIndex < STEPS.length - 1 && (
                     <button
                       onClick={() => setActiveIndex(activeIndex + 1)}

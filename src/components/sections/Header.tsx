@@ -125,21 +125,51 @@ export function Header() {
             : 'border-transparent bg-white',
         )}
       >
-        <div className="mx-auto flex h-[68px] max-w-7xl items-center justify-between px-5 md:px-8">
+        <div className={cn('mx-auto flex max-w-7xl items-center justify-between px-5 transition-[height] duration-300 md:px-8', scrolled ? 'h-[56px]' : 'h-[64px]')}>
           <Logo />
 
           {/* Desktop nav */}
-          <nav className="hidden items-center gap-1 lg:flex" onMouseLeave={() => setOpen(null)}>
-            <DropdownTrigger
-              label="Solutions"
-              isOpen={open === 'solutions'}
-              onEnter={() => setOpen('solutions')}
-            />
-            <DropdownTrigger
-              label="Resources"
-              isOpen={open === 'resources'}
-              onEnter={() => setOpen('resources')}
-            />
+          <nav className="hidden items-center gap-1 lg:flex">
+            <div
+              className="relative"
+              onMouseEnter={() => setOpen('solutions')}
+              onMouseLeave={() => setOpen(null)}
+            >
+              <DropdownTrigger label="Solutions" isOpen={open === 'solutions'} onEnter={() => setOpen('solutions')} />
+              <MegaMenu visible={open === 'solutions'} onClose={() => setOpen(null)}>
+                <MegaPanel
+                  title="Solutions"
+                  tagline="Five doors. One platform."
+                  items={SOLUTIONS}
+                  footer={{
+                    title: 'Not sure where to start?',
+                    body: 'Tell us about your institution or company — we will recommend the right entry point.',
+                    cta: 'Talk to a consultant',
+                    href: '#contact',
+                  }}
+                />
+              </MegaMenu>
+            </div>
+            <div
+              className="relative"
+              onMouseEnter={() => setOpen('resources')}
+              onMouseLeave={() => setOpen(null)}
+            >
+              <DropdownTrigger label="Resources" isOpen={open === 'resources'} onEnter={() => setOpen('resources')} />
+              <MegaMenu visible={open === 'resources'} onClose={() => setOpen(null)}>
+                <MegaPanel
+                  title="Resources"
+                  tagline="Insights, sessions and free tools."
+                  items={RESOURCES}
+                  footer={{
+                    title: 'Subscribe to insights',
+                    body: 'Quarterly notes on hiring trends, academic operations and applied AI.',
+                    cta: 'Visit the blog',
+                    href: '#',
+                  }}
+                />
+              </MegaMenu>
+            </div>
             {SIMPLE_LINKS.map((l) => (
               <a
                 key={l.href}
@@ -172,35 +202,6 @@ export function Header() {
             {mobile ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
           </button>
         </div>
-
-        {/* Mega menus */}
-        <MegaMenu visible={open === 'solutions'} onClose={() => setOpen(null)}>
-          <MegaPanel
-            title="Solutions"
-            tagline="Five doors. One platform."
-            items={SOLUTIONS}
-            footer={{
-              title: 'Not sure where to start?',
-              body: 'Tell us about your institution or company — we will recommend the right entry point.',
-              cta: 'Talk to a consultant',
-              href: '#contact',
-            }}
-          />
-        </MegaMenu>
-
-        <MegaMenu visible={open === 'resources'} onClose={() => setOpen(null)}>
-          <MegaPanel
-            title="Resources"
-            tagline="Insights, sessions and free tools."
-            items={RESOURCES}
-            footer={{
-              title: 'Subscribe to insights',
-              body: 'Quarterly notes on hiring trends, academic operations and applied AI.',
-              cta: 'Visit the blog',
-              href: '#',
-            }}
-          />
-        </MegaMenu>
       </div>
 
       {/* Mobile sheet */}
@@ -277,42 +278,27 @@ function DropdownTrigger({
 
 function MegaMenu({
   visible,
-  onClose,
   children,
 }: {
   visible: boolean
-  onClose: () => void
+  onClose?: () => void
   children: React.ReactNode
 }) {
   return (
-    <>
-      {/* Backdrop dim */}
-      <div
-        aria-hidden
-        className={cn(
-          'fixed inset-0 top-[68px] -z-10 transition-opacity duration-200 md:top-[105px]',
-          visible
-            ? 'pointer-events-auto bg-fg/15 backdrop-blur-[2px] opacity-100'
-            : 'pointer-events-none opacity-0',
-        )}
-        onClick={onClose}
-      />
-      <div
-        onMouseLeave={onClose}
-        className={cn(
-          'absolute inset-x-0 top-full origin-top transition-[opacity,transform] duration-200',
-          visible
-            ? 'pointer-events-auto translate-y-0 opacity-100'
-            : 'pointer-events-none -translate-y-1 opacity-0',
-        )}
-      >
-        <div className="mx-auto max-w-7xl px-5 pt-2 md:px-8">
-          <div className="overflow-hidden rounded-md border border-line bg-white shadow-2xl ring-1 ring-fg/[0.04]">
-            {children}
-          </div>
-        </div>
+    <div
+      className={cn(
+        // Position is anchored to the trigger's parent (not to the page) so
+        // the dropdown sits flush under the trigger with no clickable gap.
+        'absolute left-1/2 top-full z-50 w-[760px] -translate-x-1/2 transition-[opacity,transform] duration-200',
+        visible
+          ? 'pointer-events-auto translate-y-0 opacity-100'
+          : 'pointer-events-none -translate-y-1 opacity-0',
+      )}
+    >
+      <div className="overflow-hidden rounded-md border border-line bg-white shadow-2xl ring-1 ring-fg/[0.04]">
+        {children}
       </div>
-    </>
+    </div>
   )
 }
 

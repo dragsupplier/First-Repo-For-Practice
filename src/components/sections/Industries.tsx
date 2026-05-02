@@ -268,10 +268,7 @@ export function Industries() {
         </AnimatePresence>
 
         {/* Footer note */}
-        <div className="mt-8 flex flex-wrap items-center justify-between gap-4">
-          <p className="font-mono text-[11px] uppercase tracking-[0.14em] text-fg-4">
-            Format {active.num} of {String(FORMATS.length).padStart(2, '0')}
-          </p>
+        <div className="mt-8 flex justify-end">
           <a
             href="#contact"
             className="inline-flex items-center gap-1.5 text-[13.5px] font-semibold text-brand-700 hover:text-brand-800"

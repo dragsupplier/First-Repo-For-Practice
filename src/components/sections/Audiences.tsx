@@ -135,118 +135,98 @@ export function Audiences() {
         </div>
       </div>
 
-      {/* Tabs with icons */}
-      <div className="mx-auto mt-10 max-w-7xl px-5 md:px-8 md:mt-14">
-        <div className="border-y border-line">
-          <div className="-mx-1 flex items-stretch overflow-x-auto">
-            {SEGMENTS.map((s) => {
-              const isActive = s.key === activeKey
-              const Icon = s.icon
-              return (
-                <button
-                  key={s.key}
-                  onClick={() => setActiveKey(s.key)}
-                  aria-pressed={isActive}
-                  className={`group relative flex shrink-0 items-center gap-3 px-4 py-4 text-left transition-colors md:px-6 md:py-5 ${
-                    isActive ? 'text-fg' : 'text-fg-3 hover:text-fg'
-                  }`}
-                >
-                  <span
-                    className={`grid h-9 w-9 place-items-center rounded-md transition-colors ${
-                      isActive
-                        ? 'bg-brand-700 text-white'
-                        : 'bg-canvas-2 text-fg-3 group-hover:bg-brand-50 group-hover:text-brand-700'
+      {/* Tabs + card unified inside a single bordered container */}
+      <div className="mx-auto max-w-7xl px-5 pt-10 pb-16 md:px-8 md:pt-14 md:pb-24">
+        <div className="overflow-hidden rounded-lg border border-line-2 bg-white shadow-[0_30px_70px_-30px_rgba(11,18,32,0.18)]">
+          {/* Top accent stripe */}
+          <div className="h-1 w-full bg-brand-700" aria-hidden />
+
+          {/* Tab bar — sits inside the same card */}
+          <div className="border-b border-line-2 bg-canvas">
+            <div className="flex items-stretch overflow-x-auto">
+              {SEGMENTS.map((s) => {
+                const isActive = s.key === activeKey
+                const Icon = s.icon
+                return (
+                  <button
+                    key={s.key}
+                    onClick={() => setActiveKey(s.key)}
+                    aria-pressed={isActive}
+                    className={`group relative flex shrink-0 items-center gap-3 px-5 py-4 text-left transition-colors md:px-7 md:py-5 ${
+                      isActive ? 'bg-white text-fg' : 'text-fg-3 hover:bg-white/60 hover:text-fg'
                     }`}
                   >
-                    <Icon className="h-4 w-4" strokeWidth={2} />
-                  </span>
-                  <span className="flex flex-col">
                     <span
-                      className={`font-mono text-[10.5px] tracking-[0.14em] ${
-                        isActive ? 'text-brand-700' : 'text-fg-5'
+                      className={`grid h-10 w-10 place-items-center rounded-md transition-colors ${
+                        isActive
+                          ? 'bg-brand-700 text-white'
+                          : 'bg-white text-fg-3 ring-1 ring-line group-hover:text-brand-700'
                       }`}
                     >
-                      {s.num}
+                      <Icon className="h-4 w-4" strokeWidth={2} />
                     </span>
                     <span className="font-display text-[15px] font-semibold tracking-tight md:text-[16px]">
                       {s.tab}
                     </span>
-                  </span>
-                  {isActive && (
-                    <span aria-hidden className="absolute inset-x-3 -bottom-px h-0.5 bg-brand-700" />
-                  )}
-                </button>
-              )
-            })}
-          </div>
-        </div>
-      </div>
-
-      {/* Animated card — clip-path wipe from the side that matches the tab direction */}
-      <div className="mx-auto max-w-7xl px-5 py-12 md:px-8 md:py-16">
-        <AnimatePresence mode="wait">
-          <motion.article
-            key={active.key}
-            initial={{
-              clipPath:
-                direction > 0
-                  ? 'polygon(0 0, 0 0, 0 100%, 0 100%)'
-                  : 'polygon(100% 0, 100% 0, 100% 100%, 100% 100%)',
-              opacity: 0.6,
-            }}
-            animate={{
-              clipPath: 'polygon(0 0, 100% 0, 100% 100%, 0 100%)',
-              opacity: 1,
-            }}
-            exit={{
-              clipPath:
-                direction > 0
-                  ? 'polygon(100% 0, 100% 0, 100% 100%, 100% 100%)'
-                  : 'polygon(0 0, 0 0, 0 100%, 0 100%)',
-              opacity: 0.6,
-            }}
-            transition={{ duration: 0.55, ease: [0.2, 0.7, 0.2, 1] }}
-            className="overflow-hidden rounded-lg border border-line bg-canvas shadow-[0_24px_60px_-30px_rgba(11,18,32,0.18)]"
-          >
-            {/* Top accent stripe — brand colour band, no heavy corner block */}
-            <div className="h-1.5 w-full bg-brand-700" aria-hidden />
-
-            {/* Card header — clean horizontal layout */}
-            <div className="flex flex-col gap-5 border-b border-line bg-white p-7 md:flex-row md:items-end md:justify-between md:p-10">
-              <div className="flex flex-col gap-4 md:flex-row md:items-center">
-                <span className="grid h-12 w-12 shrink-0 place-items-center rounded-md bg-brand-50 text-brand-700 ring-1 ring-brand-100">
-                  <ActiveIcon className="h-5 w-5" strokeWidth={2} />
-                </span>
-                <div>
-                  <p className="kicker">
-                    {active.num} · {active.title}
-                  </p>
-                  <h3 className="mt-2 font-display text-[26px] font-semibold leading-[1.06] tracking-[-0.025em] text-fg md:text-[36px] lg:text-[42px]">
-                    {active.promise}
-                  </h3>
-                </div>
-              </div>
-              <p className="font-mono text-[11px] uppercase tracking-[0.14em] text-fg-4 md:text-right">
-                {active.who}
-              </p>
+                    {isActive && (
+                      <span aria-hidden className="absolute inset-x-0 -bottom-px h-0.5 bg-brand-700" />
+                    )}
+                  </button>
+                )
+              })}
             </div>
+          </div>
 
-            {/* Card body — sits on canvas tint, not pure white */}
-            <div className="grid grid-cols-12 gap-x-10 gap-y-10 p-7 md:p-10">
-              {/* Body + outcome */}
+          {/* Animated panel inside the same card */}
+          <AnimatePresence mode="wait">
+            <motion.article
+              key={active.key}
+              initial={{
+                clipPath:
+                  direction > 0
+                    ? 'polygon(0 0, 0 0, 0 100%, 0 100%)'
+                    : 'polygon(100% 0, 100% 0, 100% 100%, 100% 100%)',
+                opacity: 0.6,
+              }}
+              animate={{
+                clipPath: 'polygon(0 0, 100% 0, 100% 100%, 0 100%)',
+                opacity: 1,
+              }}
+              exit={{
+                clipPath:
+                  direction > 0
+                    ? 'polygon(100% 0, 100% 0, 100% 100%, 100% 100%)'
+                    : 'polygon(0 0, 0 0, 0 100%, 0 100%)',
+                opacity: 0.6,
+              }}
+              transition={{ duration: 0.55, ease: [0.2, 0.7, 0.2, 1] }}
+            >
+
+            {/* Card body */}
+            <div className="grid grid-cols-12 gap-x-10 gap-y-10 bg-white p-7 md:p-12">
+              {/* Promise + body + CTAs */}
               <div className="col-span-12 lg:col-span-7">
-                <p className="max-w-xl text-[16px] leading-[1.65] text-fg-3 md:text-[17px]">
+                <span className="inline-flex items-center gap-2 rounded-full bg-brand-50 px-3 py-1 text-[12px] font-semibold text-brand-700 ring-1 ring-brand-100">
+                  <ActiveIcon className="h-3.5 w-3.5" strokeWidth={2.25} />
+                  {active.title}
+                </span>
+                <h3 className="mt-5 font-display text-[28px] font-semibold leading-[1.04] tracking-[-0.025em] text-fg md:text-[40px] lg:text-[46px]">
+                  {active.promise}
+                </h3>
+                <p className="mt-5 max-w-xl text-[16px] leading-[1.65] text-fg-3 md:text-[17px]">
                   {active.body}
                 </p>
 
-                {/* Outcome — visual chip */}
-                <div className="mt-7 flex items-start gap-4 rounded-md border border-brand-100 bg-brand-50 p-5">
-                  <span className="grid h-9 w-9 shrink-0 place-items-center rounded-md bg-brand-700 text-white">
+                {/* Outcome — bold colored callout */}
+                <div className="mt-8 flex items-start gap-4 rounded-md bg-brand-700 p-6 text-white">
+                  <span className="grid h-10 w-10 shrink-0 place-items-center rounded-md bg-white/15 text-white">
                     <Target className="h-4 w-4" strokeWidth={2.25} />
                   </span>
                   <div>
-                    <p className="kicker">The outcome</p>
-                    <p className="mt-1.5 font-display text-[18px] font-semibold leading-snug tracking-tight text-fg md:text-[20px]">
+                    <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-brand-200">
+                      Outcome
+                    </p>
+                    <p className="mt-1.5 font-display text-[18px] font-semibold leading-snug tracking-tight text-white md:text-[20px]">
                       {active.outcome}
                     </p>
                   </div>
@@ -255,7 +235,7 @@ export function Audiences() {
                 <div className="mt-8 flex flex-wrap items-center gap-3">
                   <a
                     href="#contact"
-                    className="group inline-flex items-center gap-2 rounded-md bg-brand-700 px-5 py-3 text-[14px] font-semibold text-white transition-colors hover:bg-brand-800"
+                    className="group inline-flex items-center gap-2 rounded-md bg-fg px-5 py-3 text-[14px] font-semibold text-white transition-colors hover:bg-brand-950"
                   >
                     Talk to the {active.tab.toLowerCase()} team
                     <ArrowRight
@@ -270,14 +250,11 @@ export function Audiences() {
                 </div>
               </div>
 
-              {/* Programs list — proper white card on the canvas tint */}
+              {/* Programs list — card on canvas */}
               <aside className="col-span-12 lg:col-span-5">
-                <div className="overflow-hidden rounded-md border border-line bg-white">
-                  <div className="flex items-center justify-between border-b border-line bg-canvas-2 px-5 py-3">
+                <div className="overflow-hidden rounded-md border border-line-2 bg-canvas">
+                  <div className="border-b border-line-2 px-5 py-3">
                     <p className="kicker">Programmes included</p>
-                    <span className="font-mono text-[10.5px] uppercase tracking-[0.14em] text-fg-4">
-                      {active.programs.length} items
-                    </span>
                   </div>
                   <ul>
                     {active.programs.map((p, i) => (
@@ -289,39 +266,15 @@ export function Audiences() {
                       >
                         <CheckCircle2 className="h-4 w-4 text-brand-700" strokeWidth={2.25} />
                         <span className="flex-1">{p}</span>
-                        <span className="font-mono text-[10.5px] uppercase tracking-[0.14em] text-fg-5">
-                          {String(i + 1).padStart(2, '0')}
-                        </span>
                       </li>
                     ))}
                   </ul>
                 </div>
               </aside>
             </div>
-
-            {/* Visual progression footer */}
-            <div className="flex items-center justify-between border-t border-line bg-white px-7 py-4 md:px-10">
-              <p className="font-mono text-[10.5px] uppercase tracking-[0.14em] text-fg-4">
-                Audience {active.num} of {String(SEGMENTS.length).padStart(2, '0')}
-              </p>
-              <div className="flex items-center gap-1.5">
-                {SEGMENTS.map((s, i) => {
-                  const isActive = i === activeIndex
-                  return (
-                    <button
-                      key={s.key}
-                      onClick={() => setActiveKey(s.key)}
-                      aria-label={`Show ${s.tab}`}
-                      className={`h-1.5 rounded-full transition-all duration-500 ease-out ${
-                        isActive ? 'w-10 bg-brand-700 pulse-dot' : 'w-2 bg-line-2 hover:bg-fg-5'
-                      }`}
-                    />
-                  )
-                })}
-              </div>
-            </div>
           </motion.article>
         </AnimatePresence>
+        </div>
       </div>
     </section>
   )

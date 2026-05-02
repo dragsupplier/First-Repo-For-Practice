@@ -87,8 +87,8 @@ export function Insights() {
                         {featured.date}
                       </span>
                     </div>
-                    <p className="font-mono text-[44px] font-semibold leading-none tracking-[-0.04em] text-white/80 md:text-[68px]">
-                      01
+                    <p className="font-display text-[20px] font-semibold leading-tight tracking-tight text-white/95 md:text-[24px]">
+                      {featured.category}
                     </p>
                   </div>
                 </div>
@@ -118,7 +118,7 @@ export function Insights() {
             {/* Supporting stack on the right */}
             <div className="col-span-12 lg:col-span-5">
               <ul className="flex flex-col gap-4">
-                {supporting.map((a, i) => (
+                {supporting.map((a) => (
                   <Rise key={a.title}>
                     <li>
                       <a
@@ -126,12 +126,7 @@ export function Insights() {
                         className="group flex h-full flex-col rounded-lg border border-line bg-white p-6 transition-all duration-300 hover:border-brand-200 hover:bg-brand-50/30 md:p-7"
                       >
                         <div className="flex items-center justify-between">
-                          <div className="flex items-center gap-2">
-                            <span className="grid h-7 w-7 place-items-center rounded-sm bg-canvas font-mono text-[10.5px] font-semibold tracking-wider text-brand-700 transition-colors group-hover:bg-brand-700 group-hover:text-white">
-                              {String(i + 2).padStart(2, '0')}
-                            </span>
-                            <span className="kicker">{a.category}</span>
-                          </div>
+                          <span className="kicker">{a.category}</span>
                           <span className="font-mono text-[10.5px] uppercase tracking-[0.14em] text-fg-4">
                             {a.date}
                           </span>
