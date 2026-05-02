@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { motion, AnimatePresence } from 'motion/react'
 import { TextReveal } from '@/components/ui/TextReveal'
 import {
@@ -86,12 +86,17 @@ const FORMATS: Format[] = [
 
 export function Industries() {
   const [activeKey, setActiveKey] = useState(FORMATS[0].key)
-  const prev = useRef(0)
+  const activeIndex = FORMATS.findIndex((f) => f.key === activeKey)
+  const prev = useRef<number>(activeIndex)
+  const [direction, setDirection] = useState(1)
+
+  useEffect(() => {
+    setDirection(activeIndex >= prev.current ? 1 : -1)
+    prev.current = activeIndex
+  }, [activeIndex])
+
   const active = FORMATS.find((f) => f.key === activeKey) ?? FORMATS[0]
   const ActiveIcon = active.icon
-  const activeIndex = FORMATS.findIndex((f) => f.key === activeKey)
-  const direction = activeIndex >= prev.current ? 1 : -1
-  prev.current = activeIndex
 
   return (
     <section id="industries" className="relative bg-white">
@@ -179,10 +184,25 @@ export function Industries() {
         <AnimatePresence mode="wait">
           <motion.article
             key={active.key}
-            initial={{ opacity: 0, x: direction * 50, filter: 'blur(6px)' }}
-            animate={{ opacity: 1, x: 0, filter: 'blur(0px)' }}
-            exit={{ opacity: 0, x: -direction * 30, filter: 'blur(6px)' }}
-            transition={{ duration: 0.45, ease: [0.2, 0.7, 0.2, 1] }}
+            initial={{
+              clipPath:
+                direction > 0
+                  ? 'polygon(0 0, 0 0, 0 100%, 0 100%)'
+                  : 'polygon(100% 0, 100% 0, 100% 100%, 100% 100%)',
+              opacity: 0.6,
+            }}
+            animate={{
+              clipPath: 'polygon(0 0, 100% 0, 100% 100%, 0 100%)',
+              opacity: 1,
+            }}
+            exit={{
+              clipPath:
+                direction > 0
+                  ? 'polygon(100% 0, 100% 0, 100% 100%, 100% 100%)'
+                  : 'polygon(0 0, 0 0, 0 100%, 0 100%)',
+              opacity: 0.6,
+            }}
+            transition={{ duration: 0.5, ease: [0.2, 0.7, 0.2, 1] }}
             className="overflow-hidden rounded-lg border border-line bg-canvas"
           >
             <div className="grid grid-cols-12 gap-0">

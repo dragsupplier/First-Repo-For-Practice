@@ -22,16 +22,29 @@ export function SmoothScroll() {
     }
     raf = requestAnimationFrame(tick)
 
-    // Anchor click handling — Lenis intercepts hash links smoothly
+    // Calculate dynamic offset based on actual sticky header heights
+    const computeOffset = () => {
+      const header = document.querySelector('header')
+      const sectionNav = document.querySelector('[data-sticky-subnav]')
+      const headerH = header instanceof HTMLElement ? header.offsetHeight : 0
+      const subnavH = sectionNav instanceof HTMLElement ? sectionNav.offsetHeight : 0
+      return -(headerH + subnavH + 8)
+    }
+
     const onAnchor = (e: MouseEvent) => {
       const a = (e.target as HTMLElement)?.closest('a[href^="#"]') as HTMLAnchorElement | null
       if (!a) return
-      const id = a.getAttribute('href')?.slice(1)
-      if (!id) return
+      const href = a.getAttribute('href')
+      if (!href || href === '#' || href === '#enquiry') {
+        // Allow plain '#' to do nothing; '#enquiry' falls through to native focus
+        if (href === '#') e.preventDefault()
+        return
+      }
+      const id = href.slice(1)
       const el = document.getElementById(id)
       if (!el) return
       e.preventDefault()
-      lenis.scrollTo(el, { offset: -120 })
+      lenis.scrollTo(el, { offset: computeOffset() })
     }
     document.addEventListener('click', onAnchor)
 

@@ -121,7 +121,7 @@ export function CapabilityMarquee() {
         <div className="grid grid-cols-12 gap-x-10">
           {/* Persistent left rail with icon cards */}
           <aside className="col-span-12 lg:col-span-3">
-            <div className="sticky top-[170px] hidden lg:block">
+            <div className="sticky top-[120px] hidden lg:block">
               <p className="kicker">Index</p>
               <ol className="mt-5 space-y-2">
                 {GROUPS.map((g) => {

@@ -120,7 +120,7 @@ export function Footer() {
         <div className="mx-auto max-w-7xl px-5 py-12 md:px-8 md:py-16">
           <div className="grid grid-cols-2 gap-x-8 gap-y-10 lg:grid-cols-12">
             {/* Brand block */}
-            <div className="col-span-2 lg:col-span-3">
+            <div className="col-span-2 lg:col-span-4">
               <Logo variant="inverted" />
               <p className="mt-5 max-w-sm text-[13px] leading-[1.65] text-white/65">
                 A Pune-based partner combining campus training, in-house

@@ -27,6 +27,9 @@
 
   --color-ink-950:   #0b1220;
 
+  /* Utility-bar text token */
+  --color-utility-fg: #c9d3ff;
+
   --font-display: "Inter Tight", "Inter", "Segoe UI", system-ui, sans-serif;
   --font-sans:    "Inter", "Segoe UI", "Helvetica Neue", system-ui, sans-serif;
   --font-mono:    "JetBrains Mono", ui-monospace, monospace;
@@ -64,6 +67,8 @@
   }
 }
 
+/* === Section primitives === */
+
 .kicker {
   font-family: var(--font-mono);
   font-size: 11px;
@@ -72,6 +77,7 @@
   text-transform: uppercase;
   color: var(--color-brand-700);
 }
+.kicker-on-dark { color: var(--color-brand-200); }
 
 .eyebrow {
   font-family: var(--font-sans);
@@ -82,11 +88,29 @@
   color: var(--color-fg-4);
 }
 
+/* Standardized section opener — line-kicker-line */
+.section-opener {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+.section-opener::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: var(--color-line);
+}
+
 .utility-bar {
   background: var(--color-fg);
-  color: #c9d3ff;
+  color: var(--color-utility-fg);
   font-size: 12.5px;
 }
+
+/* Section vertical rhythm — standard, opener, dense */
+.section-y { padding-top: 4rem; padding-bottom: 4rem; }
+@media (min-width: 768px) { .section-y { padding-top: 5rem; padding-bottom: 5rem; } }
+@media (min-width: 1024px) { .section-y { padding-top: 6rem; padding-bottom: 6rem; } }
 
 @keyframes marquee {
   from { transform: translateX(0); }
@@ -95,14 +119,14 @@
 .animate-marquee { animation: marquee 70s linear infinite; }
 
 .brand-mesh {
-  background-color: #142048;
+  background-color: var(--color-brand-900);
   background-image:
     radial-gradient(at 18% 20%, hsla(225, 70%, 38%, 0.55) 0px, transparent 55%),
     radial-gradient(at 82% 88%, hsla(220, 80%, 22%, 0.65) 0px, transparent 55%),
     radial-gradient(at 78% 14%, hsla(220, 60%, 50%, 0.35) 0px, transparent 55%);
 }
 .brand-mesh-light {
-  background-color: #1d3aa5;
+  background-color: var(--color-brand-700);
   background-image:
     radial-gradient(at 12% 18%, hsla(220, 90%, 65%, 0.45) 0px, transparent 55%),
     radial-gradient(at 82% 88%, hsla(225, 90%, 25%, 0.55) 0px, transparent 55%);
@@ -122,6 +146,18 @@
   line-height: 0.96;
 }
 
+/* Card primitive — unified */
+.card {
+  border: 1px solid var(--color-line);
+  background: var(--color-bg);
+  border-radius: 8px;
+  transition: border-color 220ms ease, box-shadow 320ms cubic-bezier(0.2,0.7,0.2,1);
+}
+.card:hover {
+  border-color: var(--color-line-2);
+  box-shadow: 0 16px 32px -22px rgba(11, 18, 32, 0.18);
+}
+
 .cap-row { border-top: 1px solid var(--color-line); }
 .cap-row:last-child { border-bottom: 1px solid var(--color-line); }
 
@@ -137,15 +173,15 @@
 }
 .link-rule:hover { color: var(--color-brand-800); }
 
-/* === New animation tokens === */
-
-/* Lenis smooth scroll lock */
+/* Lenis hooks */
 html.lenis, html.lenis body { height: auto; }
 .lenis.lenis-smooth { scroll-behavior: auto !important; }
 .lenis.lenis-smooth [data-lenis-prevent] { overscroll-behavior: contain; }
 .lenis.lenis-stopped { overflow: clip; }
 
-/* Subtle 3D card tilt on hover (no shadow gimmick) */
+/* === Creative animation tokens (NOT generic up/down/fade) === */
+
+/* 3D tilt */
 .tilt-card {
   transition: transform 320ms cubic-bezier(0.2, 0.7, 0.2, 1);
   transform-style: preserve-3d;
@@ -154,7 +190,7 @@ html.lenis, html.lenis body { height: auto; }
   transform: perspective(900px) rotateX(1.2deg) rotateY(-1.2deg) translateY(-2px);
 }
 
-/* Slide-up underline (for nav-style links) */
+/* Slide-up underline */
 .under-slide {
   background-image: linear-gradient(currentColor, currentColor);
   background-size: 0% 1px;
@@ -164,16 +200,64 @@ html.lenis, html.lenis body { height: auto; }
 }
 .under-slide:hover { background-size: 100% 1px; }
 
-/* Wipe reveal on the card-swap (used in tab content) */
-@keyframes wipe-in {
-  from { clip-path: inset(0 100% 0 0); }
-  to   { clip-path: inset(0 0 0 0); }
+/* Diagonal mask wipe (used on tab content swap — replaces generic slide) */
+@keyframes wipe-diag-in {
+  from { clip-path: polygon(0 0, 0 0, 0 100%, 0 100%); }
+  to   { clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%); }
 }
-.wipe-in { animation: wipe-in 0.55s cubic-bezier(0.2, 0.7, 0.2, 1) both; }
+@keyframes wipe-diag-out {
+  from { clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%); }
+  to   { clip-path: polygon(100% 0, 100% 0, 100% 100%, 100% 100%); }
+}
+.wipe-in  { animation: wipe-diag-in  0.55s cubic-bezier(0.2, 0.7, 0.2, 1) both; }
+.wipe-out { animation: wipe-diag-out 0.45s cubic-bezier(0.2, 0.7, 0.2, 1) both; }
 
-/* Soft pulse for the active progress dot */
+/* Letter cascade reveal — variable rotation per letter creates a wave */
+@keyframes letter-cascade {
+  0%   { transform: translateY(110%) rotate(var(--r, 6deg)); opacity: 0; }
+  60%  { opacity: 1; }
+  100% { transform: translateY(0) rotate(0deg); opacity: 1; }
+}
+
+/* Soft pulse on active progress dot */
 @keyframes soft-pulse {
   0%, 100% { box-shadow: 0 0 0 0 rgba(29, 58, 165, 0.35); }
   50%      { box-shadow: 0 0 0 8px rgba(29, 58, 165, 0.0); }
 }
 .pulse-dot { animation: soft-pulse 2.4s ease-out infinite; }
+
+/* Section number that prints into view (scaleY mask) */
+@keyframes print-in {
+  from { transform: scaleY(0); transform-origin: top; }
+  to   { transform: scaleY(1); transform-origin: top; }
+}
+.print-in { animation: print-in 0.55s cubic-bezier(0.2, 0.7, 0.2, 1) both; }
+
+/* Shimmer on the kicker rule (subtle, replaces flat hairline) */
+@keyframes opener-rule-grow {
+  from { transform: scaleX(0); transform-origin: left; }
+  to   { transform: scaleX(1); transform-origin: left; }
+}
+.opener-rule-grow { animation: opener-rule-grow 0.7s cubic-bezier(0.2, 0.7, 0.2, 1) both; }
+
+/* Cursor-proximity glow on cards (CSS-only, no JS pointer tracking) */
+.glow-card {
+  position: relative;
+  isolation: isolate;
+}
+.glow-card::before {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  background: radial-gradient(
+    400px circle at var(--mx, 50%) var(--my, 50%),
+    rgba(29, 58, 165, 0.16),
+    transparent 40%
+  );
+  opacity: 0;
+  transition: opacity 280ms ease;
+  pointer-events: none;
+  z-index: -1;
+}
+.glow-card:hover::before { opacity: 1; }

@@ -1,5 +1,6 @@
 import { motion } from 'motion/react'
 import { TextReveal } from '@/components/ui/TextReveal'
+// motion is used below for the column reveal
 
 export function DisplayMoment() {
   return (
@@ -10,7 +11,7 @@ export function DisplayMoment() {
           <span className="h-px flex-1 bg-line" />
         </div>
 
-        <h2 className="display-xl text-[12vw] text-fg sm:text-[10vw] md:text-[88px] lg:text-[112px]">
+        <h2 className="display-xl text-[clamp(36px,8.5vw,112px)] text-fg">
           <TextReveal
             text="We replace four vendors"
             unit="word"

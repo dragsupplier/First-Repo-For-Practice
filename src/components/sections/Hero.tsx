@@ -24,7 +24,7 @@ const AUDIENCE_STRIP: { label: string; sub: string; icon: LucideIcon }[] = [
 
 export function Hero() {
   return (
-    <section className="relative bg-white">
+    <section id="hero" className="relative bg-white">
       <div className="mx-auto max-w-5xl px-5 pt-16 pb-12 text-center md:px-8 md:pt-24 md:pb-16">
         {/* Centered opener */}
         <motion.div

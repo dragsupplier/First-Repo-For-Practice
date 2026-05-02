@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { motion, AnimatePresence } from 'motion/react'
 import { TextReveal } from '@/components/ui/TextReveal'
 import {
@@ -97,13 +97,17 @@ const SEGMENTS: Segment[] = [
 
 export function Audiences() {
   const [activeKey, setActiveKey] = useState(SEGMENTS[0].key)
-  const prevIndex = useRef(0)
+  const activeIndex = SEGMENTS.findIndex((s) => s.key === activeKey)
+  const prevIndex = useRef<number>(activeIndex)
+  const [direction, setDirection] = useState(1)
+
+  useEffect(() => {
+    setDirection(activeIndex >= prevIndex.current ? 1 : -1)
+    prevIndex.current = activeIndex
+  }, [activeIndex])
+
   const active = SEGMENTS.find((s) => s.key === activeKey) ?? SEGMENTS[0]
   const ActiveIcon = active.icon
-  const activeIndex = SEGMENTS.findIndex((s) => s.key === activeKey)
-  const direction = activeIndex >= prevIndex.current ? 1 : -1
-  // update for next render after compute
-  prevIndex.current = activeIndex
 
   return (
     <section id="audiences" className="relative bg-canvas">
@@ -178,15 +182,30 @@ export function Audiences() {
         </div>
       </div>
 
-      {/* Animated card — directional slide based on tab order */}
+      {/* Animated card — clip-path wipe from the side that matches the tab direction */}
       <div className="mx-auto max-w-7xl px-5 py-12 md:px-8 md:py-16">
         <AnimatePresence mode="wait">
           <motion.article
             key={active.key}
-            initial={{ opacity: 0, x: direction * 60, filter: 'blur(6px)' }}
-            animate={{ opacity: 1, x: 0, filter: 'blur(0px)' }}
-            exit={{ opacity: 0, x: -direction * 40, filter: 'blur(6px)' }}
-            transition={{ duration: 0.5, ease: [0.2, 0.7, 0.2, 1] }}
+            initial={{
+              clipPath:
+                direction > 0
+                  ? 'polygon(0 0, 0 0, 0 100%, 0 100%)'
+                  : 'polygon(100% 0, 100% 0, 100% 100%, 100% 100%)',
+              opacity: 0.6,
+            }}
+            animate={{
+              clipPath: 'polygon(0 0, 100% 0, 100% 100%, 0 100%)',
+              opacity: 1,
+            }}
+            exit={{
+              clipPath:
+                direction > 0
+                  ? 'polygon(100% 0, 100% 0, 100% 100%, 100% 100%)'
+                  : 'polygon(0 0, 0 0, 0 100%, 0 100%)',
+              opacity: 0.6,
+            }}
+            transition={{ duration: 0.55, ease: [0.2, 0.7, 0.2, 1] }}
             className="overflow-hidden rounded-lg border border-line bg-white shadow-[0_24px_60px_-30px_rgba(11,18,32,0.18)]"
           >
             {/* Card header — icon block + meta */}

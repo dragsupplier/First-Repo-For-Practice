@@ -1,3 +1,5 @@
+import { Stagger, Rise } from '@/components/ui/Stagger'
+
 const FRAMEWORKS: { name: string; sub: string }[] = [
   { name: 'NEP 2020',         sub: 'National Education Policy alignment' },
   { name: 'NAAC',             sub: 'Accreditation documentation support' },
@@ -11,7 +13,7 @@ const FRAMEWORKS: { name: string; sub: string }[] = [
 
 export function Standards() {
   return (
-    <section className="relative bg-canvas-2">
+    <section id="standards" className="relative bg-canvas-2">
       <div className="mx-auto max-w-7xl px-5 py-12 md:px-8 md:py-14">
         <div className="grid grid-cols-12 items-start gap-8">
           <div className="col-span-12 md:col-span-3">
@@ -20,16 +22,20 @@ export function Standards() {
               Built around public standards, not proprietary lock-ins.
             </p>
           </div>
-          <ul className="col-span-12 grid grid-cols-2 gap-x-6 gap-y-5 md:col-span-9 md:grid-cols-4">
-            {FRAMEWORKS.map((f) => (
-              <li key={f.name} className="border-l border-line-2 pl-4">
-                <p className="font-mono text-[11px] font-semibold uppercase tracking-[0.14em] text-brand-700">
-                  {f.name}
-                </p>
-                <p className="mt-1 text-[12.5px] leading-snug text-fg-3">{f.sub}</p>
-              </li>
-            ))}
-          </ul>
+          <Stagger step={0.05} className="col-span-12 md:col-span-9">
+            <ul className="grid grid-cols-2 gap-x-6 gap-y-5 md:grid-cols-4">
+              {FRAMEWORKS.map((f) => (
+                <Rise key={f.name} y={10}>
+                  <li className="border-l-2 border-brand-700 pl-4 transition-[border-color] duration-300 hover:border-brand-500">
+                    <p className="font-mono text-[11px] font-semibold uppercase tracking-[0.14em] text-brand-700">
+                      {f.name}
+                    </p>
+                    <p className="mt-1 text-[12.5px] leading-snug text-fg-3">{f.sub}</p>
+                  </li>
+                </Rise>
+              ))}
+            </ul>
+          </Stagger>
         </div>
       </div>
     </section>

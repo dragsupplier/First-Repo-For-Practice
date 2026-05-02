@@ -34,7 +34,10 @@ export function SectionNav() {
   }, [])
 
   return (
-    <div className="sticky top-[105px] z-40 hidden border-b border-line bg-white/85 backdrop-blur-md md:block">
+    <div
+      data-sticky-subnav
+      className="sticky top-[105px] z-40 hidden border-b border-line bg-white/85 backdrop-blur-md md:block"
+    >
       <div className="mx-auto max-w-7xl px-5 md:px-8">
         <nav className="-mx-1 flex items-stretch overflow-x-auto">
           {ITEMS.map((it) => {

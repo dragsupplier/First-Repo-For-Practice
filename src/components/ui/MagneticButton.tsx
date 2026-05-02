@@ -1,4 +1,4 @@
-import { useRef, type ComponentPropsWithoutRef, type ReactNode } from 'react'
+import { useEffect, useRef, useState, type ComponentPropsWithoutRef, type ReactNode } from 'react'
 import { motion, useMotionValue, useSpring, useReducedMotion } from 'motion/react'
 import { cn } from '@/lib/cn'
 
@@ -10,7 +10,8 @@ type Props = ComponentPropsWithoutRef<'a'> & {
 
 /**
  * Magnetic anchor — element gently follows the cursor inside its bounds on hover.
- * Falls back to a plain anchor when prefers-reduced-motion is set.
+ * On touch devices, falls back to a subtle press state.
+ * Honors prefers-reduced-motion.
  */
 export function MagneticButton({
   children,
@@ -20,6 +21,12 @@ export function MagneticButton({
 }: Props) {
   const reduce = useReducedMotion()
   const ref = useRef<HTMLAnchorElement | null>(null)
+  const [isTouch, setIsTouch] = useState(false)
+
+  useEffect(() => {
+    const mq = window.matchMedia('(hover: none) and (pointer: coarse)')
+    setIsTouch(mq.matches)
+  }, [])
 
   const x = useMotionValue(0)
   const y = useMotionValue(0)
@@ -30,9 +37,9 @@ export function MagneticButton({
   const isx = useSpring(innerX, { stiffness: 260, damping: 20, mass: 0.4 })
   const isy = useSpring(innerY, { stiffness: 260, damping: 20, mass: 0.4 })
 
-  if (reduce) {
+  if (reduce || isTouch) {
     return (
-      <a className={className} {...rest}>
+      <a className={cn(className, 'transition-transform active:scale-[0.98]')} {...rest}>
         {children}
       </a>
     )
@@ -62,10 +69,7 @@ export function MagneticButton({
       className={cn(className, 'inline-block')}
       {...(rest as ComponentPropsWithoutRef<typeof motion.a>)}
     >
-      <motion.span
-        className="inline-flex items-center gap-2"
-        style={{ x: isx, y: isy }}
-      >
+      <motion.span className="inline-flex items-center gap-2" style={{ x: isx, y: isy }}>
         {children}
       </motion.span>
     </motion.a>

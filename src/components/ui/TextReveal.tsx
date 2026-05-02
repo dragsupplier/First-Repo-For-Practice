@@ -1,16 +1,17 @@
 import { motion, useReducedMotion } from 'motion/react'
 import { cn } from '@/lib/cn'
 
+type Variant = 'mask' | 'cascade'
+
 type Props = {
   text: string
   className?: string
-  /** Animate per word (default) or per character */
   unit?: 'word' | 'char'
-  /** Stagger between units in ms */
+  /** 'mask' = each token rises out of an overflow-hidden mask (default).
+   *  'cascade' = each token rises with a small variable rotation, creating a wave. */
+  variant?: Variant
   stagger?: number
-  /** Delay before reveal starts */
   delay?: number
-  /** Trigger on view (default) or on mount */
   trigger?: 'inview' | 'mount'
   as?: keyof React.JSX.IntrinsicElements
 }
@@ -19,6 +20,7 @@ export function TextReveal({
   text,
   className,
   unit = 'word',
+  variant = 'mask',
   stagger = 30,
   delay = 0,
   trigger = 'mount',
@@ -32,29 +34,63 @@ export function TextReveal({
   }
 
   const tokens =
-    unit === 'word'
-      ? text.split(/(\s+)/) // keep whitespace as its own token
-      : Array.from(text)
+    unit === 'word' ? text.split(/(\s+)/) : Array.from(text)
 
   const animateProps =
     trigger === 'inview'
-      ? { initial: 'hidden', whileInView: 'visible', viewport: { once: true, margin: '-15%' } }
+      ? { initial: 'hidden', whileInView: 'visible', viewport: { once: true, margin: '-12%' } }
       : { initial: 'hidden', animate: 'visible' }
 
+  if (variant === 'cascade') {
+    return (
+      <Tag
+        className={cn('inline', className)}
+        variants={{
+          visible: { transition: { staggerChildren: stagger / 1000, delayChildren: delay } },
+        }}
+        {...animateProps}
+      >
+        {tokens.map((tok, i) => {
+          if (/^\s+$/.test(tok)) return <span key={i}>{tok}</span>
+          // Slight tilt that flips sign by index for a "wave" character
+          const rot = (i % 2 === 0 ? 1 : -1) * (4 + (i % 3))
+          return (
+            <motion.span
+              key={i}
+              className="inline-block"
+              style={{ transformOrigin: 'bottom center' }}
+              variants={{
+                hidden: { y: '60%', rotate: rot, opacity: 0, scale: 0.92 },
+                visible: {
+                  y: 0,
+                  rotate: 0,
+                  opacity: 1,
+                  scale: 1,
+                  transition: { duration: 0.7, ease: [0.18, 0.74, 0.2, 1] },
+                },
+              }}
+            >
+              {tok}
+            </motion.span>
+          )
+        })}
+      </Tag>
+    )
+  }
+
+  // Default mask reveal (preserved for compatibility)
   return (
     <Tag
       className={cn('inline', className)}
-      variants={{ visible: { transition: { staggerChildren: stagger / 1000, delayChildren: delay } } }}
+      variants={{
+        visible: { transition: { staggerChildren: stagger / 1000, delayChildren: delay } },
+      }}
       {...animateProps}
     >
       {tokens.map((tok, i) => {
         if (/^\s+$/.test(tok)) return <span key={i}>{tok}</span>
         return (
-          <span
-            key={i}
-            className="inline-block overflow-hidden align-bottom leading-[1]"
-            style={{ paddingBottom: '0.06em' }}
-          >
+          <span key={i} className="inline-block overflow-hidden align-bottom leading-[1] pb-[0.06em]">
             <motion.span
               className="inline-block"
               variants={{
