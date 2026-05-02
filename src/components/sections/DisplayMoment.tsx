@@ -1,4 +1,5 @@
 import { motion } from 'motion/react'
+import { TextReveal } from '@/components/ui/TextReveal'
 
 export function DisplayMoment() {
   return (
@@ -9,18 +10,20 @@ export function DisplayMoment() {
           <span className="h-px flex-1 bg-line" />
         </div>
 
-        <motion.h2
-          initial={{ opacity: 0, y: 14 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: '-20%' }}
-          transition={{ duration: 0.6 }}
-          className="display-xl text-[14vw] text-fg sm:text-[12vw] md:text-[112px] lg:text-[136px]"
-        >
-          We replace four vendors
+        <h2 className="display-xl text-[12vw] text-fg sm:text-[10vw] md:text-[88px] lg:text-[112px]">
+          <TextReveal
+            text="We replace four vendors"
+            unit="word"
+            stagger={70}
+            trigger="inview"
+            as="span"
+          />
           <br />
-          with{' '}
-          <span className="text-brand-700">one accountable team.</span>
-        </motion.h2>
+          <TextReveal text="with " unit="word" stagger={70} trigger="inview" as="span" />
+          <span className="text-brand-700">
+            <TextReveal text="one accountable team." unit="word" stagger={70} trigger="inview" as="span" />
+          </span>
+        </h2>
 
         <motion.div
           initial={{ opacity: 0, y: 12 }}

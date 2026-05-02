@@ -8,6 +8,8 @@ import {
   Quote,
 } from 'lucide-react'
 import type { LucideIcon } from 'lucide-react'
+import { TextReveal } from '@/components/ui/TextReveal'
+import { Stagger, Rise } from '@/components/ui/Stagger'
 
 type Pillar = { tag: string; title: string; body: string; icon: LucideIcon }
 
@@ -62,8 +64,12 @@ export function SignatureMoment() {
           >
             <Quote className="h-8 w-8 text-brand-200" strokeWidth={1.6} />
             <p className="mt-6 font-display text-[26px] font-semibold leading-[1.18] tracking-[-0.02em] md:text-[34px]">
-              We're not five businesses in a trench coat — we are five segments
-              of one platform.
+              <TextReveal
+                text="We're not five businesses in a trench coat — we are five segments of one platform."
+                unit="word"
+                stagger={45}
+                trigger="inview"
+              />
             </p>
             <div className="mt-8 flex items-center gap-3 border-t border-white/15 pt-5">
               <span className="grid h-9 w-9 place-items-center rounded-full bg-white text-brand-950">
@@ -85,18 +91,15 @@ export function SignatureMoment() {
 
           {/* Supporting pillars — visual cards, not plain prose */}
           <div className="col-span-12 lg:col-span-7">
-            <ul className="grid grid-cols-1 gap-3 sm:grid-cols-2">
-              {PILLARS.map((p, i) => {
-                const Icon = p.icon
-                return (
-                  <motion.li
-                    key={p.title}
-                    initial={{ opacity: 0, y: 8 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true, margin: '-10%' }}
-                    transition={{ duration: 0.4, delay: i * 0.05 }}
-                    className="group relative overflow-hidden rounded-md border border-line bg-white p-6 transition-shadow duration-200 hover:shadow-[0_20px_40px_-24px_rgba(11,18,32,0.18)]"
-                  >
+            <Stagger step={0.08}>
+              <ul className="grid grid-cols-1 gap-3 sm:grid-cols-2">
+                {PILLARS.map((p, i) => {
+                  const Icon = p.icon
+                  return (
+                    <Rise
+                      key={p.title}
+                      className="tilt-card group relative overflow-hidden rounded-md border border-line bg-white p-6"
+                    >
                     <div className="flex items-start justify-between">
                       <span className="grid h-10 w-10 place-items-center rounded-md bg-brand-50 text-brand-700 ring-1 ring-brand-100 transition-colors group-hover:bg-brand-700 group-hover:text-white">
                         <Icon className="h-4 w-4" strokeWidth={2} />
@@ -116,10 +119,11 @@ export function SignatureMoment() {
                       aria-hidden
                       className="absolute inset-x-0 bottom-0 h-0.5 origin-left scale-x-0 bg-brand-700 transition-transform duration-300 group-hover:scale-x-100"
                     />
-                  </motion.li>
-                )
-              })}
-            </ul>
+                    </Rise>
+                  )
+                })}
+              </ul>
+            </Stagger>
           </div>
         </div>
       </div>

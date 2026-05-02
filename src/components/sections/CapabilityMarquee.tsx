@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'motion/react'
+import { TextReveal } from '@/components/ui/TextReveal'
 import {
   Plus,
   Minus,
@@ -102,7 +103,10 @@ export function CapabilityMarquee() {
           </div>
           <div className="mt-8 grid grid-cols-12 gap-x-10 gap-y-6">
             <h2 className="col-span-12 font-display text-[36px] font-semibold leading-[1.04] tracking-[-0.02em] text-fg lg:col-span-7 lg:text-[52px]">
-              Forty-plus services. <span className="text-brand-700">Four delivery groups.</span>
+              <TextReveal text="Forty-plus services." unit="word" stagger={60} trigger="inview" />{' '}
+              <span className="text-brand-700">
+                <TextReveal text="Four delivery groups." unit="word" stagger={60} trigger="inview" />
+              </span>
             </h2>
             <p className="col-span-12 text-[15.5px] leading-[1.6] text-fg-3 lg:col-span-5 lg:text-[16.5px]">
               Each group runs as an in-house team — same hiring standard,

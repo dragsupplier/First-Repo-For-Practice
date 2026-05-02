@@ -13,10 +13,14 @@ import { Standards } from '@/components/sections/Standards'
 import { Locations } from '@/components/sections/Locations'
 import { CTA } from '@/components/sections/CTA'
 import { Footer } from '@/components/sections/Footer'
+import { SmoothScroll } from '@/components/ui/SmoothScroll'
+import { ScrollProgress } from '@/components/ui/ScrollProgress'
 
 function App() {
   return (
     <div className="min-h-screen bg-bg text-fg">
+      <SmoothScroll />
+      <ScrollProgress />
       <Header />
       <SectionNav />
       <main>

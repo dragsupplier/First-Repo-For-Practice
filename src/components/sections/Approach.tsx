@@ -1,5 +1,6 @@
-import { useState } from 'react'
+import { useRef, useState } from 'react'
 import { motion, AnimatePresence } from 'motion/react'
+import { TextReveal } from '@/components/ui/TextReveal'
 import {
   ArrowRight,
   Compass,
@@ -65,8 +66,11 @@ const STEPS: Step[] = [
 
 export function Approach() {
   const [activeIndex, setActiveIndex] = useState(0)
+  const prev = useRef(0)
   const active = STEPS[activeIndex]
   const ActiveIcon = active.icon
+  const direction = activeIndex >= prev.current ? 1 : -1
+  prev.current = activeIndex
 
   return (
     <section id="approach" className="relative bg-white">
@@ -78,7 +82,10 @@ export function Approach() {
           </div>
           <div className="mt-8 grid grid-cols-12 gap-x-10 gap-y-6">
             <h2 className="col-span-12 font-display text-[36px] font-semibold leading-[1.04] tracking-[-0.02em] text-fg lg:col-span-7 lg:text-[52px]">
-              A predictable <span className="text-brand-700">engagement model.</span>
+              <TextReveal text="A predictable" unit="word" stagger={50} trigger="inview" />{' '}
+              <span className="text-brand-700">
+                <TextReveal text="engagement model." unit="word" stagger={50} trigger="inview" />
+              </span>
             </h2>
             <p className="col-span-12 text-[15.5px] leading-[1.6] text-fg-3 lg:col-span-5 lg:text-[16.5px]">
               Most education and technology vendors lose institutions in the
@@ -149,10 +156,10 @@ export function Approach() {
         <AnimatePresence mode="wait">
           <motion.article
             key={active.num}
-            initial={{ opacity: 0, y: 12 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -8 }}
-            transition={{ duration: 0.35 }}
+            initial={{ opacity: 0, x: direction * 50, filter: 'blur(6px)' }}
+            animate={{ opacity: 1, x: 0, filter: 'blur(0px)' }}
+            exit={{ opacity: 0, x: -direction * 30, filter: 'blur(6px)' }}
+            transition={{ duration: 0.45, ease: [0.2, 0.7, 0.2, 1] }}
             className="overflow-hidden rounded-lg border border-line bg-canvas"
           >
             <div className="grid grid-cols-12 gap-0">

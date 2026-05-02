@@ -1,5 +1,6 @@
-import { useState } from 'react'
+import { useRef, useState } from 'react'
 import { motion, AnimatePresence } from 'motion/react'
+import { TextReveal } from '@/components/ui/TextReveal'
 import {
   ArrowRight,
   ArrowUpRight,
@@ -96,9 +97,13 @@ const SEGMENTS: Segment[] = [
 
 export function Audiences() {
   const [activeKey, setActiveKey] = useState(SEGMENTS[0].key)
+  const prevIndex = useRef(0)
   const active = SEGMENTS.find((s) => s.key === activeKey) ?? SEGMENTS[0]
   const ActiveIcon = active.icon
   const activeIndex = SEGMENTS.findIndex((s) => s.key === activeKey)
+  const direction = activeIndex >= prevIndex.current ? 1 : -1
+  // update for next render after compute
+  prevIndex.current = activeIndex
 
   return (
     <section id="audiences" className="relative bg-canvas">
@@ -113,7 +118,10 @@ export function Audiences() {
           </div>
           <div className="mt-8 grid grid-cols-12 gap-x-10 gap-y-6">
             <h2 className="col-span-12 font-display text-[36px] font-semibold leading-[1.04] tracking-[-0.02em] text-fg lg:col-span-7 lg:text-[52px]">
-              Five audiences. <span className="text-brand-700">One platform.</span>
+              <TextReveal text="Five audiences." unit="word" stagger={60} trigger="inview" />{' '}
+              <span className="text-brand-700">
+                <TextReveal text="One platform." unit="word" stagger={60} trigger="inview" />
+              </span>
             </h2>
             <p className="col-span-12 text-[15.5px] leading-[1.6] text-fg-3 lg:col-span-5 lg:text-[16.5px]">
               Pick an audience to see the programmes we deliver, the outcomes
@@ -170,15 +178,15 @@ export function Audiences() {
         </div>
       </div>
 
-      {/* Animated card */}
+      {/* Animated card — directional slide based on tab order */}
       <div className="mx-auto max-w-7xl px-5 py-12 md:px-8 md:py-16">
         <AnimatePresence mode="wait">
           <motion.article
             key={active.key}
-            initial={{ opacity: 0, y: 14 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -8 }}
-            transition={{ duration: 0.4, ease: [0.2, 0.7, 0.2, 1] }}
+            initial={{ opacity: 0, x: direction * 60, filter: 'blur(6px)' }}
+            animate={{ opacity: 1, x: 0, filter: 'blur(0px)' }}
+            exit={{ opacity: 0, x: -direction * 40, filter: 'blur(6px)' }}
+            transition={{ duration: 0.5, ease: [0.2, 0.7, 0.2, 1] }}
             className="overflow-hidden rounded-lg border border-line bg-white shadow-[0_24px_60px_-30px_rgba(11,18,32,0.18)]"
           >
             {/* Card header — icon block + meta */}
@@ -285,8 +293,8 @@ export function Audiences() {
                       key={s.key}
                       onClick={() => setActiveKey(s.key)}
                       aria-label={`Show ${s.tab}`}
-                      className={`h-1.5 rounded-full transition-all duration-300 ${
-                        isActive ? 'w-8 bg-brand-700' : 'w-2 bg-line-2 hover:bg-fg-5'
+                      className={`h-1.5 rounded-full transition-all duration-500 ease-out ${
+                        isActive ? 'w-10 bg-brand-700 pulse-dot' : 'w-2 bg-line-2 hover:bg-fg-5'
                       }`}
                     />
                   )

@@ -1,5 +1,6 @@
-import { motion } from 'motion/react'
 import { ArrowUpRight } from 'lucide-react'
+import { TextReveal } from '@/components/ui/TextReveal'
+import { Stagger, Rise } from '@/components/ui/Stagger'
 
 type Article = {
   category: string
@@ -43,7 +44,7 @@ export function Insights() {
             <div className="col-span-12 lg:col-span-7">
               <p className="kicker">07 — Insights</p>
               <h2 className="mt-4 font-display text-[28px] font-semibold leading-[1.08] tracking-[-0.02em] text-fg md:text-[36px] lg:text-[44px]">
-                Latest thinking from the field.
+                <TextReveal text="Latest thinking from the field." unit="word" stagger={50} trigger="inview" />
               </h2>
             </div>
             <div className="col-span-12 lg:col-span-5">
@@ -63,27 +64,25 @@ export function Insights() {
         </div>
       </div>
 
-      {/* Article row */}
+      {/* Article row with stagger reveal */}
       <div className="mx-auto max-w-7xl px-5 py-14 md:px-8 md:py-16">
-        <ul className="grid grid-cols-1 gap-x-10 gap-y-10 lg:grid-cols-3">
-          {ARTICLES.map((a, i) => (
-            <ArticleCard key={a.title} a={a} index={i} />
-          ))}
-        </ul>
+        <Stagger step={0.08}>
+          <ul className="grid grid-cols-1 gap-x-10 gap-y-10 lg:grid-cols-3">
+            {ARTICLES.map((a, i) => (
+              <Rise key={a.title}>
+                <ArticleCard a={a} index={i} />
+              </Rise>
+            ))}
+          </ul>
+        </Stagger>
       </div>
     </section>
   )
 }
 
-function ArticleCard({ a, index }: { a: Article; index: number }) {
+function ArticleCard({ a }: { a: Article; index: number }) {
   return (
-    <motion.li
-      initial={{ opacity: 0, y: 12 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: '-10%' }}
-      transition={{ duration: 0.4, delay: index * 0.06 }}
-      className="group flex flex-col border-t border-line pt-7"
-    >
+    <li className="group flex flex-col border-t border-line pt-7">
       <div className="flex items-center justify-between text-[11px]">
         <span className="rounded-sm bg-canvas px-2 py-0.5 font-mono uppercase tracking-[0.14em] text-fg-3">
           {a.category}
@@ -109,6 +108,6 @@ function ArticleCard({ a, index }: { a: Article; index: number }) {
           <ArrowUpRight className="h-3 w-3" strokeWidth={2.5} />
         </a>
       </div>
-    </motion.li>
+    </li>
   )
 }

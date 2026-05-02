@@ -1,5 +1,6 @@
 import { useState } from 'react'
-import { motion } from 'motion/react'
+import { TextReveal } from '@/components/ui/TextReveal'
+import { Stagger, Rise } from '@/components/ui/Stagger'
 import {
   ArrowRight,
   ArrowUpRight,
@@ -64,27 +65,19 @@ export function CTA() {
         <div className="mt-10 grid grid-cols-12 gap-x-12 gap-y-12">
           {/* Left — three action cards */}
           <div className="col-span-12 lg:col-span-7">
-            <motion.h2
-              initial={{ opacity: 0, y: 10 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: '-15%' }}
-              transition={{ duration: 0.5 }}
-              className="font-display text-[36px] font-semibold leading-[1.04] tracking-[-0.025em] md:text-[52px] lg:text-[60px]"
-            >
-              Tell us where you are. <span className="text-brand-200">We'll meet you there.</span>
-            </motion.h2>
+            <h2 className="font-display text-[36px] font-semibold leading-[1.04] tracking-[-0.025em] md:text-[52px] lg:text-[60px]">
+              <TextReveal text="Tell us where you are." unit="word" stagger={55} trigger="inview" />{' '}
+              <span className="text-brand-200">
+                <TextReveal text="We'll meet you there." unit="word" stagger={55} trigger="inview" />
+              </span>
+            </h2>
 
-            <ul className="mt-12 space-y-3">
-              {ACTIONS.map((a, i) => {
-                const Icon = a.icon
-                return (
-                  <motion.li
-                    key={a.num}
-                    initial={{ opacity: 0, x: -8 }}
-                    whileInView={{ opacity: 1, x: 0 }}
-                    viewport={{ once: true, margin: '-10%' }}
-                    transition={{ duration: 0.4, delay: i * 0.06 }}
-                  >
+            <Stagger step={0.08} className="mt-12">
+              <ul className="space-y-3">
+                {ACTIONS.map((a) => {
+                  const Icon = a.icon
+                  return (
+                    <Rise key={a.num}><li>
                     <a
                       href="#enquiry"
                       className="group grid grid-cols-12 items-center gap-4 rounded-md border border-white/10 bg-white/[0.03] p-5 transition-all duration-200 hover:border-white/25 hover:bg-white/[0.07]"
@@ -110,10 +103,11 @@ export function CTA() {
                         </span>
                       </div>
                     </a>
-                  </motion.li>
-                )
-              })}
-            </ul>
+                    </li></Rise>
+                  )
+                })}
+              </ul>
+            </Stagger>
 
             {/* Direct contact strip */}
             <ul className="mt-10 grid grid-cols-1 gap-3 border-t border-white/15 pt-7 sm:grid-cols-2">
