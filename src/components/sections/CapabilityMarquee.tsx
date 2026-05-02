@@ -193,59 +193,50 @@ export function CapabilityMarquee() {
             </ol>
           </aside>
 
-          {/* Accordion */}
-          <ul className="col-span-12 lg:col-span-9">
+          {/* Accordion — wrapped in a single bounded card */}
+          <div className="col-span-12 overflow-hidden rounded-lg border border-line bg-white lg:col-span-9">
+            <ul>
             {GROUPS.map((g, i) => {
               const isOpen = openKey === g.key
               const Icon = g.icon
               return (
                 <li
                   key={g.key}
-                  className={`border-b border-line ${i === 0 ? 'border-t border-line lg:border-t-0' : ''} ${
-                    isOpen ? 'bg-white' : ''
-                  }`}
+                  className={i !== 0 ? 'border-t border-line' : ''}
                 >
                   <button
                     onClick={() => setOpenKey(isOpen ? '' : g.key)}
-                    className="grid w-full grid-cols-12 items-center gap-4 py-7 text-left transition-colors hover:bg-white/60 md:py-8"
+                    className="flex w-full items-center gap-5 px-5 py-6 text-left transition-colors hover:bg-canvas/60 md:px-8 md:py-7"
                     aria-expanded={isOpen}
                   >
-                    <span className="col-span-2 flex items-center gap-3 md:col-span-1">
-                      <span
-                        className={`grid h-10 w-10 place-items-center rounded-md transition-colors ${
-                          isOpen ? 'bg-brand-700 text-white' : 'bg-canvas-2 text-fg-3'
-                        }`}
-                      >
-                        <Icon className="h-4 w-4" strokeWidth={2} />
-                      </span>
+                    <span
+                      className={`grid h-11 w-11 shrink-0 place-items-center rounded-md transition-colors ${
+                        isOpen ? 'bg-brand-700 text-white' : 'bg-canvas-2 text-fg-3'
+                      }`}
+                    >
+                      <Icon className="h-4 w-4" strokeWidth={2} />
                     </span>
-                    <span className="col-span-9 flex flex-col gap-1">
-                      <span className="font-mono text-[11px] font-semibold uppercase tracking-[0.14em] text-brand-700">
+                    <span className="flex min-w-0 flex-1 flex-col gap-1">
+                      <span className="kicker">
                         Group {g.tag}
                       </span>
-                      <h3 className="font-display text-[20px] font-semibold leading-tight tracking-tight text-fg md:text-[26px]">
+                      <h3 className="truncate font-display text-[18px] font-semibold leading-tight tracking-tight text-fg md:text-[22px]">
                         {g.title}
                       </h3>
                     </span>
-                    <span className="col-span-1 flex items-center justify-end md:col-span-2">
-                      <span
-                        className={`hidden font-mono text-[11px] font-medium uppercase tracking-[0.14em] md:inline ${
-                          isOpen ? 'text-brand-700' : 'text-fg-4'
-                        }`}
-                      >
-                        {g.items.length} services
-                      </span>
-                      <span
-                        className={`ml-4 grid h-9 w-9 place-items-center rounded-full border transition-colors ${
-                          isOpen ? 'border-brand-700 bg-brand-700 text-white' : 'border-line text-fg-3'
-                        }`}
-                      >
-                        {isOpen ? (
-                          <Minus className="h-3.5 w-3.5" strokeWidth={2.5} />
-                        ) : (
-                          <Plus className="h-3.5 w-3.5" strokeWidth={2.5} />
-                        )}
-                      </span>
+                    <span className="hidden shrink-0 font-mono text-[11px] font-medium uppercase tracking-[0.14em] text-fg-4 md:inline">
+                      {g.items.length} services
+                    </span>
+                    <span
+                      className={`grid h-9 w-9 shrink-0 place-items-center rounded-full border transition-colors ${
+                        isOpen ? 'border-brand-700 bg-brand-700 text-white' : 'border-line text-fg-3'
+                      }`}
+                    >
+                      {isOpen ? (
+                        <Minus className="h-3.5 w-3.5" strokeWidth={2.5} />
+                      ) : (
+                        <Plus className="h-3.5 w-3.5" strokeWidth={2.5} />
+                      )}
                     </span>
                   </button>
 
@@ -258,7 +249,8 @@ export function CapabilityMarquee() {
                         transition={{ duration: 0.35, ease: [0.2, 0.7, 0.2, 1] }}
                         className="overflow-hidden"
                       >
-                        <div className="grid grid-cols-12 gap-x-6 gap-y-8 pb-10">
+                        <div className="border-t border-line bg-canvas px-5 pb-8 pt-6 md:px-8 md:pb-10 md:pt-7">
+                          <div className="grid grid-cols-12 gap-x-6 gap-y-6">
                           <div className="col-span-12 md:col-span-4">
                             <p className="max-w-[40ch] text-[14.5px] leading-[1.6] text-fg-3">
                               {g.intro}
@@ -268,7 +260,7 @@ export function CapabilityMarquee() {
                               <ArrowRight className="h-3.5 w-3.5" strokeWidth={2.5} />
                             </a>
                           </div>
-                          <ul className="col-span-12 grid grid-cols-1 gap-3 sm:grid-cols-2 md:col-span-8">
+                          <ul className="col-span-12 grid grid-cols-1 gap-2.5 sm:grid-cols-2 md:col-span-8">
                             {g.items.map((it, idx) => (
                               <li
                                 key={it.label}
@@ -288,6 +280,7 @@ export function CapabilityMarquee() {
                               </li>
                             ))}
                           </ul>
+                          </div>
                         </div>
                       </motion.div>
                     )}
@@ -295,7 +288,8 @@ export function CapabilityMarquee() {
                 </li>
               )
             })}
-          </ul>
+            </ul>
+          </div>
         </div>
       </div>
     </section>

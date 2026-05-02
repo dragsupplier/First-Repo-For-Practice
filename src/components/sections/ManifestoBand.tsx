@@ -22,7 +22,7 @@ export function ManifestoBand() {
           <span className="h-px flex-1 bg-white/15" />
         </div>
 
-        <h2 className="mt-10 max-w-[18ch] font-display text-[40px] font-semibold leading-[1.04] tracking-[-0.025em] md:text-[60px] lg:text-[72px]">
+        <h2 className="mt-10 max-w-[18ch] font-display text-[36px] font-semibold leading-[1.04] tracking-[-0.025em] text-white md:text-[52px] lg:text-[64px]">
           <TextReveal
             text="We're not five businesses in a trench coat — we are five segments of one platform."
             unit="word"

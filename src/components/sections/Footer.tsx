@@ -78,7 +78,7 @@ export function Footer() {
                   Pune · Est. 2024
                 </span>
               </div>
-              <h2 className="mt-6 max-w-[20ch] font-display text-[36px] font-semibold leading-[1.04] tracking-[-0.02em] md:text-[52px] lg:text-[64px]">
+              <h2 className="mt-6 max-w-[20ch] font-display text-[36px] font-semibold leading-[1.04] tracking-[-0.02em] text-white md:text-[52px] lg:text-[60px]">
                 One partner. Five audiences. Quiet, accountable engagements.
               </h2>
             </div>

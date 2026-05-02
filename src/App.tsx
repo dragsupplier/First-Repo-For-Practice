@@ -1,6 +1,5 @@
 import { Header } from '@/components/sections/Header'
 import { Hero } from '@/components/sections/Hero'
-import { SectionNav } from '@/components/sections/SectionNav'
 import { DisplayMoment } from '@/components/sections/DisplayMoment'
 import { Audiences } from '@/components/sections/Audiences'
 import { ManifestoBand } from '@/components/sections/ManifestoBand'
@@ -22,7 +21,6 @@ function App() {
       <SmoothScroll />
       <ScrollProgress />
       <Header />
-      <SectionNav />
       <main>
         <Hero />
         <DisplayMoment />

@@ -56,13 +56,34 @@ export function Header() {
   const [open, setOpen] = useState<string | null>(null)
   const [mobile, setMobile] = useState(false)
   const [scrolled, setScrolled] = useState(false)
+  const [hidden, setHidden] = useState(false)
 
+  // Auto-hide on scroll down, show on scroll up
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 4)
+    let lastY = window.scrollY
+    let raf = 0
+    const onScroll = () => {
+      cancelAnimationFrame(raf)
+      raf = requestAnimationFrame(() => {
+        const y = window.scrollY
+        const dy = y - lastY
+        setScrolled(y > 4)
+        // Hide only when scrolling down past a small threshold
+        if (Math.abs(dy) > 6) {
+          if (y > 120 && dy > 0) setHidden(true)
+          else if (dy < 0) setHidden(false)
+        }
+        if (mobile || open) setHidden(false)
+        lastY = y
+      })
+    }
     onScroll()
     window.addEventListener('scroll', onScroll, { passive: true })
-    return () => window.removeEventListener('scroll', onScroll)
-  }, [])
+    return () => {
+      window.removeEventListener('scroll', onScroll)
+      cancelAnimationFrame(raf)
+    }
+  }, [mobile, open])
 
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => e.key === 'Escape' && setOpen(null)
@@ -71,7 +92,12 @@ export function Header() {
   }, [])
 
   return (
-    <header className="sticky top-0 z-50 w-full">
+    <header
+      className={cn(
+        'sticky top-0 z-50 w-full transition-transform duration-300 ease-out will-change-transform',
+        hidden ? '-translate-y-full' : 'translate-y-0',
+      )}
+    >
       {/* Utility bar */}
       <div className="utility-bar hidden md:block">
         <div className="mx-auto flex h-9 max-w-7xl items-center justify-between px-5 md:px-8">

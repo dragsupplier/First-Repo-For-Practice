@@ -32,8 +32,8 @@ export function Stagger({ children, step = 0.06, delay = 0, className }: Stagger
 
 type RiseProps = { children: React.ReactNode; className?: string; y?: number }
 
-/** Child of Stagger — rises and fades in when its parent triggers */
-export function Rise({ children, className, y = 14 }: RiseProps) {
+/** Child of Stagger — gentle rise + fade. No blur, short duration. */
+export function Rise({ children, className, y = 8 }: RiseProps) {
   const reduce = useReducedMotion()
   if (reduce) return <div className={className}>{children}</div>
 
@@ -41,12 +41,11 @@ export function Rise({ children, className, y = 14 }: RiseProps) {
     <motion.div
       className={className}
       variants={{
-        hidden: { opacity: 0, y, filter: 'blur(4px)' },
+        hidden: { opacity: 0, y },
         visible: {
           opacity: 1,
           y: 0,
-          filter: 'blur(0px)',
-          transition: { duration: 0.55, ease: [0.2, 0.7, 0.2, 1] },
+          transition: { duration: 0.4, ease: [0.2, 0.7, 0.2, 1] },
         },
       }}
     >
