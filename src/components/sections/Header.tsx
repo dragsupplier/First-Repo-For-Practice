@@ -119,8 +119,10 @@ export function Header() {
       {/* Main bar */}
       <div
         className={cn(
-          'border-b bg-white transition-shadow',
-          scrolled ? 'border-line shadow-sm' : 'border-transparent',
+          'border-b transition-[background-color,backdrop-filter,box-shadow,border-color] duration-300',
+          scrolled
+            ? 'border-line bg-white/85 shadow-[0_1px_0_0_rgba(11,18,32,0.04),0_8px_24px_-12px_rgba(11,18,32,0.08)] backdrop-blur-md'
+            : 'border-transparent bg-white',
         )}
       >
         <div className="mx-auto flex h-[68px] max-w-7xl items-center justify-between px-5 md:px-8">
@@ -252,15 +254,22 @@ function DropdownTrigger({
     <button
       onMouseEnter={onEnter}
       className={cn(
-        'inline-flex items-center gap-1 px-3.5 py-2 text-[14px] font-medium transition-colors',
-        isOpen ? 'text-fg' : 'text-fg-2 hover:text-fg',
+        'group relative inline-flex items-center gap-1 rounded-md px-3.5 py-2 text-[14px] font-medium transition-colors',
+        isOpen ? 'bg-canvas text-fg' : 'text-fg-2 hover:text-fg',
       )}
       aria-expanded={isOpen}
     >
       {label}
       <ChevronDown
-        className={cn('h-3.5 w-3.5 transition-transform duration-200', isOpen && 'rotate-180')}
+        className={cn('h-3.5 w-3.5 transition-transform duration-200', isOpen && 'rotate-180 text-brand-700')}
         strokeWidth={2.25}
+      />
+      <span
+        aria-hidden
+        className={cn(
+          'pointer-events-none absolute inset-x-3.5 -bottom-px h-0.5 origin-left bg-brand-700 transition-transform duration-200',
+          isOpen ? 'scale-x-100' : 'scale-x-0',
+        )}
       />
     </button>
   )
@@ -320,42 +329,60 @@ function MegaPanel({
 }) {
   return (
     <div className="grid grid-cols-12">
-      <div className="col-span-3 border-r border-line bg-canvas p-7">
-        <p className="font-mono text-[10.5px] uppercase tracking-[0.18em] text-fg-4">{title}</p>
-        <p className="mt-3 font-display text-[20px] font-bold leading-tight tracking-tight text-fg">
-          {tagline}
-        </p>
-        <div className="mt-6 rounded-md border border-line bg-white p-4">
-          <p className="text-[12.5px] font-semibold text-fg">{footer.title}</p>
-          <p className="mt-1.5 text-[12.5px] leading-snug text-fg-3">{footer.body}</p>
-          <a
-            href={footer.href}
-            className="mt-3 inline-flex items-center gap-1 text-[12.5px] font-semibold text-brand-700 hover:text-brand-800"
-          >
-            {footer.cta}
-            <ArrowRight className="h-3 w-3" strokeWidth={2.5} />
-          </a>
+      {/* Left feature card — brand-mesh on lg, plain on md */}
+      <aside className="col-span-12 border-b border-line lg:col-span-4 lg:border-b-0 lg:border-r">
+        <div className="brand-mesh relative h-full overflow-hidden p-7 text-white md:p-8">
+          <div className="flex items-center justify-between">
+            <p className="font-mono text-[10.5px] font-semibold uppercase tracking-[0.18em] text-brand-200">
+              {title}
+            </p>
+            <span className="rounded-sm bg-white/10 px-2 py-0.5 font-mono text-[10px] font-semibold uppercase tracking-[0.14em] text-white/70 ring-1 ring-white/15">
+              {String(items.length).padStart(2, '0')} options
+            </span>
+          </div>
+          <h3 className="mt-5 font-display text-[26px] font-semibold leading-[1.1] tracking-tight text-white md:text-[28px]">
+            {tagline}
+          </h3>
+          <p className="mt-4 max-w-[34ch] text-[13.5px] leading-[1.6] text-white/75">
+            {footer.body}
+          </p>
+          <div className="mt-7 border-t border-white/15 pt-5">
+            <a
+              href={footer.href}
+              className="group inline-flex items-center gap-1.5 rounded-md bg-white px-4 py-2.5 text-[13px] font-semibold text-brand-950 transition-colors hover:bg-brand-50"
+            >
+              {footer.cta}
+              <ArrowRight className="h-3.5 w-3.5 transition-transform duration-200 group-hover:translate-x-0.5" strokeWidth={2.5} />
+            </a>
+          </div>
         </div>
-      </div>
-      <ul className="col-span-9 grid grid-cols-2 gap-0 p-3">
-        {items.map((it) => (
+      </aside>
+
+      {/* Items — refined card list */}
+      <ul className="col-span-12 grid grid-cols-1 gap-0 p-3 sm:grid-cols-2 lg:col-span-8">
+        {items.map((it, i) => (
           <li key={it.label}>
             <a
               href={it.href}
-              className="group flex items-start gap-3 rounded-md p-3.5 transition-colors hover:bg-canvas"
+              className="group relative flex items-start gap-3 rounded-md p-3.5 transition-colors hover:bg-canvas"
             >
               {it.icon ? (
-                <span className="grid h-9 w-9 shrink-0 place-items-center rounded-md bg-brand-50 text-brand-700 ring-1 ring-brand-100">
-                  <it.icon className="h-[16px] w-[16px]" strokeWidth={2} />
+                <span className="grid h-10 w-10 shrink-0 place-items-center rounded-md bg-canvas-2 text-brand-700 transition-colors group-hover:bg-brand-700 group-hover:text-white">
+                  <it.icon className="h-[17px] w-[17px]" strokeWidth={2} />
                 </span>
               ) : null}
-              <span className="flex flex-col">
-                <span className="text-[13.5px] font-semibold text-fg">{it.label}</span>
-                <span className="mt-0.5 text-[12.5px] text-fg-3">{it.desc}</span>
+              <span className="flex flex-1 flex-col">
+                <div className="flex items-center justify-between gap-2">
+                  <span className="text-[14px] font-semibold text-fg">{it.label}</span>
+                  <span className="font-mono text-[10px] tracking-[0.14em] text-fg-5">
+                    {String(i + 1).padStart(2, '0')}
+                  </span>
+                </div>
+                <span className="mt-0.5 text-[12.5px] leading-snug text-fg-3">{it.desc}</span>
               </span>
-              <ArrowRight
-                className="ml-auto h-3.5 w-3.5 translate-x-[-4px] text-fg-4 opacity-0 transition-all duration-200 group-hover:translate-x-0 group-hover:opacity-100"
-                strokeWidth={2.25}
+              <span
+                aria-hidden
+                className="pointer-events-none absolute inset-y-3.5 left-2 w-0.5 origin-top scale-y-0 rounded-full bg-brand-700 transition-transform duration-200 group-hover:scale-y-100"
               />
             </a>
           </li>
@@ -374,7 +401,10 @@ function PortalDropdown({ items }: { items: Item[] }) {
       onMouseLeave={() => setOpen(false)}
     >
       <button
-        className="inline-flex items-center gap-1.5 rounded-md px-3.5 py-2 text-[13.5px] font-medium text-fg-2 ring-1 ring-line transition-colors hover:text-fg hover:ring-line-2"
+        className={cn(
+          'inline-flex items-center gap-1.5 rounded-md px-3.5 py-2 text-[13.5px] font-medium ring-1 transition-colors',
+          open ? 'text-fg ring-line-2 bg-canvas' : 'text-fg-2 ring-line hover:text-fg hover:ring-line-2',
+        )}
         aria-expanded={open}
       >
         Portal Login
@@ -385,30 +415,46 @@ function PortalDropdown({ items }: { items: Item[] }) {
       </button>
       <div
         className={cn(
-          'absolute right-0 top-full w-[300px] origin-top-right pt-2 transition-[opacity,transform] duration-200',
+          'absolute right-0 top-full w-[320px] origin-top-right pt-2 transition-[opacity,transform] duration-200',
           open
             ? 'pointer-events-auto translate-y-0 opacity-100'
             : 'pointer-events-none -translate-y-1 opacity-0',
         )}
       >
-        <div className="overflow-hidden rounded-md border border-line bg-white p-1.5 shadow-xl">
-          {items.map((p) => (
-            <a
-              key={p.label}
-              href={p.href}
-              className="flex gap-3 rounded-sm p-3 transition-colors hover:bg-canvas"
-            >
-              {p.icon ? (
-                <span className="grid h-8 w-8 shrink-0 place-items-center rounded-md bg-brand-50 text-brand-700 ring-1 ring-brand-100">
-                  <p.icon className="h-4 w-4" strokeWidth={2} />
-                </span>
-              ) : null}
-              <span className="flex flex-col">
-                <span className="text-[13px] font-semibold text-fg">{p.label}</span>
-                <span className="mt-0.5 text-[12px] text-fg-3">{p.desc}</span>
-              </span>
-            </a>
-          ))}
+        <div className="overflow-hidden rounded-md border border-line bg-white shadow-xl">
+          <div className="flex items-center justify-between border-b border-line bg-canvas px-4 py-3">
+            <p className="kicker">Portal Login</p>
+            <span className="font-mono text-[10px] uppercase tracking-[0.14em] text-fg-5">
+              {String(items.length).padStart(2, '0')} surfaces
+            </span>
+          </div>
+          <ul className="p-1.5">
+            {items.map((p, i) => (
+              <li key={p.label}>
+                <a
+                  href={p.href}
+                  className="group relative flex items-center gap-3 rounded-sm p-3 transition-colors hover:bg-canvas"
+                >
+                  {p.icon ? (
+                    <span className="grid h-9 w-9 shrink-0 place-items-center rounded-md bg-canvas-2 text-brand-700 transition-colors group-hover:bg-brand-700 group-hover:text-white">
+                      <p.icon className="h-4 w-4" strokeWidth={2} />
+                    </span>
+                  ) : null}
+                  <span className="flex flex-1 flex-col">
+                    <span className="text-[13px] font-semibold text-fg">{p.label}</span>
+                    <span className="mt-0.5 text-[12px] leading-snug text-fg-3">{p.desc}</span>
+                  </span>
+                  <span className="font-mono text-[10px] tracking-[0.14em] text-fg-5">
+                    {String(i + 1).padStart(2, '0')}
+                  </span>
+                  <span
+                    aria-hidden
+                    className="pointer-events-none absolute inset-y-3 left-1.5 w-0.5 origin-top scale-y-0 rounded-full bg-brand-700 transition-transform duration-200 group-hover:scale-y-100"
+                  />
+                </a>
+              </li>
+            ))}
+          </ul>
         </div>
       </div>
     </div>
