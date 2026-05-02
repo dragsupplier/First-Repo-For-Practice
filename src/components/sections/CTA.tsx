@@ -15,8 +15,8 @@ export function CTA() {
     <section id="contact" className="relative isolate overflow-hidden bg-bg">
       <div className="mx-auto max-w-6xl px-5 py-16 md:px-8 md:py-20">
         <div className="overflow-hidden rounded-lg border border-line-2 bg-white shadow-[0_30px_70px_-30px_rgba(11,18,32,0.22)]">
-          {/* Top — brand-mesh hero band */}
-          <div className="brand-mesh px-7 py-14 text-center text-white md:px-12 md:py-20">
+          {/* Top — Stripe-style dark mesh hero band */}
+          <div className="stripe-mesh-dark mesh-animate relative px-7 py-14 text-center text-white md:px-12 md:py-20">
             <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-brand-200">
               Working together
             </p>

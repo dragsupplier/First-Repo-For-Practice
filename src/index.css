@@ -219,12 +219,43 @@ html.lenis, html.lenis body { height: auto; }
   100% { transform: translateY(0) rotate(0deg); opacity: 1; }
 }
 
-/* Soft pulse on active progress dot */
-@keyframes soft-pulse {
-  0%, 100% { box-shadow: 0 0 0 0 rgba(29, 58, 165, 0.35); }
-  50%      { box-shadow: 0 0 0 8px rgba(29, 58, 165, 0.0); }
+/* === Stripe-style mesh gradients === */
+.stripe-mesh-light {
+  background-color: #f6f9ff;
+  background-image:
+    radial-gradient(at 12% 20%, hsla(220, 95%, 70%, 0.55) 0px, transparent 50%),
+    radial-gradient(at 80% 10%, hsla(265, 90%, 75%, 0.45) 0px, transparent 50%),
+    radial-gradient(at 90% 75%, hsla(190, 95%, 70%, 0.45) 0px, transparent 50%),
+    radial-gradient(at 30% 90%, hsla(20, 95%, 75%, 0.40) 0px, transparent 50%),
+    radial-gradient(at 60% 50%, hsla(285, 80%, 78%, 0.30) 0px, transparent 55%);
 }
-.pulse-dot { animation: soft-pulse 2.4s ease-out infinite; }
+.stripe-mesh-dark {
+  background-color: #0a0e26;
+  background-image:
+    radial-gradient(at 12% 20%, hsla(225, 95%, 50%, 0.55) 0px, transparent 50%),
+    radial-gradient(at 80% 10%, hsla(265, 90%, 55%, 0.50) 0px, transparent 50%),
+    radial-gradient(at 90% 75%, hsla(190, 95%, 55%, 0.45) 0px, transparent 50%),
+    radial-gradient(at 30% 90%, hsla(15, 90%, 55%, 0.35) 0px, transparent 50%);
+}
+
+/* Slow drifting animation for the mesh — feels alive without being distracting */
+@keyframes mesh-drift {
+  0%, 100% { background-position: 0% 0%, 0% 0%, 0% 0%, 0% 0%, 0% 0%; }
+  50%      { background-position: 4% 3%, -3% 2%, 2% -3%, -2% 4%, 1% -1%; }
+}
+.mesh-animate {
+  background-size: 110% 110%, 120% 120%, 110% 110%, 130% 130%, 100% 100%;
+  animation: mesh-drift 22s ease-in-out infinite;
+}
+
+/* Diagonal slab divider (used between dark and light sections) */
+.stripe-slab-top {
+  clip-path: polygon(0 4%, 100% 0, 100% 100%, 0 100%);
+}
+.stripe-slab-bottom {
+  clip-path: polygon(0 0, 100% 0, 100% 96%, 0 100%);
+}
+
 
 /* Section number that prints into view (scaleY mask) */
 @keyframes print-in {

@@ -13,7 +13,7 @@ const META = [
 
 export function ManifestoBand() {
   return (
-    <section className="brand-mesh relative isolate text-white">
+    <section className="stripe-mesh-dark mesh-animate relative isolate text-white">
       <div className="mx-auto max-w-7xl px-5 py-24 md:px-8 md:py-32">
         <div className="flex items-center gap-3 text-white/55">
           <span className="font-mono text-[11px] uppercase tracking-[0.14em] text-brand-200">
